@@ -6,5 +6,9 @@
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EvanHahn/atom-vimL.git"
   }
 }
