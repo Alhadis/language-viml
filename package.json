@@ -1,0 +1,10 @@
+{
+  "name": "language-viml",
+  "version": "0.1.0",
+  "description": "VimL highlighting for Atom, because why not.",
+  "repository": "https://github.com/atom/language-viml",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  }
+}
