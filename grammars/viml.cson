@@ -134,7 +134,7 @@
   'string_quoted_single':
     'patterns': [
       {
-        'match': '\'(\\\\|\\\'|[^\\n\'])*\''
+        'match': '\'(\'\'|[^\\n\'])*\''
         'name': 'string.quoted.single.viml'
       }
     ]
