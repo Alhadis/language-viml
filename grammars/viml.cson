@@ -1,6 +1,7 @@
 'fileTypes': [
   'vim'
   'vimrc'
+  'gvimrc'
 ]
 'foldingStartMarker': '^(if|while|for|fu|function|augroup|aug)'
 'foldingStopMarker': '(endif|endwhile|endfor|endf|endfunction|augroup\\.END|aug\\.END)$'
