@@ -120,5 +120,5 @@ repository:
 	variable:
 		patterns: [{
 			name: "variable.other.viml"
-			match: "([sSgGbBwWlLaAvV]:|@|$|&(?!&))\\w*"
+			match: "([sSgGbBwWlLaAvV]:|[@$]|&(?!&))\\w*"
 		}]
