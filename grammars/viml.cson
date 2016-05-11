@@ -72,7 +72,7 @@ repository:
 	"number-hex":
 		patterns: [{
 			name: "constant.numeric.hex"
-			match: "#[0-9a-f]{6}"
+			match: "#[0-9A-Fa-f]{6}"
 		}]
 	
 	"number-int":

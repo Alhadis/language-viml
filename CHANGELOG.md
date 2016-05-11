@@ -11,6 +11,7 @@ Highlighting for additional function names added, and minor errors fixed.
 
 * __Added:__ This changelog
 * __Fixed:__ Looping-rule error for variable patterns
+* __Fixed:__ Hex sequences now match case-insensitively
 
 
 
