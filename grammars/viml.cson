@@ -1,178 +1,124 @@
-'fileTypes': [
-  'vim'
-  'vimrc'
-  'gvimrc'
+name: "VimL"
+scopeName: "source.viml"
+fileTypes: ["vim", "vimrc", "gvimrc"]
+foldingStartMarker: "^(?:if|while|for|fu|function|augroup|aug)"
+foldingStopMarker: "(?:endif|endwhile|endfor|endf|endfunction|augroup\\.END|aug\\.END)$"
+patterns: [
+	{include: "#comment"}
+	{include: "#string-quoted-double"}
+	{include: "#string-quoted-single"}
+	{include: "#string-regex"}
+	{include: "#inline-comment"}
+	{include: "#number-int"}
+	{include: "#number-hex"}
+	{include: "#keyword"}
+	{include: "#function"}
+	{include: "#support-function"}
+	{include: "#support-variable"}
+	{include: "#support-type"}
+	{include: "#function-params"}
+	{include: "#function-definition"}
+	{include: "#variable"}
+	{include: "#expr"}
 ]
-'foldingStartMarker': '^(if|while|for|fu|function|augroup|aug)'
-'foldingStopMarker': '(endif|endwhile|endfor|endf|endfunction|augroup\\.END|aug\\.END)$'
-'name': 'VimL'
-'patterns': [
-  {
-    'include': '#comment'
-  }
-  {
-    'include': '#string_quoted_double'
-  }
-  {
-    'include': '#string_quoted_single'
-  }
-  {
-    'include': '#string_regex'
-  }
-  {
-    'include': '#inline_comment'
-  }
-  {
-    'include': '#number_int'
-  }
-  {
-    'include': '#number_hex'
-  }
-  {
-    'include': '#keyword'
-  }
-  {
-    'include': '#function'
-  }
-  {
-    'include': '#support_function'
-  }
-  {
-    'include': '#support_variable'
-  }
-  {
-    'include': '#support_type'
-  }
-  {
-    'include': '#function_params'
-  }
-  {
-    'include': '#function_definition'
-  }
-  {
-    'include': '#variable'
-  }
-  {
-    'include': '#expr'
-  }
-]
-'repository':
-  'comment':
-    'patterns': [
-      {
-        'captures':
-          '1':
-            'name': 'punctuation.definition.comment.vim'
-        'match': '^\\s*".*$'
-        'name': 'comment.line.quotes.viml'
-      }
-    ]
-  'expr':
-    'patterns': [
-      {
-        'match': '(\\|\\||&&|==(\\?|#)?|(!|>|<)=(#|\\?)?|(=|!)~(#|\\?)?|(>|<)(#|\\?)is|isnot|\\.|\\*|\\\\|%)'
-        'name': 'storage.function.viml'
-      }
-    ]
-  'function':
-    'patterns': [
-      {
-        'match': '\\b(fu(n|nction)?|end(f|fu|fun|function)?)\\b'
-        'name': 'storage.function.viml'
-      }
-    ]
-  'function_definition':
-    'patterns': [
-      {
-        'match': '(([sSgGbBwWtTlL]|)?:?\\w+)(?=\\()'
-        'name': 'entity.name.function.viml'
-      }
-    ]
-  'function_params':
-    'patterns': [
-      {
-        'match': '-\\w+='
-        'name': 'support.type.viml'
-      }
-    ]
-  'inline_comment':
-    'patterns': [
-      {
-        'captures':
-          '1':
-            'name': 'punctuation.definition.comment.vim'
-        'match': '(?!\\$)(")(?!\\{).*$\\n?'
-        'name': 'comment.line.quotes.viml'
-      }
-    ]
-  'keyword':
-    'patterns': [
-      {
-        'match': '\\b(if|while|for|return|end(if|for|while)?|au(g|group)|else(if|)?|do|in|:)\\b'
-        'name': 'keyword.control.viml'
-      }
-    ]
-  'number_hex':
-    'patterns': [
-      {
-        'match': '#[0-9a-f]{6}'
-        'name': 'constant.numeric.hex'
-      }
-    ]
-  'number_int':
-    'patterns': [
-      {
-        'match': '-?\\d+'
-        'name': 'constant.numeric.integer'
-      }
-    ]
-  'string_quoted_double':
-    'patterns': [
-      {
-        'match': '"(\\\\\\\\|\\\\"|[^\\n"])*"'
-        'name': 'string.quoted.double.viml'
-      }
-    ]
-  'string_quoted_single':
-    'patterns': [
-      {
-        'match': '\'(\'\'|[^\\n\'])*\''
-        'name': 'string.quoted.single.viml'
-      }
-    ]
-  'string_regex':
-    'patterns': [
-      {
-        'match': '/(\\\\\\\\|\\\\/|[^\\n/])*/'
-        'name': 'string.regexp.viml'
-      }
-    ]
-  'support_function':
-    'patterns': [
-      {
-        'match': '\\b(set(local|global)?|let|command|filetype|colorscheme|\\w*map|syn|exe(c|cute)?|ec(ho|)?|au(tocmd|)?)\\b'
-        'name': 'support.function.viml'
-      }
-    ]
-  'support_type':
-    'patterns': [
-      {
-        'match': '<.*?>'
-        'name': 'support.type.viml'
-      }
-    ]
-  'support_variable':
-    'patterns': [
-      {
-        'match': '\\b(am(enu|)?|(hl|inc)?search|[Bb]uf([Nn]ew[Ff]ile|[Rr]ead)?|[Ff]ile[Tt]ype)\\b'
-        'name': 'support.variable.viml'
-      }
-    ]
-  'variable':
-    'patterns': [
-      {
-        'match': '([sSgGbBwWlLaAvV]:|@|$|&(?!&))\\w*'
-        'name': 'variable.other.viml'
-      }
-    ]
-'scopeName': 'source.viml'
+
+repository:
+	comment:
+		patterns: [{
+			name: "comment.line.quotes.viml"
+			match: '^\\s*".*$'
+			captures:
+				1: name: "punctuation.definition.comment.vim"
+		}]
+	
+	expr:
+		patterns: [{
+			name: "storage.function.viml"
+			match: '(\\|\\||&&|==(\\?|#)?|(!|>|<)=(#|\\?)?|(=|!)~(#|\\?)?|(>|<)(#|\\?)is|isnot|\\.|\\*|\\\\|%)'
+		}]
+	
+	function:
+		patterns: [{
+			name: "storage.function.viml"
+			match: "\\b(fu(n|nction)?|end(f|fu|fun|function)?)\\b"
+		}]
+	
+	"function-definition":
+		patterns: [{
+			name: "entity.name.function.viml"
+			match: "(([sSgGbBwWtTlL]|)?:?\\w+)(?=\\()"
+		}]
+	
+	"function-params":
+		patterns: [{
+			name: "support.type.viml"
+			match: "-\\w+="
+		}]
+	
+	"inline-comment":
+		patterns: [{
+			name: "comment.line.quotes.viml"
+			match: '(?!\\$)(")(?!\\{).*$\\n?'
+			captures:
+				1: name: "punctuation.definition.comment.vim"
+		}]
+	
+	keyword:
+		patterns: [{
+			name: "keyword.control.viml"
+			match: "\\b(if|while|for|return|end(if|for|while)?|au(g|group)|else(if|)?|do|in|:)\\b"
+		}]
+	
+	"number-hex":
+		patterns: [{
+			name: "constant.numeric.hex"
+			match: "#[0-9a-f]{6}"
+		}]
+	
+	"number-int":
+		patterns: [{
+			name: "constant.numeric.integer"
+			match: "-?\\d+"
+		}]
+	
+	"string-quoted-double":
+		patterns: [{
+			name: "string.quoted.double.viml"
+			match: '"(\\\\\\\\|\\\\"|[^\\n"])*"'
+		}]
+	
+	"string-quoted-single":
+		patterns: [{
+			name: "string.quoted.single.viml"
+			match: "'(''|[^\\n'])*'"
+		}]
+	
+	"string-regex":
+		patterns: [{
+			name: "string.regexp.viml"
+			match: "/(\\\\\\\\|\\\\/|[^\\n/])*/"
+		}]
+	
+	"support-function":
+		patterns: [{
+			name: "support.function.viml"
+			match: "\\b(set(local|global)?|let|command|filetype|colorscheme|\\w*map|syn|exe(c|cute)?|ec(ho|)?|au(tocmd|)?)\\b"
+		}]
+	
+	"support-type":
+		patterns: [{
+			name: "support.type.viml"
+			match: "<.*?>"
+		}]
+	
+	"support-variable":
+		patterns: [{
+			name: "support.variable.viml"
+			match: "\\b(am(enu|)?|(hl|inc)?search|[Bb]uf([Nn]ew[Ff]ile|[Rr]ead)?|[Ff]ile[Tt]ype)\\b"
+		}]
+	
+	variable:
+		patterns: [{
+			name: "variable.other.viml"
+			match: "([sSgGbBwWlLaAvV]:|@|$|&(?!&))\\w*"
+		}]
