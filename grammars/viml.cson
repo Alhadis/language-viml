@@ -44,7 +44,7 @@ repository:
 	numbers:
 		patterns: [
 			{name: "constant.numeric.hex.viml",     match: "#[0-9A-Fa-f]{6}"}
-			{name: "constant.numeric.integer.viml", match: "-?\\d+"}
+			{name: "constant.numeric.integer.viml", match: "(?<!\\w)-?\\d+"}
 		]
 	
 	functions:
