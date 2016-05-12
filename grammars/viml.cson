@@ -3,32 +3,64 @@ scopeName: "source.viml"
 fileTypes: ["vim", "vimrc", "gvimrc"]
 foldingStartMarker: "^(?:if|while|for|fu|function|augroup|aug)"
 foldingStopMarker: "(?:endif|endwhile|endfor|endf|endfunction|augroup\\.END|aug\\.END)$"
-patterns: [
-	{include: "#comment"}
-	{include: "#string-quoted-double"}
-	{include: "#string-quoted-single"}
-	{include: "#string-regex"}
-	{include: "#inline-comment"}
-	{include: "#number-int"}
-	{include: "#number-hex"}
-	{include: "#keyword"}
-	{include: "#function"}
-	{include: "#support-function"}
-	{include: "#support-variable"}
-	{include: "#support-type"}
-	{include: "#function-params"}
-	{include: "#function-definition"}
-	{include: "#variable"}
-	{include: "#expr"}
-]
+patterns: [{include: "#main"}]
 
 repository:
-	comment:
+	main:
+		patterns: [
+			{include: "#strings"}
+			{include: "#comments"}
+			{include: "#numbers"}
+			{include: "#functions"}
+			{include: "#parameter"}
+			{include: "#expr"}
+			{include: "#keyword"}
+			{include: "#variable"}
+			{include: "#support-function"}
+			{include: "#support-variable"}
+			{include: "#support-type"}
+		]
+	
+	strings:
+		patterns: [
+			{name: "string.quoted.double.viml", match: '"(\\\\\\\\|\\\\"|[^\\n"])*"'}
+			{name: "string.quoted.single.viml", match: "'(''|[^\\n'])*'"}
+			{name: "string.regexp.viml",        match: "/(\\\\\\\\|\\\\/|[^\\n/])*/"}
+		]
+	
+	comments:
 		patterns: [{
 			name: "comment.line.quotes.viml"
-			match: '^\\s*".*$'
+			match: '^\\s*(").*$'
 			captures:
 				1: name: "punctuation.definition.comment.vim"
+		},{
+			name: "comment.inline.quotes.viml"
+			match: '(?!\\$)(")(?!\\{).*$\\n?'
+			captures:
+				1: name: "punctuation.definition.comment.vim"
+		}]
+
+	numbers:
+		patterns: [
+			{name: "constant.numeric.hex.viml",     match: "#[0-9A-Fa-f]{6}"}
+			{name: "constant.numeric.integer.viml", match: "-?\\d+"}
+		]
+	
+	functions:
+		patterns: [
+			{name: "storage.function.viml",      match: "\\b(fu(n|nction)?|end(f|fu|fun|function)?)\\b"}
+			{name: "entity.name.function.viml",  match: "(([sSgGbBwWtTlL]|)?:?\\w+)(?=\\()"}
+		]
+	
+	parameter:
+		patterns: [{
+			name: "meta.parameter.viml"
+			match: "(-)(\\w+)(=)"
+			captures:
+				1: name: "punctuation.definition.parameter.viml"
+				2: name: "entity.name.parameter.viml"
+				3: name: "punctuation.assignment.parameter.viml"
 		}]
 	
 	expr:
@@ -37,66 +69,16 @@ repository:
 			match: '(\\|\\||&&|==(\\?|#)?|(!|>|<)=(#|\\?)?|(=|!)~(#|\\?)?|(>|<)(#|\\?)is|isnot|\\.|\\*|\\\\|%)'
 		}]
 	
-	function:
-		patterns: [{
-			name: "storage.function.viml"
-			match: "\\b(fu(n|nction)?|end(f|fu|fun|function)?)\\b"
-		}]
-	
-	"function-definition":
-		patterns: [{
-			name: "entity.name.function.viml"
-			match: "(([sSgGbBwWtTlL]|)?:?\\w+)(?=\\()"
-		}]
-	
-	"function-params":
-		patterns: [{
-			name: "support.type.viml"
-			match: "-\\w+="
-		}]
-	
-	"inline-comment":
-		patterns: [{
-			name: "comment.line.quotes.viml"
-			match: '(?!\\$)(")(?!\\{).*$\\n?'
-			captures:
-				1: name: "punctuation.definition.comment.vim"
-		}]
-	
 	keyword:
 		patterns: [{
 			name: "keyword.control.viml"
 			match: "\\b(if|while|for|return|end(if|for|while)?|au(g|group)|else(if|)?|do|in|:)\\b"
 		}]
 	
-	"number-hex":
+	variable:
 		patterns: [{
-			name: "constant.numeric.hex"
-			match: "#[0-9A-Fa-f]{6}"
-		}]
-	
-	"number-int":
-		patterns: [{
-			name: "constant.numeric.integer"
-			match: "-?\\d+"
-		}]
-	
-	"string-quoted-double":
-		patterns: [{
-			name: "string.quoted.double.viml"
-			match: '"(\\\\\\\\|\\\\"|[^\\n"])*"'
-		}]
-	
-	"string-quoted-single":
-		patterns: [{
-			name: "string.quoted.single.viml"
-			match: "'(''|[^\\n'])*'"
-		}]
-	
-	"string-regex":
-		patterns: [{
-			name: "string.regexp.viml"
-			match: "/(\\\\\\\\|\\\\/|[^\\n/])*/"
+			name: "variable.other.viml"
+			match: "([sSgGbBwWlLaAvV]:|[@$]|&(?!&))\\w*"
 		}]
 	
 	"support-function":
@@ -117,8 +99,3 @@ repository:
 			match: "\\b(am(enu|)?|(hl|inc)?search|[Bb]uf([Nn]ew[Ff]ile|[Rr]ead)?|[Ff]ile[Tt]ype)\\b"
 		}]
 	
-	variable:
-		patterns: [{
-			name: "variable.other.viml"
-			match: "([sSgGbBwWlLaAvV]:|[@$]|&(?!&))\\w*"
-		}]
