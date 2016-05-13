@@ -10,7 +10,8 @@ readStdin().then(vimSyntax => {
 	const types = {
 		commands:   "vimCommand",
 		stdPlugins: "vimStdPlugin",
-		options:    "vimOption"
+		options:    "vimOption",
+		autoCmd:    "vimAutoEvent"
 	};
 	
 	const fileData = updateKeywords(types, vimSyntax, fs.readFileSync(target).toString());
@@ -29,7 +30,7 @@ readStdin().then(vimSyntax => {
 function updateKeywords(types, vimSyntax, atomSyntax){
 	for(let i in types){
 		let vimName  = types[i];
-		let pattern  = new RegExp(`(^[\\x20\\t]*${i}:\\n(?:.+\\n)*?\\s+match:\\s*"[^(]*\\().+?(\\).+$)`, "im");
+		let pattern  = new RegExp(`(^[\\x20\\t]*${i}:\\n(?:.+\\n)*?\\s+match:\\s*"(?:\\(\\?\\w+\\))?[^(]*\\().+?(\\).+$)`, "im");
 		let keywords = compileKeywords(vimName, vimSyntax);
 		atomSyntax   = atomSyntax.replace(pattern, `$1${keywords}$2`);
 	}

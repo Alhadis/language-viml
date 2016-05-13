@@ -19,6 +19,7 @@ repository:
 			{include: "#commands"}
 			{include: "#options"}
 			{include: "#stdPlugins"}
+			{include: "#autoCmd"}
 			{include: "#support-variable"}
 			{include: "#support-type"}
 		]
@@ -99,6 +100,12 @@ repository:
 		patterns: [{
 			name: "support.function.stdplugin.$1.viml"
 			match: "\\b(DiffOrig|Man|N|Next|P|Print|S|TOhtml|XMLent|XMLns)\\b"
+		}]
+	
+	autoCmd:
+		patterns: [{
+			name: "support.function.autocmd.$1.viml"
+			match: "(?i)\\b(BufAdd|BufCreate|BufDelete|BufEnter|BufFilePost|BufFilePre|BufHidden|BufLeave|BufNew|BufNewFile|BufRead|BufReadCmd|BufReadPost|BufReadPre|BufUnload|BufWinEnter|BufWinLeave|BufWipeout|BufWrite|BufWriteCmd|BufWritePost|BufWritePre|CmdUndefined|CmdwinEnter|CmdwinLeave|ColorScheme|CompleteDone|CursorHold|CursorHoldI|CursorMoved|CursorMovedI|EncodingChanged|FileAppendCmd|FileAppendPost|FileAppendPre|FileChangedRO|FileChangedShell|FileChangedShellPost|FileEncoding|FileReadCmd|FileReadPost|FileReadPre|FileType|FileWriteCmd|FileWritePost|FileWritePre|FilterReadPost|FilterReadPre|FilterWritePost|FilterWritePre|FocusGained|FocusLost|FuncUndefined|GUIEnter|GUIFailed|InsertChange|InsertCharPre|InsertEnter|InsertLeave|MenuPopup|OptionSet|QuickFixCmdPost|QuickFixCmdPre|QuitPre|RemoteReply|SessionLoadPost|ShellCmdPost|ShellFilterPost|SourceCmd|SourcePre|SpellFileMissing|StdinReadPost|StdinReadPre|SwapExists|Syntax|TabEnter|TabLeave|TermChanged|TermResponse|TextChanged|TextChangedI|User|VimEnter|VimLeave|VimLeavePre|VimResized|WinEnter|WinLeave)\\b"
 		}]
 	
 	"support-type":
