@@ -7,7 +7,7 @@
 		"url":   "https://github.com/Alhadis"
 	}],
 	"description": "Vim Script language support for Atom",
-	"version": "0.3.0",
+	"version": "1.0.0",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Alhadis/language-viml.git"

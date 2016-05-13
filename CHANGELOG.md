@@ -4,7 +4,7 @@ Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
-Unpublished
+[v1.0.0]
 ------------------------------------------------------------------------
 Package transferred to a [new maintainer](https://github.com/Alhadis).
 Highlighting for additional function names added, and minor errors fixed.
@@ -14,7 +14,7 @@ Highlighting for additional function names added, and minor errors fixed.
 * __Fixed:__ Looping-rule error for variable patterns
 * __Fixed:__ Hex sequences now match case-insensitively
 * __Fixed:__ Numerals in identifiers no longer highlighted
-* __Fixed:__ Strings like ~/.vim/ no longer highlighted as regex
+* __Fixed:__ Strings like `~/.vim/` no longer marked as regex
 
 
 
@@ -43,6 +43,7 @@ Initial release, converted from skammer's [TextMate bundle][1].
 
 
 [Referenced links]:_____________________________________________________
+[v1.0.0]: https://github.com/Alhadis/language-viml/releases/tag/v1.0.0
 [v0.3.0]: https://github.com/Alhadis/language-viml/releases/tag/v0.3.0
 [v0.2.0]: https://github.com/Alhadis/language-viml/releases/tag/v0.2.0
 [v0.1.0]: https://github.com/Alhadis/language-viml/releases/tag/v0.1.0
