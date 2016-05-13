@@ -21,6 +21,8 @@ repository:
 			{include: "#options"}
 			{include: "#stdPlugins"}
 			{include: "#autoCmd"}
+			{include: "#groupName"}
+			{include: "#highlightGroup"}
 			{include: "#support-variable"}
 			{include: "#support-type"}
 		]
@@ -115,6 +117,18 @@ repository:
 		patterns: [{
 			name: "support.function.autocmd.${1:/downcase}.viml"
 			match: "(?i)\\b(BufAdd|BufCreate|BufDelete|BufEnter|BufFilePost|BufFilePre|BufHidden|BufLeave|BufNew|BufNewFile|BufRead|BufReadCmd|BufReadPost|BufReadPre|BufUnload|BufWinEnter|BufWinLeave|BufWipeout|BufWrite|BufWriteCmd|BufWritePost|BufWritePre|CmdUndefined|CmdwinEnter|CmdwinLeave|ColorScheme|CompleteDone|CursorHold|CursorHoldI|CursorMoved|CursorMovedI|EncodingChanged|FileAppendCmd|FileAppendPost|FileAppendPre|FileChangedRO|FileChangedShell|FileChangedShellPost|FileEncoding|FileReadCmd|FileReadPost|FileReadPre|FileType|FileWriteCmd|FileWritePost|FileWritePre|FilterReadPost|FilterReadPre|FilterWritePost|FilterWritePre|FocusGained|FocusLost|FuncUndefined|GUIEnter|GUIFailed|InsertChange|InsertCharPre|InsertEnter|InsertLeave|MenuPopup|OptionSet|QuickFixCmdPost|QuickFixCmdPre|QuitPre|RemoteReply|SessionLoadPost|ShellCmdPost|ShellFilterPost|SourceCmd|SourcePre|SpellFileMissing|StdinReadPost|StdinReadPre|SwapExists|Syntax|TabEnter|TabLeave|TermChanged|TermResponse|TextChanged|TextChangedI|User|VimEnter|VimLeave|VimLeavePre|VimResized|WinEnter|WinLeave)\\b"
+		}]
+	
+	groupName:
+		patterns: [{
+			name: "support.type.group.${1:/downcase}-group.viml"
+			match: "(?i)\\b(Boolean|Character|Comment|Conditional|Constant|Debug|Define|Delimiter|Error|Exception|Float|Function|Identifier|Ignore|Include|Keyword|Label|Macro|Number|Operator|PreCondit|PreProc|Repeat|Special|SpecialChar|SpecialComment|Statement|StorageClass|String|Structure|Tag|Todo|Type|Typedef|Underlined)\\b"
+		}]
+	
+	highlightGroup:
+		patterns: [{
+			name: "support.type.highlight-group.${1:/downcase}-group.viml"
+			match: "(?i)\\b(ColorColumn|Cursor|CursorColumn|CursorIM|CursorLine|CursorLineNr|DiffAdd|DiffChange|DiffDelete|DiffText|Directory|ErrorMsg|FoldColumn|Folded|IncSearch|LineNr|MatchParen|Menu|ModeMsg|MoreMsg|NonText|Normal|Pmenu|PmenuSbar|PmenuSel|PmenuThumb|Question|Scrollbar|Search|SignColumn|SpecialKey|SpellBad|SpellCap|SpellLocal|SpellRare|StatusLine|StatusLineNC|TabLine|TabLineFill|TabLineSel|Title|Tooltip|VertSplit|Visual|VisualNOS|WarningMsg|WildMenu)\\b"
 		}]
 	
 	"support-type":

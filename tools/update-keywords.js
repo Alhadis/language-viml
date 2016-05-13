@@ -8,11 +8,13 @@ const target = "grammars/viml.cson";
 
 readStdin().then(vimSyntax => {
 	const types = {
-		commands:   "vimCommand",
-		stdPlugins: "vimStdPlugin",
-		options:    "vimOption",
-		autoCmd:    "vimAutoEvent",
-		todo:       "vimTodo"
+		commands:        "vimCommand",
+		stdPlugins:      "vimStdPlugin",
+		options:         "vimOption",
+		autoCmd:         "vimAutoEvent",
+		todo:            "vimTodo",
+		groupName:       "vimGroup",
+		highlightGroup:  "vimHLGroup"
 	};
 	
 	const fileData = updateKeywords(types, vimSyntax, fs.readFileSync(target).toString());
