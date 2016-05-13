@@ -11,7 +11,8 @@ readStdin().then(vimSyntax => {
 		commands:   "vimCommand",
 		stdPlugins: "vimStdPlugin",
 		options:    "vimOption",
-		autoCmd:    "vimAutoEvent"
+		autoCmd:    "vimAutoEvent",
+		todo:       "vimTodo"
 	};
 	
 	const fileData = updateKeywords(types, vimSyntax, fs.readFileSync(target).toString());

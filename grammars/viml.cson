@@ -8,6 +8,7 @@ patterns: [{include: "#main"}]
 repository:
 	main:
 		patterns: [
+			{include: "#todo"}
 			{include: "#strings"}
 			{include: "#comments"}
 			{include: "#numbers"}
@@ -82,6 +83,12 @@ repository:
 		patterns: [{
 			name: "variable.other.viml"
 			match: "([sSgGbBwWlLaAvV]:|[@$]|&(?!&))\\w*"
+		}]
+	
+	todo:
+		patterns: [{
+			name: "support.constant.${1:/downcase}.viml"
+			match: "\\b(COMBAK|FIXME|TODO|XXX)\\b"
 		}]
 	
 	commands:
