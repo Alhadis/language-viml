@@ -24,6 +24,8 @@ repository:
 			{include: "#autoCmd"}
 			{include: "#groupName"}
 			{include: "#highlightGroup"}
+			{include: "#attribNames"}
+			{include: "#colourNames"}
 			{include: "#support-variable"}
 			{include: "#support-type"}
 		]
@@ -143,6 +145,18 @@ repository:
 			# Extra functions not picked up by keyword parser
 			name: "support.function.${1:/downcase}.viml"
 			match: "\\b(execute|Plugin)\\b"
+		}]
+	
+	attribNames:
+		patterns: [{
+			name: "support.constant.attribute.$1.viml"
+			match: "\\b(background|bg|fg|foreground|none)\\b"
+		}]
+	
+	colourNames:
+		patterns: [{
+			name: "support.constant.colour.$1.viml"
+			match: "\\b(black|blue|brown|cyan|darkblue|darkcyan|darkgray|darkgreen|darkgrey|darkmagenta|darkred|darkyellow|gray|green|grey|lightblue|lightcyan|lightgray|lightgreen|lightgrey|lightmagenta|lightred|magenta|red|white|yellow)\\b"
 		}]
 	
 	"support-type":

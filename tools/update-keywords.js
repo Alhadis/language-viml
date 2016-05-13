@@ -15,7 +15,9 @@ readStdin().then(vimSyntax => {
 		todo:            "vimTodo",
 		groupName:       "vimGroup",
 		highlightGroup:  "vimHLGroup",
-		functions:       "vimFuncName"
+		functions:       "vimFuncName",
+		attribNames:     "vimHiAttrib|vimFgBgAttrib",
+		colourNames:     "vimHiCtermColor"
 	};
 	
 	const fileData = updateKeywords(types, vimSyntax, fs.readFileSync(target).toString());
