@@ -14,6 +14,7 @@ Highlighting for additional function names added, and minor errors fixed.
 * __Fixed:__ Looping-rule error for variable patterns
 * __Fixed:__ Hex sequences now match case-insensitively
 * __Fixed:__ Numerals in identifiers no longer highlighted
+* __Fixed:__ Strings like ~/.vim/ no longer highlighted as regex
 
 
 

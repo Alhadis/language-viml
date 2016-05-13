@@ -9,6 +9,7 @@ repository:
 	main:
 		patterns: [
 			{include: "#todo"}
+			{include: "#pathname"}
 			{include: "#strings"}
 			{include: "#comments"}
 			{include: "#numbers"}
@@ -37,6 +38,14 @@ repository:
 			{name: "string.regexp.viml",        match: "/(\\\\\\\\|\\\\/|[^\\n/])*/"}
 		]
 	
+	# This only exists to stop stuff like ~/.vim/ being highlighted like a regex
+	pathname:
+		patterns: [{
+			name: "constant.pathname.viml"
+			begin: "~/"
+			end: "(?=\\s)"
+		}]
+	
 	comments:
 		patterns: [{
 			name: "comment.line.quotes.viml"
@@ -61,7 +70,7 @@ repository:
 	funcDef:
 		patterns: [
 			{name: "storage.function.viml",      match: "\\b(fu(n|nction)?|end(f|fu|fun|function)?)\\b"}
-			{name: "entity.name.function.viml",  match: "(([sSgGbBwWtTlL]|)?:?\\w+)(?=\\()"}
+			{name: "entity.name.function.viml",  match: "([sSgGbBwWtTlL]?:?\\w+)(?=\\()"}
 		]
 	
 	parameter:
@@ -77,7 +86,7 @@ repository:
 	expr:
 		patterns: [{
 			name: "storage.function.viml"
-			match: '(\\|\\||&&|==(\\?|#)?|(!|>|<)=(#|\\?)?|(=|!)~(#|\\?)?|(>|<)(#|\\?)is|isnot|\\.|\\*|\\\\|%)'
+			match: '(\\|\\||&&|==(\\?|#)?|(!|>|<)=(#|\\?)?|(=|!)~(?!\\/)(#|\\?)?|(>|<)(#|\\?)is|isnot|\\.|\\*|\\\\|%)'
 		}]
 	
 	keyword:
