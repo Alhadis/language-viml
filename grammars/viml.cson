@@ -81,7 +81,10 @@ repository:
 	keyword:
 		patterns: [{
 			name: "keyword.control.viml"
-			match: "\\b(if|while|for|return|end(if|for|while)?|au(g|group)|else(if|)?|do|in|:)\\b"
+			match: "\\b(if|while|for|unlet|return|end(if|for|while)?|au(g|group)|else(if)?|do|in|:)\\b"
+		}, {
+			name: "storage.type.let.viml"
+			match: "\\blet\\b"
 		}]
 	
 	variable:
