@@ -48,6 +48,7 @@ repository:
 			{include: "#hashbang"}
 			{include: "#numbers"}
 			{include: "#funcDef"}
+			{include: "#augGroup"}
 			{include: "#parameter"}
 			{include: "#expr"}
 			{include: "#keyword"}
@@ -66,11 +67,25 @@ repository:
 		]
 	
 	strings:
-		patterns: [
-			{name: "string.quoted.double.viml", match: '"(\\\\\\\\|\\\\"|[^\\n"])*"'}
-			{name: "string.quoted.single.viml", match: "'(''|[^\\n'])*'"}
-			{name: "string.regexp.viml",        match: "/(\\\\\\\\|\\\\/|[^\\n/])*/"}
-		]
+		patterns: [{
+			name: "string.quoted.double.viml"
+			match: '(")(?:\\\\\\\\|\\\\"|[^\\n"])*(")'
+			captures:
+				1: name: "punctuation.definition.string.begin.viml"
+				2: name: "punctuation.definition.string.end.viml"
+		},{
+			name: "string.quoted.single.viml"
+			match: "(')(?:''|[^\\n'])*(')"
+			captures:
+				1: name: "punctuation.definition.string.begin.viml"
+				2: name: "punctuation.definition.string.end.viml"
+		},{
+			name: "string.regexp.interpolated.viml"
+			match: "(/)(?:\\\\\\\\|\\\\/|[^\\n/])*(/)"
+			captures:
+				1: name: "punctuation.section.regexp.begin.viml"
+				2: name: "punctuation.section.regexp.end.viml"
+		}]
 	
 	# This only exists to stop stuff like ~/.vim/ being highlighted like a regex
 	pathname:
@@ -109,7 +124,7 @@ repository:
 			begin: '(?<!^)\\s*(")(?=[^\\n"]*$)'
 			end:   "$"
 			beginCaptures:
-				1: name: "punctuation.definition.comment.vim"
+				1: name: "punctuation.definition.comment.viml"
 		}]
 
 	commentInnards:
@@ -145,6 +160,20 @@ repository:
 			{name: "entity.name.function.viml",  match: "([sSgGbBwWtTlL]?:?\\w+)(?=\\()"}
 		]
 	
+	augGroup:
+		patterns: [
+			name: "meta.define-$1.viml"
+			begin: "\\b(aug|augroup)\\b\\s*(\\w+)"
+			end:   "\\b(\\1)\\s+(END)\\b"
+			patterns: [include: "$self"]
+			beginCaptures:
+				1: name: "storage.function.viml"
+				2: name: "entity.name.function.viml"
+			endCaptures:
+				1: name: "storage.function.viml"
+				2: name: "keyword.control.end"
+		]
+	
 	parameter:
 		name: "meta.parameter.viml"
 		match: "(-)(\\w+)(=)"
@@ -154,13 +183,24 @@ repository:
 			3: name: "punctuation.assignment.parameter.viml"
 
 	expr:
-		name: "storage.function.viml"
-		match: '(\\|\\||&&|==(\\?|#)?|(!|>|<)=(#|\\?)?|(=|!)~(?!\\/)(#|\\?)?|(>|<)(#|\\?)is|isnot|\\.|\\*|\\\\|%)'
+		patterns: [
+			name: "keyword.operator.logical.viml"
+			match: '(\\|\\||&&|==(\\?|#)?|(!|>|<)=(#|\\?)?|(=|!)~(?!\\/)(#|\\?)?|(>|<)(#|\\?)is|isnot|\\*|\\\\|%)'
+			
+			{match: "(?<=\\S)!", name: "storage.modifier.force.viml"}
+			{match: "!(?=\\S)",  name: "keyword.operator.logical.not.viml"}
+			{match: "\\(",       name: "punctuation.expression.bracket.round.begin.viml"}
+			{match: "\\)",       name: "punctuation.expression.bracket.round.end.viml"}
+			{match: "\\|",       name: "punctuation.separator.statement.viml"}
+			{match: ":",         name: "punctuation.separator.key-value.viml"}
+			{match: "\\.?=",     name: "keyword.operator.assignment.viml"}
+			{match: "\\.",       name: "punctuation.delimiter.property.dot.viml"}
+		]
 	
 	keyword:
 		patterns: [{
 			name: "keyword.control.viml"
-			match: "\\b(if|while|for|unlet|return|end(if|for|while)?|au(g|group)|else(if)?|do|in|:)\\b"
+			match: "\\b(if|while|for|unlet|return|end(if|for|while)?|else(if)?|do|in|:)\\b"
 		}, {
 			name: "storage.type.let.viml"
 			match: "\\blet\\b"
@@ -218,7 +258,10 @@ repository:
 	
 	supportType:
 		name: "support.type.viml"
-		match: "<.*?>"
+		match: "(<).*?(>)"
+		captures:
+			1: name: "punctuation.definition.bracket.angle.begin.viml"
+			2: name: "punctuation.definition.bracket.angle.end.viml"
 	
 	supportVariable:
 		name: "support.variable.viml"
