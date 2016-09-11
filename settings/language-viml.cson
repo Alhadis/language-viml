@@ -1,5 +1,5 @@
 ".source.viml":
 	editor:
 		commentStart: '" '
-		increaseIndentPattern: "(?:^|\\s)(?:if|else|elseif|for|function!?|while)(?:\\s|$)"
-		decreaseIndentPattern: "(?:^|\\s)(?:endif|endfor|endfunction|endwhile)(?:\\s|$)"
+		increaseIndentPattern: "(?:^|\\s)(?:if|else|elseif|for|function!?|fu|fun|func|augroup|aug|try|catch|while)(?:\\s|$)"
+		decreaseIndentPattern: "(?:^|\\s)(?:endif|endfor|endf|endfun|endfunction|endtry|endwhile|(?:augroup|aug)\\.END)(?:\\s|$)"
