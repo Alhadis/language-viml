@@ -41,10 +41,10 @@ repository:
 	main:
 		patterns: [
 			{include: "#todo"}
+			{include: "#comments"}
 			{include: "#pathname"}
 			{include: "#strings"}
 			{include: "#hashbang"}
-			{include: "#comments"}
 			{include: "#numbers"}
 			{include: "#funcDef"}
 			{include: "#parameter"}
@@ -76,19 +76,25 @@ repository:
 		name: "constant.pathname.viml"
 		begin: "~/"
 		end: "(?=\\s)"
-	
+
+
 	comments:
 		patterns: [{
+			
+			# Fully-commented line
 			name: "comment.line.quotes.viml"
+			patterns: [include: "#todo"]
 			begin: '^\\s*(")'
 			end:   '$'
-			patterns: [include: "#todo"]
 			beginCaptures:
 				1: name: "punctuation.definition.comment.vim"
 		},{
+			# Trailing comment, no closing quote
 			name: "comment.inline.quotes.viml"
-			match: '(?!\\$)(")(?!\\{).*$\\n?'
-			captures:
+			patterns: [include: "#todo"]
+			begin: '(?<!^)\\s*(")(?=[^\\n"]*$)'
+			end:   "$"
+			beginCaptures:
 				1: name: "punctuation.definition.comment.vim"
 		}]
 
