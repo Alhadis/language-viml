@@ -1,6 +1,12 @@
 name: "VimL"
 scopeName: "source.viml"
-fileTypes: ["vim", "vimrc", "gvimrc"]
+fileTypes: [
+	"vim"
+	"vimrc"
+	"gvimrc"
+	"nvimrc"
+	"_vimrc"
+]
 firstLineMatch: """(?x)
 	
 	# Hashbang
