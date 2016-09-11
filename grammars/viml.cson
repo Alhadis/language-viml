@@ -1,6 +1,32 @@
 name: "VimL"
 scopeName: "source.viml"
 fileTypes: ["vim", "vimrc", "gvimrc"]
+firstLineMatch: """(?x)
+	
+	# Hashbang
+	^\\#!.*(?:\\s|\\/|(?<=!)\\b)
+		(?:vim|nvim)
+	(?:$|\\s)
+	
+	|
+	
+	# Modeline
+	(?i:
+		# Vim/Vi modeline, accounting for all possible variations
+		(?:(?:\\s|^)vi(?:m[<=>]?\\d+|m)?|(?!^)\\sex)(?=:(?=\\s*set?\\s[^\\n:]+:)|:(?!\\s* set?\\s))
+		(?:(?:\\s|\\s*:\\s*)\\w*(?:\\s*=(?:[^\\n\\\\\\s]|\\\\.)*)?)*[\\s:]
+		(?:filetype|ft|syntax)\\s*=
+			vim
+		(?=\\s|:|$)
+		
+		|
+		
+		# Emacs modeline, assuming a major mode for VimScript even exists
+		-\\*-(?:(?:(?!mode\\s*:)[^:;]+:[^:;]+;)*\\s*mode\\s*:)?\\s*
+			(Vim|VimL|VimScript)
+		\\s*(?:;[^:;]+:[^:;]+?)*;?\\s*-\\*-
+	)
+"""
 foldingStartMarker: "^(?:if|while|for|fu|function|augroup|aug)"
 foldingStopMarker: "(?:endif|endwhile|endfor|endf|endfunction|augroup\\.END|aug\\.END)$"
 patterns: [include: "#main"]
@@ -11,6 +37,7 @@ repository:
 			{include: "#todo"}
 			{include: "#pathname"}
 			{include: "#strings"}
+			{include: "#hashbang"}
 			{include: "#comments"}
 			{include: "#numbers"}
 			{include: "#funcDef"}
@@ -58,6 +85,15 @@ repository:
 			captures:
 				1: name: "punctuation.definition.comment.vim"
 		}]
+
+
+	# Embedded interpreter directive
+	hashbang:
+		name: "comment.line.shebang.viml"
+		begin: "\\A#!"
+		end:   "$"
+		beginCaptures:
+			0: name: "punctuation.definition.comment.shebang.viml"
 
 	numbers:
 		patterns: [
