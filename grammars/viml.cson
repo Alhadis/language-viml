@@ -41,6 +41,7 @@ repository:
 	main:
 		patterns: [
 			{include: "#todo"}
+			{include: "#folds"}
 			{include: "#comments"}
 			{include: "#pathname"}
 			{include: "#strings"}
@@ -81,22 +82,47 @@ repository:
 	comments:
 		patterns: [{
 			
+			# Fully-commented line with a leading field-name
+			name: "comment.line.quotes.viml"
+			begin: '^\\s*(")(?=(\\s*[A-Z]\\w+)+:)'
+			end:   "((:))(.*)$"
+			contentName: "support.constant.field.viml"
+			beginCaptures:
+				1: name: "punctuation.definition.comment.viml"
+			endCaptures:
+				1: name: "support.constant.field.viml"
+				2: name: "punctuation.separator.key-value.colon.viml"
+				3: patterns: [include: "#commentInnards"]
+		},{
+			
 			# Fully-commented line
 			name: "comment.line.quotes.viml"
-			patterns: [include: "#todo"]
 			begin: '^\\s*(")'
 			end:   '$'
 			beginCaptures:
-				1: name: "punctuation.definition.comment.vim"
+				1: name: "punctuation.definition.comment.viml"
+			patterns: [include: "#commentInnards"]
 		},{
 			# Trailing comment, no closing quote
 			name: "comment.inline.quotes.viml"
-			patterns: [include: "#todo"]
+			patterns: [include: "#commentInnards"]
 			begin: '(?<!^)\\s*(")(?=[^\\n"]*$)'
 			end:   "$"
 			beginCaptures:
 				1: name: "punctuation.definition.comment.vim"
 		}]
+
+	commentInnards:
+		patterns: [
+			{include: "#folds"}
+			{include: "#todo"}
+		]
+
+
+	# Fold markers, with possible labels
+	folds:
+		name: "entity.name.fold.heading.viml"
+		match: "(?<=\").*?{{{\\d*|(?<=\")\\s*}}}"
 
 
 	# Embedded interpreter directive
