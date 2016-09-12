@@ -150,10 +150,19 @@ repository:
 			0: name: "punctuation.definition.comment.shebang.viml"
 
 	numbers:
-		patterns: [
-			{name: "constant.numeric.hex.viml",     match: "#[0-9A-Fa-f]{6}"}
-			{name: "constant.numeric.integer.viml", match: "(?<!\\w)-?\\d+"}
-		]
+		patterns: [{
+			name: "constant.numeric.hex.viml"
+			match: "(?:#|0[xX])[0-9A-Fa-f]+"
+		},{
+			name: "constant.numeric.float.exponential.viml"
+			match: "(?<!\\w)-?\\d+\\.\\d+[eE][-+]?\\d+"
+		},{
+			name: "constant.numeric.float.viml"
+			match: "(?<!\\w)-?\\d+\\.\\d+"
+		},{
+			name: "constant.numeric.integer.viml"
+			match: "(?<!\\w)-?\\d+"
+		}]
 	
 	funcDef:
 		patterns: [{

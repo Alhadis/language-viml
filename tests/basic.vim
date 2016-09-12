@@ -23,6 +23,10 @@ endfunction myDict.len
 runtime setup.vim
 source ~/vimfiles/setup.vim
 
+0xFF
+100.1
+15.45e-2
+2 * 2.0
 
 :let  l:number = 1
 :let &l:number = 1
