@@ -195,10 +195,15 @@ repository:
 			
 			{match: "(?<=\\S)!", name: "storage.modifier.force.viml"}
 			{match: "!(?=\\S)",  name: "keyword.operator.logical.not.viml"}
+			{match: "{",         name: "punctuation.expression.bracket.curly.begin.viml"}
+			{match: "}",         name: "punctuation.expression.bracket.curly.end.viml"}
+			{match: "\\[",       name: "punctuation.expression.bracket.square.begin.viml"}
+			{match: "\\]",       name: "punctuation.expression.bracket.square.end.viml"}
 			{match: "\\(",       name: "punctuation.expression.bracket.round.begin.viml"}
 			{match: "\\)",       name: "punctuation.expression.bracket.round.end.viml"}
 			{match: "\\|",       name: "punctuation.separator.statement.viml"}
-			{match: ":",         name: "punctuation.separator.key-value.viml"}
+			{match: ",",         name: "punctuation.separator.comma.viml"}
+			{match: ":",         name: "punctuation.separator.colon.viml"}
 			{match: "\\.?=",     name: "keyword.operator.assignment.viml"}
 			{match: "\\.",       name: "punctuation.delimiter.property.dot.viml"}
 		]
