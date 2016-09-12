@@ -164,6 +164,9 @@ repository:
 			captures:
 				1: name: "storage.modifier.scope.viml"
 				2: name: "punctuation.definition.scope.key-value.viml"
+		},{
+			name: "storage.modifier.abort.function.viml"
+			match: "(?<=\\)|\\s)abort(?=\\s|$)"
 		}]
 	
 	augGroup:
