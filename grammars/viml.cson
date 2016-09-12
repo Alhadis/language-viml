@@ -160,7 +160,7 @@ repository:
 			match: "\\b(fu(n|nction)?|end(f|fu|fun|function)?)\\b"
 		},{
 			name: "entity.name.function.viml"
-			match: "(?:([sSgGbBwWtTlL]?(:))?\\w+)(?=\\()"
+			match: "(?:([sSgGbBwWtTlL]?(:))?[\\w#]+)(?=\\()"
 			captures:
 				1: name: "storage.modifier.scope.viml"
 				2: name: "punctuation.definition.scope.key-value.viml"
@@ -169,7 +169,7 @@ repository:
 	augGroup:
 		patterns: [
 			name: "meta.define-$1.viml"
-			begin: "\\b(aug|augroup)\\b\\s*(\\w+)"
+			begin: "\\b(aug|augroup)\\b\\s*([\\w#]+)"
 			end:   "\\b(\\1)\\s+(END)\\b"
 			patterns: [include: "$self"]
 			beginCaptures:
