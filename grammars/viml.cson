@@ -175,8 +175,8 @@ repository:
 				1: name: "storage.modifier.scope.viml"
 				2: name: "punctuation.definition.scope.key-value.viml"
 		},{
-			name: "storage.modifier.abort.function.viml"
-			match: "(?<=\\)|\\s)abort(?=\\s|$)"
+			name: "storage.modifier.$1.function.viml"
+			match: "(?<=\\)|\\s)(abort|dict)(?=\\s|$)"
 		}]
 	
 	augGroup:
@@ -221,6 +221,7 @@ repository:
 			{match: "[-+.]?=",   name: "keyword.operator.assignment.viml"}
 			{match: "\\.{3}",    name: "keyword.operator.rest.viml"}
 			{match: "\\.",       name: "punctuation.delimiter.property.dot.viml"}
+			{match: "&(?=\\w+)", name: "punctuation.definition.option.viml"}
 		]
 	
 	keyword:
@@ -242,12 +243,22 @@ repository:
 			1: name: "punctuation.definition.register.viml"
 	
 	variable:
-		name: "variable.other.viml"
-		match: "(&?)(?:([sSgGbBwWlLaAvV](:))|[@$]|&(?!&))\\w*"
-		captures:
-			1: name: "punctuation.definition.reference.viml"
-			2: name: "storage.modifier.scope.viml"
-			3: name: "punctuation.definition.scope.key-value.viml"
+		patterns: [{
+			name: "variable.language.self.viml"
+			match: "\\b(self)\\b"
+		},{
+			name: "support.variable.environment.viml"
+			match: "(\\$)\\w+"
+			captures:
+				1: name: "punctuation.definition.variable.viml"
+		},{
+			name: "variable.other.viml"
+			match: "(&?)(?:([sSgGbBwWlLaAvV](:))|[@$]|&(?!&))\\w*"
+			captures:
+				1: name: "punctuation.definition.reference.viml"
+				2: name: "storage.modifier.scope.viml"
+				3: name: "punctuation.definition.scope.key-value.viml"
+		}]
 	
 	todo:
 		name: "support.constant.${1:/downcase}.viml"
