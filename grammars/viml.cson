@@ -222,10 +222,11 @@ repository:
 	
 	variable:
 		name: "variable.other.viml"
-		match: "(?:([sSgGbBwWlLaAvV](:))|[@$]|&(?!&))\\w*"
+		match: "(&?)(?:([sSgGbBwWlLaAvV](:))|[@$]|&(?!&))\\w*"
 		captures:
-			1: name: "storage.modifier.scope.viml"
-			2: name: "punctuation.definition.scope.key-value.viml"
+			1: name: "punctuation.definition.reference.viml"
+			2: name: "storage.modifier.scope.viml"
+			3: name: "punctuation.definition.scope.key-value.viml"
 	
 	todo:
 		name: "support.constant.${1:/downcase}.viml"
