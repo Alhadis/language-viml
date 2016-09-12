@@ -52,6 +52,7 @@ repository:
 			{include: "#parameter"}
 			{include: "#expr"}
 			{include: "#keyword"}
+			{include: "#register"}
 			{include: "#variable"}
 			{include: "#commands"}
 			{include: "#functions"}
@@ -224,6 +225,12 @@ repository:
 			name: "storage.type.let.viml"
 			match: "\\blet\\b"
 		}]
+	
+	register:
+		name: "variable.other.register.viml"
+		match: "(@)([-\"A-Za-z\\d:.%#=*+~_/])"
+		captures:
+			1: name: "punctuation.definition.register.viml"
 	
 	variable:
 		name: "variable.other.viml"

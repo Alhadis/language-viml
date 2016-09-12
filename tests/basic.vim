@@ -22,3 +22,8 @@ endfunction myDict.len
 
 runtime setup.vim
 source ~/vimfiles/setup.vim
+
+
+:let  l:number = 1
+:let &l:number = 1
+:let @a = "hello!"
