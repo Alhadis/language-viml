@@ -194,8 +194,9 @@ repository:
 	expr:
 		patterns: [
 			name: "keyword.operator.logical.viml"
-			match: '(\\|\\||&&|==(\\?|#)?|(!|>|<)=(#|\\?)?|(=|!)~(?!\\/)(#|\\?)?|(>|<)(#|\\?)is|isnot|\\*|\\\\|%)'
+			match: "\\|\\||&&|==(\\?|#)?|(!|>|<)=(#|\\?)?|(=|!)~(?!\\/)(#|\\?)?|(>|<)(#|\\?)is|isnot|\\*|\\\\|[-+%]"
 			
+			{match: "\\s[><]\\s",name: "keyword.operator.logical.viml"}
 			{match: "(?<=\\S)!", name: "storage.modifier.force.viml"}
 			{match: "!(?=\\S)",  name: "keyword.operator.logical.not.viml"}
 			{match: "{",         name: "punctuation.expression.bracket.curly.begin.viml"}
@@ -207,7 +208,8 @@ repository:
 			{match: "\\|",       name: "punctuation.separator.statement.viml"}
 			{match: ",",         name: "punctuation.separator.comma.viml"}
 			{match: ":",         name: "punctuation.separator.colon.viml"}
-			{match: "\\.?=",     name: "keyword.operator.assignment.viml"}
+			{match: "[-+.]?=",   name: "keyword.operator.assignment.viml"}
+			{match: "\\.{3}",    name: "keyword.operator.rest.viml"}
 			{match: "\\.",       name: "punctuation.delimiter.property.dot.viml"}
 		]
 	
