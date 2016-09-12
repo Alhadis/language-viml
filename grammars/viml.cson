@@ -19,7 +19,7 @@ firstLineMatch: """(?x)
 	# Modeline
 	(?i:
 		# Vim/Vi modeline, accounting for all possible variations
-		(?:(?:\\s|^)vi(?:m[<=>]?\\d+|m)?|(?!^)\\sex)(?=:(?=\\s*set?\\s[^\\n:]+:)|:(?!\\s* set?\\s))
+		(?:(?:\\s|^)vi(?:m[<=>]?\\d+|m)?|\\sex)(?=:(?=\\s*set?\\s[^\\n:]+:)|:(?!\\s* set?\\s))
 		(?:(?:\\s|\\s*:\\s*)\\w*(?:\\s*=(?:[^\\n\\\\\\s]|\\\\.)*)?)*[\\s:]
 		(?:filetype|ft|syntax)\\s*=
 			vim
