@@ -4,7 +4,7 @@
 const path   = require("path");
 const fs     = require("fs");
 
-const target = "grammars/viml.cson";
+const target = path.resolve(__dirname, "../grammars/viml.cson");
 
 readStdin().then(vimSyntax => {
 	const types = {
