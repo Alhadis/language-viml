@@ -295,7 +295,7 @@ repository:
 		}, {
 			# Extra functions not picked up by keyword parser
 			name: "support.function.${1:/downcase}.viml"
-			match: "\\b(execute|Plugin)\\b"
+			match: "\\b(execute|Plugin|autocmd)\\b"
 		}]
 	
 	attribNames:
