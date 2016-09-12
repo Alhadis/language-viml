@@ -155,10 +155,16 @@ repository:
 		]
 	
 	funcDef:
-		patterns: [
-			{name: "storage.function.viml",      match: "\\b(fu(n|nction)?|end(f|fu|fun|function)?)\\b"}
-			{name: "entity.name.function.viml",  match: "([sSgGbBwWtTlL]?:?\\w+)(?=\\()"}
-		]
+		patterns: [{
+			name: "storage.function.viml"
+			match: "\\b(fu(n|nction)?|end(f|fu|fun|function)?)\\b"
+		},{
+			name: "entity.name.function.viml"
+			match: "(?:([sSgGbBwWtTlL]?(:))?\\w+)(?=\\()"
+			captures:
+				1: name: "storage.modifier.scope.viml"
+				2: name: "punctuation.definition.scope.key-value.viml"
+		}]
 	
 	augGroup:
 		patterns: [
@@ -208,7 +214,10 @@ repository:
 	
 	variable:
 		name: "variable.other.viml"
-		match: "([sSgGbBwWlLaAvV]:|[@$]|&(?!&))\\w*"
+		match: "(?:([sSgGbBwWlLaAvV](:))|[@$]|&(?!&))\\w*"
+		captures:
+			1: name: "storage.modifier.scope.viml"
+			2: name: "punctuation.definition.scope.key-value.viml"
 	
 	todo:
 		name: "support.constant.${1:/downcase}.viml"
