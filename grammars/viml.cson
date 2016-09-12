@@ -204,7 +204,7 @@ repository:
 	expr:
 		patterns: [
 			name: "keyword.operator.logical.viml"
-			match: "\\|\\||&&|==(\\?|#)?|(!|>|<)=(#|\\?)?|(=|!)~(?!\\/)(#|\\?)?|(>|<)(#|\\?)is|isnot|\\*|\\\\|[-+%]"
+			match: "[&|=]{2}[?#]?|[!><]=[#?]?|[=!]~(?!\\/)[#?]?|[><][#?*]|isnot|is|\\\\|[-+%*]"
 			
 			{match: "\\s[><]\\s",name: "keyword.operator.logical.viml"}
 			{match: "(?<=\\S)!", name: "storage.modifier.force.viml"}
