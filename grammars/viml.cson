@@ -215,9 +215,12 @@ repository:
 	
 	keyword:
 		patterns: [{
-			name: "keyword.control.viml"
-			match: "\\b(if|while|for|unlet|return|end(if|for|while)?|else(if)?|do|in|:)\\b"
-		}, {
+			name: "keyword.control.$1.viml"
+			match: "\\b(if|while|for|return|try|catch|finally|end(if|for|while|try)?|else(if)?|do|in|:)\\b"
+		},{
+			name: "keyword.operator.$1.viml"
+			match: "\\b(unlet)\\b"
+		},{
 			name: "storage.type.let.viml"
 			match: "\\blet\\b"
 		}]
