@@ -43,6 +43,7 @@ repository:
 			{include: "#todo"}
 			{include: "#folds"}
 			{include: "#comments"}
+			{include: "#modelines"}
 			{include: "#pathname"}
 			{include: "#strings"}
 			{include: "#hashbang"}
@@ -130,9 +131,27 @@ repository:
 
 	commentInnards:
 		patterns: [
+			{include: "#modelines"}
 			{include: "#folds"}
 			{include: "#todo"}
 		]
+
+
+	# Vim modelines
+	modelines:
+		patterns: [{
+			
+			# Using "vim:set"
+			name: "string.other.modeline.viml"
+			patterns: [include: "$self"]
+			begin: "(?:(?:\\s|^)vi(?:m[<=>]?\\d+|m)?|[\\t\\x20]ex):\\s*(?=set?\\s)"
+			end:   ":|$"
+		},{
+			name: "string.other.modeline.viml"
+			patterns: [include: "$self"]
+			begin: "(?:(?:\\s|^)vi(?:m[<=>]?\\d+|m)?|[\\t\\x20]ex):"
+			end: "$"
+		}]
 
 
 	# Fold markers, with possible labels
