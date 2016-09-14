@@ -13,5 +13,5 @@ filepath="$vim/$syn"
 }
 
 cd $(dirname "$0")
-./update-keywords.js < "$filepath"
+./update-keywords.js "$filepath"
 cp "$filepath" ../tests/vim-syntax.vim

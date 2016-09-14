@@ -1,89 +1,152 @@
 #!/usr/local/bin/node --es_staging
 "use strict";
 
-const path   = require("path");
-const fs     = require("fs");
+const fs    = require("fs");
+const path  = require("path");
 
-const target = path.resolve(__dirname, "../grammars/viml.cson");
 
-readStdin().then(vimSyntax => {
-	const types = {
-		commands:        "vimCommand",
-		stdPlugins:      "vimStdPlugin",
-		options:         "vimOption",
-		autoCmd:         "vimAutoEvent",
-		todo:            "vimTodo",
-		groupName:       "vimGroup",
-		highlightGroup:  "vimHLGroup",
-		functions:       "vimFuncName",
-		attribNames:     "vimHiAttrib|vimFgBgAttrib",
-		colourNames:     "vimHiCtermColor"
-	};
+class VimSyntax{
 	
-	const fileData = updateKeywords(types, vimSyntax, fs.readFileSync(target).toString());
-	fs.writeFileSync(target, fileData);
-});
-
-
-/**
- * Parse Vim's syntax file for defined keywords and update Atom's syntax accordingly.
- *
- * @param {Object} types - A dictionary of named keyword-types
- * @param {String} vimSyntax - Contents of Vim's syntax file
- * @param {String} atomSyntax - Contents of Atom's grammar file
- * @return {String} Atom's syntax file, updated with the parsed keywords
- */
-function updateKeywords(types, vimSyntax, atomSyntax){
-	for(let i in types){
-		let vimName  = types[i];
-		let pattern  = new RegExp(`(^[\\x20\\t]*${i}:\\n(?:.+\\n)*?\\s+match:\\s*"(?:\\(\\?\\w+\\))?[^(]*\\().+?(\\).+$)`, "im");
-		let keywords = compileKeywords(vimName, vimSyntax);
-		atomSyntax   = atomSyntax.replace(pattern, `$1${keywords}$2`);
+	/**
+	 * Begin a new keyword update.
+	 *
+	 * @param {Object} opts - Object holding filesystem paths
+	 * @param {String} opts.atomSyntax - Local path to grammar file
+	 * @param {String} opts.vimSyntax - Absolute path to Vim syntax
+	 * @constructor
+	 */
+	constructor(opts = {}){
+		const cwd     = process.cwd();
+		let vimPath   = path.resolve(__dirname, opts.vimSyntax);
+		let atomPath  = path.resolve(__dirname, opts.atomSyntax);
+		
+		let vimSyn    = fs.readFileSync(vimPath).toString();
+		let atomSyn   = fs.readFileSync(atomPath).toString();
+		let vimGroups = this.compile(vimSyn);
+		atomSyn       = this.addMissingGroups(atomSyn, vimGroups);
+		atomSyn       = this.updateLists(atomSyn, vimGroups);
+		fs.writeFileSync(atomPath, atomSyn);
 	}
 	
-	return atomSyntax;
-}
-
-
-/**
- * Construct a pipe-separated list of keywords found in Vim's syntax file.
- *
- * @param {String} type - The second argument of the "syn" call to match in Vim's syntax file
- * @param {String} input - Contents of Vim syntax
- * @return {String}
- */
-function compileKeywords(type, input){
-	let matches = [];
-	input.replace(
-		new RegExp("^\\s*syn\\s+keyword\\s+" + type + "\\s+contained\\s+(.+)$", "gm"),
-		(line, match) => matches.push(match)
-	);
 	
-	return matches
-		.join(" ")
-		.split(/\s+/g)
-		.sort(new Intl.Collator().compare)
-		.join("\n")
-		.trim()
-		.replace(/\n(.+)\n\1\n/g, "\n$1\n")
-		.replace(/\[(\w)\]/g, "$1?")
-		.replace(/^(\w+)\[(\w+)\]$/gm, "$1\n$1$2")
-		.replace(/\n+/g, "|")
+	/**
+	 * Assemble a dictionary of keyword-groups from Vim's source.
+	 *
+	 * @param {String} input - Contents of loaded syntax file
+	 * @return {Object}
+	 */
+	compile(input){
+		let match;
+		let groups = {};
+		const pattern = /^\s*syn\s+keyword\s+(\w+)\s+contained\s+([^\n]+)$/gm;
+		const synOpts = /(?<=\s)(conceal|cchar|contained|containedin|nextgroup|transparent|skipwhite|skipnl|skipempty)(?:[\x20\t]*=(?:[^\s|\\]|\\.)*)?(?=\s|$|:|\\|)/g;
+		while(match = pattern.exec(input)){
+			let [, name, keywords] = match;
+			if(undefined === groups[name])
+				groups[name] = [];
+			
+			/** Strip :syntax options from each keyword line */
+			keywords = keywords.replace(synOpts, "");
+			groups[name].push(keywords);
+		}
+		
+		/** Sanitise, filter, and parse each keyword list */
+		for(let name in groups){
+			groups[name] = Array.from(
+				
+				/* Filter duplicates */
+				new Set(
+					groups[name]
+						.join(" ")
+						.split(/\s+/g)
+					).keys()
+				
+				/* Then sort and join with pipes */
+				).sort(new Intl.Collator().compare)
+				.join("\n")
+				.trim()
+				.replace(/\n(.+)\n\1\n/g, "\n$1\n")
+				.replace(/\[(\w)\]/g, "$1?")
+				.replace(/^(\w+)\[(\w+)\]$/gm, "$1\n$1$2")
+				.replace(/\n+/g, "|");
+		}
+		return groups;
+	}
+	
+	
+	/**
+	 * Append any missing groups to a block of grammar source.
+	 *
+	 * @param {String}  input - Loaded grammar source
+	 * @param {Object} groups - Vim keyword-groups
+	 * @return {String}
+	 */
+	addMissingGroups(input, groups){
+		const table = /^((\t+)keywordLists\s*:\s*(?:#.*)?(?:\n\2\t+\S.*$|\n\s*$)*$\n\2\t+patterns\s*:\s*\[(?:\s*{)?\s*)((?:\n\2\t{2,}{[^}]+})+)(\n\2\t])/m;
+		const tableMatch = input.match(table);
+		
+		if(tableMatch){
+			let [match, start, tab, rows, end] = tableMatch;
+			let {index} = tableMatch;
+			let before  = input.substring(0, tableMatch.index);
+			let after   = input.substring(tableMatch.index + match.length, input.length);
+			
+			let missing = Object.assign({}, groups);
+			const row = /[{\s:,[]include\s*:\s*(?:(["'])#((?:(?!\1\\).|\\.)+)\1)\s*/g;
+			while(match = row.exec(rows))
+				delete missing[match[2]];
+			
+			for(let key of Object.keys(missing).sort()){
+				rows += `\n${tab}\t\t{include: "#${key}"}`;
+				
+				/** Quote this key if we need to */
+				let keySafe = !/^[$\w]+$/.test(key)
+					? '"' + key.replace(/"/g, "\\\"") + '"'
+					: key;
+				
+				if(new RegExp(`^${tab}${keySafe}\\s*:`, "gm").test(before + "\n\n" + after))
+					console.warn(`Warning: Group "${key}" defined but not listed in #keywordLists`);
+				
+				else after += "\n\t" + keySafe + ":\n"
+					+ tab + `\tname: "support.function.${key}.viml"\n`
+					+ tab + `\tmatch: "\\\\b(_)\\\\b"\n`
+			}
+			
+			input = before + start + rows + end + after;
+		}
+		
+		else console.warn("Warning: `#keywordLists` not found in grammar! Returning input unmodified.");
+		return input;
+	}
+	
+	
+	/**
+	 * Update the actual capturing groups in the VimL grammar's expressions.
+	 *
+	 * @private
+	 * @param {String}   atomSyn - Atom grammar source
+	 * @param {Object} vimGroups - Sanitised dictionary of Vim keyword-groups
+	 * @return {String}
+	 */
+	updateLists(atomSyn, vimGroups){
+		for(const name in vimGroups){
+			let list = "(^\\t(?:" + name + ")\\s*:\\s*(?:#.*$)?(?:\\n\\t{2}\\s*\\S+.*$|\\n\\s*$)*?\\n\\t{2}\\s*match\\s*:\\s*(['\"])(?:(?!\\2|[(\\\\]).|\\\\.)*)\\([^)]*\\)((?:(?!\\2|[(\\\\]).|\\\\.)*\\2)";
+			atomSyn  = atomSyn.replace(
+				new RegExp(list, "m"),
+				(match, before, quote, after) => before + "(" + vimGroups[name] + ")" + after
+			);
+		}
+		return atomSyn;
+	}
 }
 
 
-/**
- * Helper function to return the entirety of standard input.
- *
- * @return {Promise}
- */
-function readStdin(){
-	return new Promise(resolve => {
-		let input = "";
-		process.stdin.setEncoding("UTF8");
-		process.stdin.on("readable", () => {
-			const chunk = process.stdin.read();
-			null !== chunk ? input += chunk : resolve(input);
-		})
-	});
+/** Abort if the user hasn't specified a file */
+const vimSyntax = process.argv[2];
+if(!vimSyntax){
+	const exe = path.join(path.basename(__dirname), path.basename(__filename));
+	console.error(`Usage: ${exe} /path/to/vim.syntax`);
+	process.exit(2);
 }
+
+new VimSyntax({atomSyntax: "../grammars/viml.cson", vimSyntax});
