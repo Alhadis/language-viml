@@ -49,6 +49,7 @@ repository:
 			{include: "#hashbang"}
 			{include: "#numbers"}
 			{include: "#syntax"}
+			{include: "#highlightLink"}
 			{include: "#funcDef"}
 			{include: "#augGroup"}
 			{include: "#parameter"}
@@ -282,6 +283,27 @@ repository:
 	supportVariable:
 		name: "support.variable.viml"
 		match: "\\b(?:am(?:enu)?|(?:hl|inc)?search|[Bb]uf(?:[Nn]ew[Ff]ile|[Rr]ead)?|[Ff]ile[Tt]ype)\\b"
+
+
+	# Highlighting link, used heavily in syntax-definition files
+	highlightLink:
+		match: "(?x)^\\s*
+			(:)? \\s*              (?# 1: punctuation.separator.key-value.colon.viml)
+			(hi|highlight)         (?# 2: support.function.highlight.viml)
+			(!)?                   (?# 3: storage.modifier.force.viml)
+			(?:\\s+(def|default))? (?# 4: support.function.highlight-default.viml)
+			(?:\\s+(link))         (?# 5: support.function.highlight-link.viml)
+			(?:\\s+([-\\w]+))      (?# 6: variable.parameter.group-name.viml)
+			(?:\\s+(?:(NONE)|([-\\w]+)))?"
+		captures:
+			1: name: "punctuation.separator.key-value.colon.viml"
+			2: name: "support.function.highlight.viml"
+			3: name: "storage.modifier.force.viml"
+			4: name: "support.function.highlight-default.viml"
+			5: name: "support.function.highlight-link.viml"
+			6: name: "variable.parameter.group-name.viml"
+			7: name: "support.constant.highlighting.viml"
+			8: name: "variable.parameter.group-name.viml"
 
 
 	# Syntax highlighting definitions
