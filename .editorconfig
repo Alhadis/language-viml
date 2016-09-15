@@ -11,6 +11,6 @@ indent_size = 4
 [*.{md,php}]
 trim_trailing_whitespace = false
 
-[*.{yml,reek,rviz,yaml}]
-indent_style = space
-indent_size = 4
+[tests/vim-syntax.vim]
+indent_style = tab
+indent_size = 18
