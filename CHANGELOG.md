@@ -4,8 +4,34 @@ Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+[v1.1.0]
+------------------------------------------------------------------------
+**September 16th, 2016**  
+Substantial improvements made to language highlighting.
+
+__Added:__
+*   All keywords as of Vim 8.0
+*   Editor settings for adjusting indent/outdent
+*   First-line support for hashbangs/modelines
+*   Highlighting for:
+	- Exponential notation
+	- Fold markers: `{{{`
+	- Function headers
+	- Hexadecimal numbers
+	- Syntax definitions
+	- Scope indicators: `g:name`
+	- Vim modelines
+	- Way too many other things
+*   Support for `nvimrc` and `_vimrc` files
+
+__Bugs fixed:__
+*   Trailing comments no longer highlighted as strings occasionally
+*   `#` is now matched in function names
+
+
 [v1.0.0]
 ------------------------------------------------------------------------
+**May 13th, 2016**  
 Package transferred to a [new maintainer](https://github.com/Alhadis).
 Highlighting for additional function names added, and minor errors fixed.
 
@@ -43,6 +69,7 @@ Initial release, converted from skammer's [TextMate bundle][1].
 
 
 [Referenced links]:_____________________________________________________
+[v1.1.0]: https://github.com/Alhadis/language-viml/releases/tag/v1.1.0
 [v1.0.0]: https://github.com/Alhadis/language-viml/releases/tag/v1.0.0
 [v0.3.0]: https://github.com/Alhadis/language-viml/releases/tag/v0.3.0
 [v0.2.0]: https://github.com/Alhadis/language-viml/releases/tag/v0.2.0
