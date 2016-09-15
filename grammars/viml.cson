@@ -447,7 +447,8 @@ repository:
 			# Everything else
 			name: "meta.syntax-item.argument.viml"
 			match: """(?x)(?<=\\s)
-				(add|cchar|conceal|concealends|contained|containedin|contains|display|excludenl|extend|fold|linebreaks|keepend|matchgroup|maxlines|minlines|nextgroup|oneline|skipempty|skipnl|skipwhite|remove|transparent)
+				((?:matchgroup|contains|containedin|nextgroup|add|remove|minlines|linebreaks|maxlines)(?=\\s*=)
+				|(?:cchar|conceal|concealends|contained|display|excludenl|extend|fold|keepend|oneline|skipempty|skipnl|skipwhite|transparent))
 				(?:(?=$|\\s)|\\s*(=)(\\S*)?)"""
 			captures:
 				1: name: "support.constant.syntax-$1.viml"
