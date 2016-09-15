@@ -3,6 +3,12 @@ Change Log
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+[v1.1.1]
+------------------------------------------------------------------------
+**September 16th, 2016**  
+* __Added:__ Missing keywords not picked up by updater script
+* __Fixed:__ Options incorrectly highlighted in syntax definitions
+
 
 [v1.1.0]
 ------------------------------------------------------------------------
@@ -69,6 +75,7 @@ Initial release, converted from skammer's [TextMate bundle][1].
 
 
 [Referenced links]:_____________________________________________________
+[v1.1.1]: https://github.com/Alhadis/language-viml/releases/tag/v1.1.1
 [v1.1.0]: https://github.com/Alhadis/language-viml/releases/tag/v1.1.0
 [v1.0.0]: https://github.com/Alhadis/language-viml/releases/tag/v1.0.0
 [v0.3.0]: https://github.com/Alhadis/language-viml/releases/tag/v0.3.0
