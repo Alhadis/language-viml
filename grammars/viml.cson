@@ -48,6 +48,7 @@ repository:
 			{include: "#strings"}
 			{include: "#hashbang"}
 			{include: "#numbers"}
+			{include: "#syntax"}
 			{include: "#funcDef"}
 			{include: "#augGroup"}
 			{include: "#parameter"}
@@ -283,6 +284,225 @@ repository:
 		match: "\\b(?:am(?:enu)?|(?:hl|inc)?search|[Bb]uf(?:[Nn]ew[Ff]ile|[Rr]ead)?|[Ff]ile[Tt]ype)\\b"
 
 
+	# Syntax highlighting definitions
+	syntax:
+		name: "meta.syntax-item.viml"
+		begin: "^\\s*(:)?\\s*(syntax|syn?)(?=\\s|$)"
+		end: "$"
+		beginCaptures:
+			1: name: "punctuation.separator.key-value.colon.viml"
+			2: name: "support.function.syntax-item.viml"
+		patterns: [{
+			
+			# Case-matching
+			match: "\\G\\s+(case)(?:\\s+(match|ignore))?(?=\\s|$)"
+			captures:
+				1: name: "support.function.syntax-case.viml"
+				2: name: "support.constant.$2-case.viml"
+		},{
+			
+			# Spell-checking
+			match: "\\G\\s+(spell)(?:\\s+(toplevel|notoplevel|default))?(?=\\s|$)"
+			captures:
+				1: name: "support.function.syntax-spellcheck.viml"
+				2: name: "support.constant.$2-checking.viml"
+		},{
+			
+			# Keyword lists
+			begin: "\\G\\s+(keyword)(?:\\s+([-\\w]+))?"
+			end: "(?=$)"
+			beginCaptures:
+				1: name: "support.function.syntax-keywords.viml"
+				2: name: "variable.parameter.group-name.viml"
+			contentName: "keyword.other.syntax-definition.viml"
+			patterns: [
+				{include: "#syntaxOptions"}
+				{include: "#expr"}
+			]
+		},{
+			
+			# Pattern-based match
+			begin: "\\G\\s+(match)(?:\\s+([-\\w]+))?\\s*"
+			end: "(?=$)"
+			beginCaptures:
+				1: name: "support.function.syntax-match.viml"
+				2: name: "variable.parameter.group-name.viml"
+			patterns: [include: "#syntaxRegex"]
+		},{
+			
+			# Multiline pattern-based match
+			begin: "\\G\\s+(region)(?:\\s+([-\\w]+))?"
+			end: "(?=$)"
+			beginCaptures:
+				1: name: "support.function.syntax-region.viml"
+				2: name: "variable.parameter.group-name.viml"
+			patterns: [
+				{include: "#syntaxOptions"}
+				{include: "$self"}
+			]
+		},{
+			
+			# Group cluster
+			begin: "\\G\\s+(cluster)(?:\\s+([-\\w]+))?(?=\\s|$)"
+			end: "(?=$)"
+			beginCaptures:
+				1: name: "support.function.syntax-cluster.viml"
+				2: name: "variable.parameter.group-name.viml"
+			patterns: [
+				{include: "#syntaxOptions"}
+				{include: "$self"}
+			]
+		},{
+			
+			# Concealment
+			match: "\\G\\s+(conceal)(?:\\s+(on|off)(?=\\s|$))?"
+			captures:
+				1: name: "support.function.syntax-conceal.viml"
+				2: name: "support.constant.boolean.$2.viml"
+		},{
+			# Inclusion
+			match: "\\G\\s+(include)(?:\\s+((@)?[-\\w]+))?(?:\\s+(\\S+))?"
+			captures:
+				1: name: "support.function.syntax-include.viml"
+				2: name: "variable.parameter.group-name.viml"
+				3: name: "punctuation.definition.group-reference.viml"
+				4: name: "string.unquoted.filename.viml", patterns: [include: "#supportType"]
+		},{
+			
+			# Sync/Redrawing mode
+			begin: "\\G\\s+(sync)(?=\\s|$)"
+			end: "$"
+			beginCaptures:
+				1: name: "support.function.syntax-sync.viml"
+			patterns: [{
+				
+				match: "\\G\\s+(fromstart)(?=\\s|$)"
+				captures:
+					1: name: "support.constant.sync-$1.viml"
+			},{
+				match: "\\G\\s+(ccomment|clear)(?:\\s+(?![-\\w]+\\s*=)([-\\w]+))?"
+				captures:
+					1: name: "support.constant.sync-$1.viml"
+					2: name: "variable.parameter.group-name.viml"
+			},{
+				match: "\\G\\s+(minlines|lines)\\s*(=)(\\d*)"
+				captures:
+					1: name: "support.constant.sync-mode.viml"
+					2: name: "punctuation.assignment.parameter.viml"
+					3: name: "constant.numeric.integer.viml"
+			},{
+				match: "(?x)\\G\\s+(match|region)(?:\\s+(?![-\\w]+\\s*=)([-\\w]+))?"
+				captures:
+					1: name: "support.constant.sync-mode.viml"
+					2: name: "variable.parameter.group-name.viml"
+					3: name: "support.constant.sync-mode-location.viml"
+			},{
+				begin: "(?<=\\s)(groupt?here|linecont)(?:\\s+(?![-\\w]+\\s*=)([-\\w]+))?(?=\\s|$)"
+				end: "(?=$)"
+				beginCaptures:
+					1: name: "support.constant.sync-match.viml"
+					2: name: "variable.parameter.group-name.viml"
+				patterns: [include: "#syntaxRegex"]
+			}, include: "#syntaxOptions"]
+		}, include: "$self"]
+	
+	
+	# Syntax item arguments, as described in :syn-arguments
+	syntaxOptions:
+		patterns: [{
+			
+			# Options that take a regex
+			name: "meta.syntax-item.pattern-argument.viml"
+			begin: "(?<=\\s)(start|skip|end)(?:\\s*(=))"
+			end: "(?=$|\\s)"
+			beginCaptures:
+				1: name: "support.constant.$1-pattern.viml"
+				2: name: "punctuation.assignment.parameter.viml"
+			patterns: [include: "#regex"]
+		},{
+			
+			# Everything else
+			name: "meta.syntax-item.argument.viml"
+			match: """(?x)(?<=\\s)
+				(add|cchar|conceal|concealends|contained|containedin|contains|display|excludenl|extend|fold|linebreaks|keepend|matchgroup|maxlines|minlines|nextgroup|oneline|skipempty|skipnl|skipwhite|remove|transparent)
+				(?:(?=$|\\s)|\\s*(=)(\\S*)?)"""
+			captures:
+				1: name: "support.constant.syntax-$1.viml"
+				2: name: "punctuation.assignment.parameter.viml"
+				3: name: "string.unquoted.syntax-option.viml", patterns: [
+					{include: "#numbers"}
+					{match: ",", name: "punctuation.separator.comma.viml"}
+					{match: "@", name: "punctuation.definition.group-reference.viml"}
+				]
+		}]
+	
+	
+	# Body of any syntax-item option which uses an unlabelled regex
+	syntaxRegex:
+		patterns: [
+			{include: "#syntaxOptions"}
+			
+			# Ensure only one regex is matched
+			name: "string.regexp.viml"
+			begin: "(?<=\\s)(\\S)"
+			end:   "(?:(\\1)(\\S*)(.*))?$"
+			patterns: [include: "#regexInnards"]
+			beginCaptures:
+				1: name: "punctuation.definition.string.begin.viml"
+			endCaptures:
+				1: name: "punctuation.definition.string.end.viml"
+				2: patterns: [include: "#regexOffset"]
+				3: patterns: [include: "#syntaxOptions", {include: "$self"}]
+		]
+	
+	
+	
+	# Regular expression
+	regex:
+		name: "string.regexp.viml"
+		begin: "(?<=\\s|=)(\\S)"
+		end:   "$|(\\1)(\\S*)"
+		patterns: [include: "#regexInnards"]
+		beginCaptures:
+			1: name: "punctuation.definition.string.begin.viml"
+		endCaptures:
+			1: name: "punctuation.definition.string.end.viml"
+			2: patterns: [include: "#regexOffset"]
+
+
+	# Pattern offset
+	regexOffset:
+		name: "meta.pattern-offset.viml"
+		match: "(ms|me|hs|he|rs|re|lc)(=)(?:(\\d+)|([se])(?:([-+])(\\d+))?)(,)?"
+		captures:
+			1: name: "constant.language.pattern-offset.viml"
+			2: name: "punctuation.assignment.parameter.viml"
+			3: name: "constant.numeric.integer.viml"
+			4: name: "constant.language.pattern-position.viml"
+			5: name: "keyword.operator.arithmetic.viml"
+			6: name: "constant.numeric.integer.viml"
+			7: name: "punctuation.separator.comma.viml"
+
+
+	regexInnards:
+		patterns: [{
+			
+			# Character class
+			begin: "\\["
+			end:   "\\]|$"
+			beginCaptures: 0: name: "punctuation.definition.character-class.begin.viml"
+			endCaptures:   0: name: "punctuation.definition.character-class.end.viml"
+			patterns: [include: "#regexInnards"]
+		},{
+			
+			# Escaped character
+			name: "constant.character.escape.viml"
+			match: "(\\\\)."
+			captures:
+				1: name: "punctuation.definition.backslash.escape.viml"
+		}]
+	
+	
 
 	# The following lists are auto-extracted from Vim's syntax file.
 	# Run `tools/update` to repopulate them.
