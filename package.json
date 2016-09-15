@@ -7,6 +7,7 @@
 		"url":   "https://github.com/Alhadis"
 	}],
 	"description": "Vim Script language support for Atom",
+	"keywords": ["Vim", "VimScript", "VimL", "Vim Script", "Vi"],
 	"version": "1.0.0",
 	"repository": {
 		"type": "git",
