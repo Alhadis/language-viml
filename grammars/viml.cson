@@ -531,9 +531,9 @@ repository:
 	extraVimFunc:
 		name: "support.function.viml"
 		match: """(?x)\\b
-			(execute|Plugin|autocmd|[cinvo](?:un|nore)?map|(?:range)?go(?:to)?|(?:count)?(?:pop?|tag?|tn(?:ext)?|tp(?:revious)?|tr(?:ewind)?)
+			(execute|Plugin|autocmd|[cinvo]?(?:un|nore)?(?:map|menu)|(?:range)?go(?:to)?|(?:count)?(?:pop?|tag?|tn(?:ext)?|tp(?:revious)?|tr(?:ewind)?)
 			|(?:range)?(?:s(?:ubstitute)?|ret(?:ab)?|g(?:lobal)?)|unm(?:ap)?|map_l|mapc(?:lear)?|N?buffer|N?bnext|N?bNext|N?bprevious|N?bmod
-			|ab(?:breviate)?|norea(?:bbrev)?|[ic](?:un|nore)?ab|split_f|unmenu|rangefold|[ic](?:un|nore)?ab|[ic]abbrev|edit_f|next_f
+			|ab(?:breviate)?|norea(?:bbrev)?|[ic](?:un|nore)?ab|split_f|rangefold|[ic](?:un|nore)?ab|[ic]abbrev|edit_f|next_f
 			|(?:range)?(?:w(?:rite)?|up(?:date)?)|sar)
 		\\b"""
 
