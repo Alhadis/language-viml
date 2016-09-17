@@ -28,9 +28,9 @@ firstLineMatch: """(?x)
 		|
 		
 		# Emacs modeline, assuming a major mode for VimScript even exists
-		-\\*-(?:(?:(?!mode\\s*:)[^:;]+:[^:;]+;)*\\s*mode\\s*:)?\\s*
-			(Vim|VimL|VimScript)
-		\\s*(?:;[^:;]+:[^:;]+?)*;?\\s*-\\*-
+		-\\*-(?:\\s*(?=[^:;\\s]+\\s*-\\*-)|(?:.*?[;\\s]|(?<=-\\*-))mode\\s*:\\s*)
+			(?:Vim|VimL|VimScript)
+		(?=[\\s;]|(?<![-*])-\\*-).*?-\\*-
 	)
 """
 foldingStartMarker: "^(?:if|while|for|fu|function|augroup|aug)"
