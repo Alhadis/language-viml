@@ -3,6 +3,14 @@ Change Log
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+[v1.1.2]
+------------------------------------------------------------------------
+**September 18th, 2016**  
+* __Fixed:__ Broken link to readme's banner image
+* __Fixed:__ Small bug with handling modelines
+
+
 [v1.1.1]
 ------------------------------------------------------------------------
 **September 16th, 2016**  
@@ -75,6 +83,7 @@ Initial release, converted from skammer's [TextMate bundle][1].
 
 
 [Referenced links]:_____________________________________________________
+[v1.1.2]: https://github.com/Alhadis/language-viml/releases/tag/v1.1.2
 [v1.1.1]: https://github.com/Alhadis/language-viml/releases/tag/v1.1.1
 [v1.1.0]: https://github.com/Alhadis/language-viml/releases/tag/v1.1.0
 [v1.0.0]: https://github.com/Alhadis/language-viml/releases/tag/v1.0.0
