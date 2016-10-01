@@ -1,26 +1,23 @@
 #!/usr/local/bin/node --es_staging
 "use strict";
 
-const fs    = require("fs");
-const path  = require("path");
+const fs          = require("fs");
+const path        = require("path");
+const metadata    = require("./package.json");
+
+/** Resolve resource locations */
+const {vimSource} = metadata;
+const vimPath     = path.resolve(__dirname, "tests/vim-syntax.vim");
+const atomPath    = path.resolve(__dirname, "grammars/viml.cson");
 
 
-/**
- * Begin a new keyword update.
- *
- * @param {String} source - Path to downloaded VimScript file
- * @param {String} target - Path to Atom's grammar file
- */
-function update(source, target){
-	const cwd     = process.cwd();
-	source        = path.resolve(__dirname, source);
-	target        = path.resolve(__dirname, target);
+load(vimSource).then(vimSyn => {
+	fs.writeFileSync(vimPath, vimSyn);
 	
-	let vimSyn    = fs.readFileSync(source).toString();
-	let atomSyn   = fs.readFileSync(target).toString();
-	const prevSyn = atomSyn;
-	
+	/** Begin updating Atom's grammar */
+	let atomSyn   = fs.readFileSync(atomPath).toString();
 	let vimGroups = compile(vimSyn);
+	const prevSyn = atomSyn;
 	atomSyn       = addMissingGroups(atomSyn, vimGroups);
 	atomSyn       = updateLists(atomSyn, vimGroups);
 	
@@ -30,8 +27,9 @@ function update(source, target){
 		return;
 	}
 	
-	fs.writeFileSync(target, atomSyn);
-}
+	fs.writeFileSync(atomPath, atomSyn);
+});
+
 
 
 /**
@@ -145,12 +143,39 @@ function updateLists(atomSyn, vimGroups){
 }
 
 
-/** Abort if the user hasn't specified a file */
-const vimSyntax = process.argv[2];
-if(!vimSyntax){
-	const exe = path.join(path.basename(__dirname), path.basename(__filename));
-	console.error(`Usage: ${exe} /path/to/vim.syntax`);
-	process.exit(2);
-}
 
-update(vimSyntax, "../grammars/viml.cson");
+/**
+ * Asynchronously load a resource.
+ *
+ * @param {String} url - URL or filesystem path
+ * @param {String} encoding - Defaults to "utf8"
+ * @return {Promise}
+ * @public
+ */
+function load(url, encoding = "utf8"){
+	return new Promise((resolve, reject) => {
+		const protocol = url.match(/^https?/);
+		
+		/** Remote resource: HTTPS or HTTP */
+		if(protocol){
+			let result = "";
+			const {get} = require(protocol[0].toLowerCase());
+			const request = get(url, response => {
+				if(response.statusMessage !== "OK")
+					return reject(response);
+				encoding && response.setEncoding(encoding);
+				response.on("data", s => result += s);
+				response.on("end", () => resolve(result));
+			});
+			request.on("error", e => reject(e));
+		}
+		
+		/** Assume parameter to be a filesystem path */
+		else{
+			fs.readFile(url, {encoding}, (error, data) => {
+				if(error) return reject(error);
+				return resolve(data.toString());
+			});
+		}
+	});
+}
