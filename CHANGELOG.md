@@ -4,6 +4,12 @@ Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+[v1.1.3]
+------------------------------------------------------------------------
+**December 28th, 2016**  
+* __Added:__ Keywords for Vim 8.0-01
+
+
 [v1.1.2]
 ------------------------------------------------------------------------
 **September 18th, 2016**  
@@ -83,6 +89,8 @@ Initial release, converted from skammer's [TextMate bundle][1].
 
 
 [Referenced links]:_____________________________________________________
+[Unpublished]: ../../compare/v1.1.3...HEAD
+[v1.1.3]: https://github.com/Alhadis/language-viml/releases/tag/v1.1.3
 [v1.1.2]: https://github.com/Alhadis/language-viml/releases/tag/v1.1.2
 [v1.1.1]: https://github.com/Alhadis/language-viml/releases/tag/v1.1.1
 [v1.1.0]: https://github.com/Alhadis/language-viml/releases/tag/v1.1.0
