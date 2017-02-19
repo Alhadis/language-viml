@@ -166,7 +166,7 @@ repository:
 	numbers:
 		patterns: [{
 			name: "constant.numeric.hex.viml"
-			match: "(?:#|0[xX])[0-9A-Fa-f]+"
+			match: "0[xX][0-9A-Fa-f]+"
 		},{
 			name: "constant.numeric.float.exponential.viml"
 			match: "(?<!\\w)-?\\d+\\.\\d+[eE][-+]?\\d+"
