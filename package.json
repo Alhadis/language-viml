@@ -9,7 +9,7 @@
 	"vimSource": "https://raw.githubusercontent.com/vim/vim/master/runtime/syntax/vim.vim",
 	"description": "Vim Script language support for Atom",
 	"keywords": ["Vim", "VimScript", "VimL", "Vim Script", "Vi"],
-	"version": "1.1.3",
+	"version": "1.1.4",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Alhadis/language-viml.git"

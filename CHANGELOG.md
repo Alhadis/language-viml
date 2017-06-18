@@ -3,7 +3,16 @@ Change Log
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Unpublished]: ../../compare/v1.1.3...HEAD
+[Unpublished]: ../../compare/v1.1.4...HEAD
+
+
+[v1.1.4]
+------------------------------------------------------------------------
+**June 18th, 2017**  
+* __Fixed:__ Broken highlighting in certain autoload variables [[`#7`]]
+
+[v1.1.4]: https://github.com/Alhadis/language-viml/releases/tag/v1.1.4
+[`#7`]:   https://github.com/Alhadis/language-viml/pull/7
 
 
 [v1.1.3]
