@@ -1,4 +1,4 @@
-#!/usr/local/bin/node --es_staging
+#!/usr/bin/env node --es_staging
 "use strict";
 
 const fs          = require("fs");
@@ -13,20 +13,20 @@ const atomPath    = path.resolve(__dirname, "grammars/viml.cson");
 
 load(vimSource).then(vimSyn => {
 	fs.writeFileSync(vimPath, vimSyn);
-	
+
 	/** Begin updating Atom's grammar */
 	let atomSyn   = fs.readFileSync(atomPath).toString();
 	let vimGroups = compile(vimSyn);
 	const prevSyn = atomSyn;
 	atomSyn       = addMissingGroups(atomSyn, vimGroups);
 	atomSyn       = updateLists(atomSyn, vimGroups);
-	
+
 	/** Nothing's changed */
 	if(atomSyn === prevSyn){
 		process.stderr.write("Already up-to-date.\n");
 		return;
 	}
-	
+
 	fs.writeFileSync(atomPath, atomSyn);
 });
 
@@ -47,23 +47,23 @@ function compile(input){
 		let [, name, keywords] = match;
 		if(undefined === groups[name])
 			groups[name] = [];
-		
+
 		/** Strip :syntax options from each keyword line */
 		keywords = keywords.replace(synOpts, "");
 		groups[name].push(keywords);
 	}
-	
+
 	/** Sanitise, filter, and parse each keyword list */
 	for(let name in groups){
 		groups[name] = Array.from(
-			
+
 			/* Filter duplicates */
 			new Set(
 				groups[name]
 					.join(" ")
 					.split(/\s+/g)
 				).keys()
-			
+
 			/* Then sort and join with pipes */
 			).sort(new Intl.Collator().compare)
 			.join("\n")
@@ -87,37 +87,37 @@ function compile(input){
 function addMissingGroups(input, groups){
 	const table = /^((\t+)keywordLists\s*:\s*(?:#.*)?(?:\n\2\t+\S.*$|\n\s*$)*$\n\2\t+patterns\s*:\s*\[(?:\s*{)?\s*)((?:\n\2\t{2,}{[^}]+})+)(\n\2\t])/m;
 	const tableMatch = input.match(table);
-	
+
 	if(tableMatch){
 		let [match, start, tab, rows, end] = tableMatch;
 		let {index} = tableMatch;
 		let before  = input.substring(0, tableMatch.index);
 		let after   = input.substring(tableMatch.index + match.length, input.length);
-		
+
 		let missing = Object.assign({}, groups);
 		const row = /[{\s:,[]include\s*:\s*(?:(["'])#((?:(?!\1\\).|\\.)+)\1)\s*/g;
 		while(match = row.exec(rows))
 			delete missing[match[2]];
-		
+
 		for(let key of Object.keys(missing).sort()){
 			rows += `\n${tab}\t\t{include: "#${key}"}`;
-			
+
 			/** Quote this key if we need to */
 			let keySafe = !/^[$\w]+$/.test(key)
 				? '"' + key.replace(/"/g, "\\\"") + '"'
 				: key;
-			
+
 			if(new RegExp(`^${tab}${keySafe}\\s*:`, "gm").test(before + "\n\n" + after))
 				console.warn(`Warning: Group "${key}" defined but not listed in #keywordLists`);
-			
+
 			else after += "\n\t" + keySafe + ":\n"
 				+ tab + `\tname: "support.function.${key}.viml"\n`
 				+ tab + `\tmatch: "\\\\b(_)\\\\b"\n`
 		}
-		
+
 		input = before + start + rows + end + after;
 	}
-	
+
 	else console.warn("Warning: `#keywordLists` not found in grammar! Returning input unmodified.");
 	return input;
 }
@@ -155,7 +155,7 @@ function updateLists(atomSyn, vimGroups){
 function load(url, encoding = "utf8"){
 	return new Promise((resolve, reject) => {
 		const protocol = url.match(/^https?/);
-		
+
 		/** Remote resource: HTTPS or HTTP */
 		if(protocol){
 			let result = "";
@@ -169,7 +169,7 @@ function load(url, encoding = "utf8"){
 			});
 			request.on("error", e => reject(e));
 		}
-		
+
 		/** Assume parameter to be a filesystem path */
 		else{
 			fs.readFile(url, {encoding}, (error, data) => {
