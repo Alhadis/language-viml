@@ -3,7 +3,7 @@
 	"author": "Evan Hahn",
 	"maintainers": [{
 		"name":  "John Gardner",
-		"email": "<gardnerjohng@gmail.com>",
+		"email": "gardnerjohng@gmail.com",
 		"url":   "https://github.com/Alhadis"
 	}],
 	"vimSource": "https://raw.githubusercontent.com/vim/vim/master/runtime/syntax/vim.vim",
