@@ -3,25 +3,24 @@
 
 const fs          = require("fs");
 const path        = require("path");
-const metadata    = require("./package.json");
 
-/** Resolve resource locations */
-const {vimSource} = metadata;
-const vimPath     = path.resolve(__dirname, "tests/vim-syntax.vim");
-const atomPath    = path.resolve(__dirname, "grammars/viml.cson");
+// Resolve resource locations
+const vimSource   = "https://raw.githubusercontent.com/vim/vim/master/runtime/syntax/vim.vim";
+const vimPath     = path.resolve(__dirname, "..", "tests/vim-syntax.vim");
+const atomPath    = path.resolve(__dirname, "..", "grammars/viml.cson");
 
 
 load(vimSource).then(vimSyn => {
 	fs.writeFileSync(vimPath, vimSyn);
 
-	/** Begin updating Atom's grammar */
+	// Update Atom's grammar
 	let atomSyn   = fs.readFileSync(atomPath).toString();
 	let vimGroups = compile(vimSyn);
 	const prevSyn = atomSyn;
 	atomSyn       = addMissingGroups(atomSyn, vimGroups);
 	atomSyn       = updateLists(atomSyn, vimGroups);
 
-	/** Nothing's changed */
+	// Nothing changed
 	if(atomSyn === prevSyn){
 		process.stderr.write("Already up-to-date.\n");
 		return;
@@ -48,23 +47,23 @@ function compile(input){
 		if(undefined === groups[name])
 			groups[name] = [];
 
-		/** Strip :syntax options from each keyword line */
+		// Strip :syntax options from each keyword line
 		keywords = keywords.replace(synOpts, "");
 		groups[name].push(keywords);
 	}
 
-	/** Sanitise, filter, and parse each keyword list */
+	// Sanitise, filter, and parse each keyword list
 	for(let name in groups){
 		groups[name] = Array.from(
 
-			/* Filter duplicates */
+			// Filter duplicates
 			new Set(
 				groups[name]
 					.join(" ")
 					.split(/\s+/g)
 				).keys()
 
-			/* Then sort and join with pipes */
+			// Then sort and join with pipes
 			).sort(new Intl.Collator().compare)
 			.join("\n")
 			.trim()
@@ -102,7 +101,7 @@ function addMissingGroups(input, groups){
 		for(let key of Object.keys(missing).sort()){
 			rows += `\n${tab}\t\t{include: "#${key}"}`;
 
-			/** Quote this key if we need to */
+			// Quote this key if we need to
 			let keySafe = !/^[$\w]+$/.test(key)
 				? '"' + key.replace(/"/g, "\\\"") + '"'
 				: key;
@@ -126,17 +125,17 @@ function addMissingGroups(input, groups){
 /**
  * Update the actual capturing groups in the VimL grammar's expressions.
  *
- * @private
+ * @internal
  * @param {String}   atomSyn - Atom grammar source
  * @param {Object} vimGroups - Sanitised dictionary of Vim keyword-groups
  * @return {String}
  */
 function updateLists(atomSyn, vimGroups){
 	for(const name in vimGroups){
-		let list = "(^\\t(?:" + name + ")\\s*:\\s*(?:#.*$)?(?:\\n\\t{2}\\s*\\S+.*$|\\n\\s*$)*?\\n\\t{2}\\s*match\\s*:\\s*(['\"])(?:(?!\\2|[(\\\\]).|\\\\.)*)\\([^)]*\\)((?:(?!\\2|[(\\\\]).|\\\\.)*\\2)";
-		atomSyn  = atomSyn.replace(
+		const list = "(^\\t(?:" + name + ")\\s*:\\s*(?:#.*$)?(?:\\n\\t{2}\\s*\\S+.*$|\\n\\s*$)*?\\n\\t{2}\\s*match\\s*:\\s*(['\"])(?:(?!\\2|[(\\\\]).|\\\\.)*)\\([^)]*\\)((?:(?!\\2|[(\\\\]).|\\\\.)*\\2)";
+		atomSyn = atomSyn.replace(
 			new RegExp(list, "m"),
-			(match, before, quote, after) => before + "(" + vimGroups[name] + ")" + after
+			(match, before, quote, after) => `${before}(${vimGroups[name]})${after}`
 		);
 	}
 	return atomSyn;
@@ -156,7 +155,7 @@ function load(url, encoding = "utf8"){
 	return new Promise((resolve, reject) => {
 		const protocol = url.match(/^https?/);
 
-		/** Remote resource: HTTPS or HTTP */
+		// Remote resource: HTTPS or HTTP
 		if(protocol){
 			let result = "";
 			const {get} = require(protocol[0].toLowerCase());
@@ -170,12 +169,10 @@ function load(url, encoding = "utf8"){
 			request.on("error", e => reject(e));
 		}
 
-		/** Assume parameter to be a filesystem path */
-		else{
-			fs.readFile(url, {encoding}, (error, data) => {
-				if(error) return reject(error);
-				return resolve(data.toString());
-			});
-		}
+		// Assume parameter to be a filesystem path
+		else fs.readFile(url, {encoding}, (error, data) => {
+			if(error) return reject(error);
+			return resolve(data.toString());
+		});
 	});
 }

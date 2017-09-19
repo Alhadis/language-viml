@@ -539,7 +539,7 @@ repository:
 
 
 	# The following lists are auto-extracted from Vim's syntax file.
-	# Run `tools/update` to repopulate them.
+	# Run `bin/update` to repopulate them.
 	keywordLists:
 		patterns: [
 			{include: "#vimTodo"}
