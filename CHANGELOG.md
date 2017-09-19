@@ -3,7 +3,17 @@ Change Log
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Unpublished]: ../../compare/v1.1.4...HEAD
+[Unpublished]: ../../compare/v1.1.5...HEAD
+
+
+[v1.1.5]
+------------------------------------------------------------------------
+**September 20th, 2017**  
+* __Added:__ `nocombine` to syntax keywords, introduced in [`v8.0.1007`]
+* __Moved:__ `update` script to the more canonical `bin/update` location
+
+[`v8.0.1007`]: https://github.com/vim/vim/compare/v8.0.1006...v8.0.1007
+[v1.1.5]: https://github.com/Alhadis/language-viml/releases/tag/v1.1.5
 
 
 [v1.1.4]
