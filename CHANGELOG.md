@@ -6,6 +6,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [Unpublished]: ../../compare/v1.1.5...HEAD
 
 
+[Unpublished]
+------------------------------------------------------------------------
+**October 11th, 2017**  
+* __Added:__ Keywords for Vim 8.0.1127, added in [`vim/vim@37c64c78fd8`]
+
+[`vim/vim@37c64c78fd8`]: https://github.com/vim/vim/commit/37c64c78fd8
+
+
 [v1.1.5]
 ------------------------------------------------------------------------
 **September 20th, 2017**  
