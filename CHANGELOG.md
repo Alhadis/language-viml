@@ -3,15 +3,16 @@ Change Log
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Unpublished]: ../../compare/v1.1.6...HEAD
+[Unpublished]: ../../compare/v1.1.7...HEAD
 
 
-[Unpublished]
+[v1.1.7]
 ------------------------------------------------------------------------
 **November 16th, 2017**  
 * __Added:__ Keywords for Vim 8.0.1298, added in [`vim/vim@b0d45e7f53`]
 
 [`vim/vim@b0d45e7f53`]: https://github.com/vim/vim/commit/b0d45e7f53
+[v1.1.7]: https://github.com/Alhadis/language-viml/releases/tag/v1.1.7
 
 
 [v1.1.6]
