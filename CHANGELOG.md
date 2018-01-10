@@ -6,6 +6,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [Unpublished]: ../../compare/v1.1.7...HEAD
 
 
+[Unpublished]
+------------------------------------------------------------------------
+* __Added:__ `strikethrough` keyword to `vimHiAttrib` attributes
+
+
+
 [v1.1.7]
 ------------------------------------------------------------------------
 **November 16th, 2017**  

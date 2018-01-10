@@ -633,7 +633,7 @@ repository:
 
 	vimHiAttrib:
 		name: "support.function.vimHiAttrib.viml"
-		match: "\\b(bold|inverse|italic|none|reverse|standout|undercurl|underline)\\b"
+		match: "\\b(bold|inverse|italic|nocombine|none|reverse|standout|strikethrough|undercurl|underline)\\b"
 
 	vimHiClear:
 		name: "support.function.vimHiClear.viml"
