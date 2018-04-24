@@ -41,7 +41,6 @@ repository:
 	main:
 		patterns: [
 			{include: "#vimTodo"}
-			{include: "#folds"}
 			{include: "#comments"}
 			{include: "#modelines"}
 			{include: "#pathname"}
@@ -155,7 +154,6 @@ repository:
 	commentInnards:
 		patterns: [
 			{include: "#modelines"}
-			{include: "#folds"}
 			{include: "#todo"}
 		]
 
@@ -175,12 +173,6 @@ repository:
 			begin: "(?:(?:\\s|^)vi(?:m[<=>]?\\d+|m)?|[\\t\\x20]ex):"
 			end: "$"
 		}]
-
-
-	# Fold markers, with possible labels
-	folds:
-		name: "entity.name.fold.heading.viml"
-		match: "(?<=\").*?{{{\\d*|(?<=\")\\s*}}}"
 
 
 	# Embedded interpreter directive
