@@ -45,6 +45,7 @@ repository:
 			{include: "#comments"}
 			{include: "#modelines"}
 			{include: "#pathname"}
+			{include: "#escape"}
 			{include: "#strings"}
 			{include: "#hashbang"}
 			{include: "#numbers"}
@@ -65,17 +66,34 @@ repository:
 	
 	strings:
 		patterns: [{
-			name: "string.quoted.double.viml"
-			match: '(")(?:\\\\\\\\|\\\\"|[^\\n"])*(")'
+			name: "string.quoted.double.empty.viml"
+			match: '(")(")'
 			captures:
 				1: name: "punctuation.definition.string.begin.viml"
 				2: name: "punctuation.definition.string.end.viml"
 		},{
-			name: "string.quoted.single.viml"
-			match: "(')(?:''|[^\\n'])*(')"
+			name: "string.quoted.single.empty.viml"
+			match: "(')(')"
 			captures:
 				1: name: "punctuation.definition.string.begin.viml"
 				2: name: "punctuation.definition.string.end.viml"
+		},{
+			name: "string.quoted.double.viml"
+			match: '(")((?:[^\\\\"]|\\\\.)*)(")'
+			captures:
+				1: name: "punctuation.definition.string.begin.viml"
+				2: patterns: [include: "#escape"]
+				3: name: "punctuation.definition.string.end.viml"
+		},{
+			name: "string.quoted.single.viml"
+			match: "(')((?:[^']||'')*)(')"
+			captures:
+				1: name: "punctuation.definition.string.begin.viml"
+				2: patterns: [{
+					name: "constant.character.escape.quotes.viml"
+					match: "''"
+				}]
+				3: name: "punctuation.definition.string.end.viml"
 		},{
 			name: "string.regexp.interpolated.viml"
 			match: "(/)(?:\\\\\\\\|\\\\/|[^\\n/])*(/)"
@@ -83,6 +101,15 @@ repository:
 				1: name: "punctuation.section.regexp.begin.viml"
 				2: name: "punctuation.section.regexp.end.viml"
 		}]
+	
+	
+	# Something prefixed with a backslash
+	escape:
+		name:  "constant.character.escape.backslash.viml"
+		match: "(\\\\)."
+		captures:
+			1: name: "punctuation.definition.escape.backslash.viml"
+	
 	
 	# This only exists to stop stuff like ~/.vim/ being highlighted like a regex
 	pathname:
