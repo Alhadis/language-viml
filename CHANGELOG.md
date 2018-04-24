@@ -3,11 +3,12 @@ Change Log
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Unpublished]: ../../compare/v1.1.7...HEAD
+[Unpublished]: ../../compare/v1.1.8...HEAD
 
 
-[Unpublished]
+[v1.1.8]
 ------------------------------------------------------------------------
+**April 25th, 2018**  
 * __Added:__ `strikethrough` keyword to `vimHiAttrib` attributes
 * __Fixed:__ Missing `echo`, `echohl`, `execute`, `smapc` and `xnoremap`
 * __Added:__ Highlighting for escaped or quoted characters
@@ -15,6 +16,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * __Fixed:__ Highlighting of compound assignment operators (e.g., `+=`)
 * __Removed:__ Fold marker highlighting
 
+[v1.1.8]: https://github.com/Alhadis/language-viml/releases/tag/v1.1.8
 
 
 [v1.1.7]
