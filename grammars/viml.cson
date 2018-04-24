@@ -54,6 +54,7 @@ repository:
 			{include: "#funcDef"}
 			{include: "#augGroup"}
 			{include: "#parameter"}
+			{include: "#assignment"}
 			{include: "#expr"}
 			{include: "#keyword"}
 			{include: "#register"}
@@ -242,6 +243,15 @@ repository:
 			2: name: "entity.name.parameter.viml"
 			3: name: "punctuation.assignment.parameter.viml"
 
+	assignment:
+		patterns: [{
+			name: "keyword.operator.assignment.compound.viml"
+			match: "[-+.]="
+		},{
+			name: "keyword.operator.assignment.viml"
+			match: "="
+		}]
+
 	expr:
 		patterns: [
 			name: "keyword.operator.logical.viml"
@@ -259,7 +269,6 @@ repository:
 			{match: "\\|",       name: "punctuation.separator.statement.viml"}
 			{match: ",",         name: "punctuation.separator.comma.viml"}
 			{match: ":",         name: "punctuation.separator.colon.viml"}
-			{match: "[-+.]?=",   name: "keyword.operator.assignment.viml"}
 			{match: "\\.{3}",    name: "keyword.operator.rest.viml"}
 			{match: "\\.",       name: "punctuation.delimiter.property.dot.viml"}
 			{match: "&(?=\\w+)", name: "punctuation.definition.option.viml"}
@@ -367,6 +376,7 @@ repository:
 			contentName: "keyword.other.syntax-definition.viml"
 			patterns: [
 				{include: "#syntaxOptions"}
+				{include: "#assignment"}
 				{include: "#expr"}
 			]
 		},{
