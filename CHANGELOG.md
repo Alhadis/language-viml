@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [Unpublished]
 ------------------------------------------------------------------------
 * __Added:__ `strikethrough` keyword to `vimHiAttrib` attributes
+* __Fixed:__ Missing support for `echo` and `echohl`
 * __Added:__ Highlighting for escaped or quoted characters
 * __Fixed:__ Highlighting of compound assignment operators (e.g., `+=`)
 * __Removed:__ Fold marker highlighting
