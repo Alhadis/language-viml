@@ -86,7 +86,7 @@ repository:
 				3: name: "punctuation.definition.string.end.viml"
 		},{
 			name: "string.quoted.single.viml"
-			match: "(')((?:[^']||'')*)(')"
+			match: "(')((?:[^']|'')*)(')"
 			captures:
 				1: name: "punctuation.definition.string.begin.viml"
 				2: patterns: [{
