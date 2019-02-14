@@ -6,8 +6,14 @@ fileTypes: [
 	"gvimrc"
 	"nvimrc"
 	"_vimrc"
+	"vmb"
 ]
 firstLineMatch: """(?x)
+	
+	# Vimball
+	(?:^|\\n)UseVimball\\b
+	
+	|
 	
 	# Hashbang
 	^\\#!.*(?:\\s|\\/|(?<=!)\\b)
@@ -276,6 +282,9 @@ repository:
 		},{
 			name: "storage.type.let.viml"
 			match: "\\blet\\b"
+		},{
+			name: "support.constant.vimball.use.viml"
+			match: "(?<=^|\\n)UseVimball(?=\\s*$)"
 		}]
 	
 	register:
