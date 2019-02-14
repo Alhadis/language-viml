@@ -1,2 +1,6 @@
 # Exclude fixtures from language analysis
 tests/* linguist-vendored
+
+# Exclude unnecessary files from distribution
+*.png   export-ignore
+tests/* export-ignore
