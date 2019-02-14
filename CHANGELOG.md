@@ -3,16 +3,18 @@ Change Log
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Unpublished]: ../../compare/v1.1.8...HEAD
+[Unpublished]: ../../compare/v1.1.9...HEAD
 
 
-[Unpublished]
+[v1.1.9]
 ------------------------------------------------------------------------
+**February 15th, 2019**  
 * __Added:__ `range` and `closure` to function attributes [[`#8`]]
 * __Added:__ Keywords for Vim 8.0-19, added in [`vim/vim@b730f0c`]
 * __Added:__ Filetype mapping and highlighting for Vimball `.vmb` files
 * __Fixed:__ Unnecessary files included in package distribution
 
+[v1.1.9]: https://github.com/Alhadis/language-viml/releases/tag/v1.1.9
 [`vim/vim@b730f0c`]: https://github.com/vim/vim/commit/b730f0c7ba
 [`#8`]: https://github.com/Alhadis/language-viml/pull/8
 
