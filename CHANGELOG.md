@@ -6,6 +6,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [Unpublished]: ../../compare/v1.1.8...HEAD
 
 
+[Unpublished]
+------------------------------------------------------------------------
+* __Added:__ `range` and `closure` to function attributes [[`#8`]]
+* __Added:__ Keywords for Vim 8.0-19, added in [`vim/vim@b730f0c`]
+* __Added:__ Filetype mapping and highlighting for Vimball `.vmb` files
+* __Fixed:__ Unnecessary files included in package distribution
+
+[`vim/vim@b730f0c`]: https://github.com/vim/vim/commit/b730f0c7ba
+[`#8`]: https://github.com/Alhadis/language-viml/pull/8
+
+
 [v1.1.8]
 ------------------------------------------------------------------------
 **April 25th, 2018**  
