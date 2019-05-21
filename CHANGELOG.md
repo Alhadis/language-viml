@@ -6,6 +6,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [Unpublished]: ../../compare/v1.1.9...HEAD
 
 
+[Unpublished]
+------------------------------------------------------------------------
+* __Added:__ Keywords for Vim 8.1.1362, added in [`vim/vim@a6c27c47dd`]
+
+[`vim/vim@a6c27c47dd`]: https://github.com/vim/vim/commit/a6c27c47dd
+
+
 [v1.1.9]
 ------------------------------------------------------------------------
 **February 15th, 2019**  
