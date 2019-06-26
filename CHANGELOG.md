@@ -8,11 +8,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Unpublished]
 ------------------------------------------------------------------------
-* __Added:__ Keywords for Vim 8.1.1362, added in [`vim/vim@a6c27c47dd`]
-* __Added:__ Keywords for Vim 8.1.1600, added in [`vim/vim@6c1e1570b1`]
-
-[`vim/vim@a6c27c47dd`]: https://github.com/vim/vim/commit/a6c27c47dd
-[`vim/vim@6c1e1570b1`]: https://github.com/vim/vim/commit/6c1e1570b1
+* __Added:__ Keyword definitions for Vim 8.1.1600
+* __Fixed:__ Highlighting prioritised shorter keywords over longer ones
+* __Fixed:__ False positives when running keyword-updater script
 
 
 [v1.1.9]
