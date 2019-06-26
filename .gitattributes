@@ -2,5 +2,5 @@
 tests/* linguist-vendored
 
 # Exclude unnecessary files from distribution
-*.png   export-ignore
+bin/*   export-ignore
 tests/* export-ignore
