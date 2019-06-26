@@ -1,0 +1,100 @@
+/
+	(?# $1 <- Prologue)
+	(
+		^ \t                    (?# Indentation)
+		(?: ${name})            (?# Field matching name of syntax group)
+		\s* : \s*               (?# Colon and possible whitespace separating key/value pair)
+		(?: # .* $)?            (?# Possible trailing comment on same line)
+		
+		
+		(?# Properties preceding `match` field we need to keep)
+		(?:
+			\n \t{2} \s*        (?# Leading whitespace)
+			\S+ .* $            (?# Non-blank characters until EOL)
+			|
+			\n \s* $            (?# Skip completely blank lines)
+		)*?
+		
+		
+		(?# Field containing compiled pattern)
+		\n \t{2} \s*            (?# Indentation)
+		match                   (?# Begin the `match` field)
+		\s* : \s*               (?# Key/value separator)
+	)
+	
+	
+	(?# Pattern string)
+	(?:
+		(?# Triple-quote/heredoc)
+		("""|''')           (?# $2 <- Opening delimiter)
+		
+		(?# $3 <- Header)
+		(
+			(?# Scoped modifiers)
+			(?:
+				\(\?        (?# Opening bracket + ?)
+				[-\w]+      (?# Flag characters)
+				\)          (?# Closing bracket)
+			)?
+			
+			(?: (?!\2)["']  (?# Quotes that don't begin the closing sequence)
+			|   [^\(\)"']+  (?# Stuff that isn't a quote or parentheses)
+			)*
+		)
+		
+		(?# $4 <- Pattern-list/body)
+		(
+			\(                  (?# Opening bracket)
+			(?: (?!\2)["']      (?# Quotes that don't begin the closing sequence)
+			|   [^\(\)"']+      (?# Stuff that isn't a quote or parentheses)
+			)*
+			\)                  (?# Closing bracket)
+		)
+		
+		(?# $5 <- Footer)
+		(
+			(?: (?!\2)["']  (?# Quotes that don't begin the closing sequence)
+			|   [^\(\)"']+  (?# Stuff that isn't a quote or parentheses)
+			)*
+			\2              (?# Closing delimiter)
+		)
+		
+		
+		|
+		
+		
+		(?# Normal double/single-quoted string)
+		(["'])              (?# $6 <- Opening quote)
+		
+		(?# $7 <- Header)
+		(
+			(?# Scoped modifiers)
+			(?:
+				\(\?        (?# Opening bracket + ?)
+				[-\w]+      (?# Flag characters)
+				\)          (?# Closing bracket)
+			)?
+			
+			(?: (?!\6|[\(\\]).  (?# Don't match closing delimiter, brackets, or backslashes)
+			|   \\.             (?# Match any escaped character)
+			)*
+		)
+		
+		(?# $8 <- Pattern-list/body)
+		(
+			\(                     (?# Opening bracket)
+			(?: (?!\6)[^\(\)\\]*   (?# Don't match brackets, backslashes, or the closing quote)
+			|   \\.                (?# Match anything that's escaped by a backslash)
+			)*
+			\)                     (?# Closing bracket)
+		)
+		
+		(?# $9 <- Footer)
+		(
+			(?: (?!\6|[\\]).       (?# Anything that isn't a backslash or closing quote)
+			|   \\.                (?# Something escaped by a backslash)
+			)*
+			\6                     (?# Closing quote)
+		)
+	)
+/m
