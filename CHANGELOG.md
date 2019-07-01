@@ -3,14 +3,17 @@ Change Log
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Unpublished]: ../../compare/v1.1.9...HEAD
+[Unpublished]: ../../compare/v1.1.10...HEAD
 
 
-[Unpublished]
+[v1.1.10]
 ------------------------------------------------------------------------
+**July 1st, 2019**  
 * __Added:__ Keyword definitions for Vim 8.1.1600
 * __Fixed:__ Highlighting prioritised shorter keywords over longer ones
 * __Fixed:__ False positives when running keyword-updater script
+
+[v1.1.10]: https://github.com/Alhadis/language-viml/releases/tag/v1.1.10
 
 
 [v1.1.9]
