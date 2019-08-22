@@ -665,11 +665,13 @@ repository:
 			| CmdwinLeave
 			| ColorSchemePre
 			| ColorScheme
+			| CompleteChanged
 			| CompleteDone
 			| CursorHoldI
 			| CursorHold
 			| CursorMovedI
 			| CursorMoved
+			| DiffUpdated
 			| DirChanged
 			| EncodingChanged
 			| ExitPre
@@ -710,6 +712,7 @@ repository:
 			| ShellCmdPost
 			| ShellFilterPost
 			| SourceCmd
+			| SourcePost
 			| SourcePre
 			| SpellFileMissing
 			| StdinReadPost
@@ -754,6 +757,7 @@ repository:
 			| abo
 			| aboveleft
 			| ab
+			| addd
 			| all?
 			| ar
 			| args
@@ -822,17 +826,26 @@ repository:
 			| change
 			| cabc
 			| cabclear
+			| cabo
+			| cabove
 			| cad
 			| caddbuffer
 			| cadde
 			| caddexpr
 			| caddf
 			| caddfile
+			| caf
+			| cafter
 			| call?
 			| cat
 			| catch
+			| ca
 			| cb
 			| cbuffer
+			| cbe
+			| cbefore
+			| cbel
+			| cbelow
 			| cbo
 			| cbottom
 			| ccl
@@ -880,6 +893,7 @@ repository:
 			| cnewer
 			| cnf
 			| cnfile
+			| cnor
 			| co
 			| copy
 			| col
@@ -895,6 +909,7 @@ repository:
 			| continue
 			| conf
 			| confirm
+			| const?
 			| copen?
 			| cp
 			| cprevious
@@ -909,6 +924,7 @@ repository:
 			| cs
 			| cuna
 			| cunabbrev
+			| cun
 			| cw
 			| cwindow
 			| d
@@ -954,6 +970,7 @@ repository:
 			| dli
 			| dlist
 			| dl
+			| doaut
 			| doau
 			| do
 			| dp
@@ -1056,6 +1073,7 @@ repository:
 			| ilist
 			| imapc
 			| imapclear
+			| inor
 			| intro
 			| in
 			| is
@@ -1086,18 +1104,26 @@ repository:
 			| list
 			| la
 			| last
+			| lab
+			| labove
 			| lad
 			| laddexpr
 			| laddb
 			| laddbuffer
 			| laddf
 			| laddfile
+			| laf
+			| lafter
 			| lan
 			| language
 			| later
 			| lat
 			| lb
 			| lbuffer
+			| lbe
+			| lbefore
+			| lbel
+			| lbelow
 			| lbo
 			| lbottom
 			| lcd?
@@ -1141,6 +1167,7 @@ repository:
 			| lmake?
 			| lmapc
 			| lmapclear
+			| lma
 			| lne
 			| lnext
 			| lnew
@@ -1314,6 +1341,8 @@ repository:
 			| redraw
 			| redraws
 			| redrawstatus
+			| redrawt
+			| redrawtabline
 			| reg
 			| registers
 			| res
@@ -1382,6 +1411,8 @@ repository:
 			| scriptnames
 			| scripte
 			| scriptencoding
+			| scriptv
+			| scriptversion
 			| scscope
 			| scs
 			| sc
@@ -1526,6 +1557,9 @@ repository:
 			| tab
 			| tags
 			| tcl?
+			| tcd
+			| tch
+			| tchdir
 			| tcldo?
 			| tclf
 			| tclfile
@@ -1541,6 +1575,12 @@ repository:
 			| tjump
 			| tl
 			| tlast
+			| tlmenu
+			| tlm
+			| tlnoremenu
+			| tln
+			| tlunmenu
+			| tlu
 			| tm
 			| tmenu
 			| tmap?
@@ -1623,8 +1663,6 @@ repository:
 			| wqa
 			| wqall
 			| wq
-			| ws
-			| wsverb
 			| wundo
 			| wv
 			| wviminfo
@@ -1639,6 +1677,8 @@ repository:
 			| xnoremenu
 			| xnoreme
 			| xprop
+			| xr
+			| xrestore
 			| xunmenu
 			| xunme
 			| xwininfo
@@ -1762,13 +1802,16 @@ repository:
 			| assert_true
 			| atan2
 			| atan
+			| balloon_gettext
 			| balloon_show
 			| balloon_split
 			| browsedir
 			| browse
+			| bufadd
 			| bufexists
 			| buflisted
 			| bufloaded
+			| bufload
 			| bufname
 			| bufnr
 			| bufwinid
@@ -1789,6 +1832,7 @@ repository:
 			| ch_logfile
 			| ch_log
 			| ch_open
+			| ch_readblob
 			| ch_readraw
 			| ch_read
 			| ch_sendexpr
@@ -1797,11 +1841,13 @@ repository:
 			| ch_status
 			| changenr
 			| char2nr
+			| chdir
 			| cindent
 			| clearmatches
 			| col
 			| complete_add
 			| complete_check
+			| complete_info
 			| complete
 			| confirm
 			| copy
@@ -1818,6 +1864,7 @@ repository:
 			| diff_filler
 			| diff_hlID
 			| empty
+			| environ
 			| escape
 			| eval
 			| eventhandler
@@ -1825,6 +1872,7 @@ repository:
 			| execute
 			| exepath
 			| exists
+			| expandcmd
 			| expand
 			| exp
 			| extend
@@ -1862,6 +1910,7 @@ repository:
 			| getcompletion
 			| getcurpos
 			| getcwd
+			| getenv
 			| getfontname
 			| getfperm
 			| getfsize
@@ -1879,6 +1928,7 @@ repository:
 			| gettabinfo
 			| gettabvar
 			| gettabwinvar
+			| gettagstack
 			| getwininfo
 			| getwinposx
 			| getwinposy
@@ -1911,6 +1961,7 @@ repository:
 			| insert
 			| invert
 			| isdirectory
+			| isinf
 			| islocked
 			| isnan
 			| items
@@ -1932,6 +1983,10 @@ repository:
 			| line2byte
 			| line
 			| lispindent
+			| list2str
+			| listener_add
+			| listener_flush
+			| listener_remove
 			| localtime
 			| log10
 			| log
@@ -1958,18 +2013,45 @@ repository:
 			| or
 			| pathshorten
 			| perleval
+			| popup_atcursor
+			| popup_beval
+			| popup_clear
+			| popup_close
+			| popup_create
+			| popup_dialog
+			| popup_filter_menu
+			| popup_filter_yesno
+			| popup_getoptions
+			| popup_getpos
+			| popup_hide
+			| popup_menu
+			| popup_move
+			| popup_notification
+			| popup_setoptions
+			| popup_settext
+			| popup_show
 			| pow
 			| prevnonblank
 			| printf
-			| prompt_addtext
 			| prompt_setcallback
 			| prompt_setinterrupt
 			| prompt_setprompt
+			| prop_add
+			| prop_clear
+			| prop_find
+			| prop_list
+			| prop_remove
+			| prop_type_add
+			| prop_type_change
+			| prop_type_delete
+			| prop_type_get
+			| prop_type_list
 			| pumvisible
 			| py3eval
 			| pyeval
 			| pyxeval
 			| range
+			| readdir
 			| readfile
 			| reg_executing
 			| reg_recording
@@ -1988,10 +2070,14 @@ repository:
 			| resolve
 			| reverse
 			| round
+			| rubyeval
 			| screenattr
+			| screenchars
 			| screenchar
 			| screencol
+			| screenpos
 			| screenrow
+			| screenstring
 			| searchdecl
 			| searchpairpos
 			| searchpair
@@ -2003,6 +2089,7 @@ repository:
 			| setbufvar
 			| setcharsearch
 			| setcmdpos
+			| setenv
 			| setfperm
 			| setline
 			| setloclist
@@ -2012,20 +2099,35 @@ repository:
 			| setreg
 			| settabvar
 			| settabwinvar
+			| settagstack
 			| setwinvar
 			| sha256
 			| shellescape
 			| shiftwidth
+			| sign_define
+			| sign_getdefined
+			| sign_getplaced
+			| sign_jump
+			| sign_placelist
+			| sign_place
+			| sign_undefine
+			| sign_unplacelist
+			| sign_unplace
 			| simplify
 			| sinh
 			| sin
 			| sort
+			| sound_clear
+			| sound_playevent
+			| sound_playfile
+			| sound_stop
 			| soundfold
 			| spellbadword
 			| spellsuggest
 			| split
 			| sqrt
 			| str2float
+			| str2list
 			| str2nr
 			| strcharpart
 			| strchars
@@ -2041,6 +2143,8 @@ repository:
 			| strwidth
 			| submatch
 			| substitute
+			| swapinfo
+			| swapname
 			| synIDattr
 			| synIDtrans
 			| synID
@@ -2083,14 +2187,21 @@ repository:
 			| test_autochdir
 			| test_feedinput
 			| test_garbagecollect_now
+			| test_garbagecollect_soon
+			| test_getvalue
 			| test_ignore_error
+			| test_null_blob
 			| test_null_channel
 			| test_null_dict
 			| test_null_job
 			| test_null_list
 			| test_null_partial
 			| test_null_string
+			| test_option_not_set
 			| test_override
+			| test_refcount
+			| test_scrollbar
+			| test_setmouse
 			| test_settime
 			| timer_info
 			| timer_pause
@@ -2110,6 +2221,7 @@ repository:
 			| virtcol
 			| visualmode
 			| wildmenumode
+			| win_execute
 			| win_findbuf
 			| win_getid
 			| win_gotoid
@@ -2119,6 +2231,7 @@ repository:
 			| winbufnr
 			| wincol
 			| winheight
+			| winlayout
 			| winline
 			| winnr
 			| winrestcmd
@@ -2746,7 +2859,9 @@ repository:
 			| invmagic
 			| invma
 			| invmh
+			| invmle
 			| invml
+			| invmodelineexpr
 			| invmodeline
 			| invmodifiable
 			| invmodified
@@ -2926,12 +3041,14 @@ repository:
 			| mh
 			| mis
 			| mkspellmem
+			| mle
 			| mls
 			| ml
 			| mmd
 			| mmp
 			| mmt
 			| mm
+			| modelineexpr
 			| modelines
 			| modeline
 			| modifiable
@@ -3082,7 +3199,9 @@ repository:
 			| nomagic
 			| noma
 			| nomh
+			| nomle
 			| noml
+			| nomodelineexpr
 			| nomodeline
 			| nomodifiable
 			| nomodified
@@ -3441,13 +3560,17 @@ repository:
 			| t_RF
 			| t_RI
 			| t_RS
+			| t_RT
 			| t_RV
+			| t_Ri
 			| t_SC
 			| t_SH
 			| t_SI
 			| t_SR
+			| t_ST
 			| t_Sb
 			| t_Sf
+			| t_Si
 			| t_Te
 			| t_Ts
 			| t_VS
@@ -3517,6 +3640,7 @@ repository:
 			| tabstop
 			| tagbsearch
 			| tagcase
+			| tagfunc
 			| taglength
 			| tagrelative
 			| tagstack
@@ -3538,11 +3662,13 @@ repository:
 			| termwinkey
 			| termwinscroll
 			| termwinsize
+			| termwintype
 			| term
 			| terse
 			| textauto
 			| textmode
 			| textwidth
+			| tfu
 			| tf
 			| tgc
 			| tgst
@@ -3578,6 +3704,7 @@ repository:
 			| twk
 			| twsl
 			| tws
+			| twt
 			| tw
 			| tx
 			| uc
@@ -3617,6 +3744,7 @@ repository:
 			| wa
 			| wb
 			| wcm
+			| wcr
 			| wc
 			| wd
 			| weirdinvert
@@ -3635,6 +3763,7 @@ repository:
 			| wildoptions
 			| wim
 			| winaltkeys
+			| wincolor
 			| window
 			| winfixheight
 			| winfixwidth
@@ -3677,12 +3806,14 @@ repository:
 		match: """(?x) \\b
 			( Arguments
 			| Break
+			| Cfilter
 			| Clear
 			| Continue
 			| DiffOrig
 			| Evaluate
 			| Finish
 			| Gdb
+			| Lfilter
 			| Man
 			| N
 			| Next
