@@ -1005,6 +1005,7 @@ repository:
 			| endw
 			| endwhile
 			| enew?
+			| eval
 			| exit?
 			| exu
 			| exusage
