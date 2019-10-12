@@ -66,8 +66,13 @@ repository:
 		end:   "`"
 		beginCaptures: 0: name: "punctuation.section.begin.embedded.vim-snippet"
 		endCaptures:   0: name: "punctuation.section.end.embedded.vim-snippet"
-		contentName: "source.embedded.viml"
-		patterns: [include: "source.viml"]
+		patterns: [{
+			# Clamp grammar to prevent runaway highlighting
+			name: "source.embedded.viml"
+			match: "(?:[^\\\\`]|\\\\.)+"
+			captures:
+				0: patterns: [include: "source.viml"]
+		}]
 
 	
 	# Snippet definition

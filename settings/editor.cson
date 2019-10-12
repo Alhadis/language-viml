@@ -8,3 +8,4 @@
 	editor:
 		commentStart: "# "
 		increaseIndentPattern: '^snippet.+(?<!")'
+		tabType: "hard"
