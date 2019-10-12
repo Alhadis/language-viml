@@ -1,0 +1,164 @@
+name: "Vim Snippet"
+scopeName: "source.vim-snippet"
+fileTypes: [
+	"snip"
+	"snippet"
+	"snippets"
+]
+firstLineMatch: """(?x)
+
+	# Modeline
+	(?i:
+		# Vim
+		(?:(?:\\s|^)vi(?:m[<=>]?\\d+|m)?|\\sex)(?=:(?=\\s*set?\\s[^\\n:]+:)|:(?!\\s* set?\\s))
+		(?:(?:\\s|\\s*:\\s*)\\w*(?:\\s*=(?:[^\\n\\\\\\s]|\\\\.)*)?)*[\\s:]
+		(?:filetype|ft|syntax)\\s*=
+			(snippets?|snipmate|ultisnips?|neosnippet)
+		(?=\\s|:|$)
+		
+		|
+		
+		# Emacs
+		-\\*-(?:\\s*(?=[^:;\\s]+\\s*-\\*-)|(?:.*?[;\\s]|(?<=-\\*-))mode\\s*:\\s*)
+			(?:snipmate|ultisnips?|neosnippet|vim-?snippets?)
+		(?=[\\s;]|(?<![-*])-\\*-).*?-\\*-
+	)
+"""
+patterns: [include: "#main"]
+
+repository:
+	main:
+		patterns: [
+			{include: "#snippet"}
+			{include: "#comment"}
+			{include: "#extends"}
+			{include: "#expression"}
+			{include: "#version"}
+		]
+	
+	
+	# Comment lines
+	comment:
+		name:  "comment.line.number-sign.vim-snippet"
+		begin: "^#"
+		end:   "$"
+		beginCaptures:
+			0: name: "punctuation.definition.comment.number-sign.vim-snippet"
+	
+	
+	# UltiSnips-style `extends' directive
+	extends:
+		name:  "meta.extends.directive.vim-snippet"
+		begin: "^(extends)(?=\\s|$)"
+		end:   "$"
+		beginCaptures:
+			1: name: "keyword.control.extends.directive.vim-snippet"
+		patterns: [
+			{match: ",",        name: "punctuation.separator.delimiter.comma.vim-snippet"}
+			{match: "[^,\\s]+", name: "entity.other.inherited-class.vim-snippet"}
+		]
+	
+	
+	# Embedded Vim script
+	expression:
+		name: "string.interpolated.vim-snippet"
+		begin: "`"
+		end:   "`"
+		beginCaptures: 0: name: "punctuation.section.begin.embedded.vim-snippet"
+		endCaptures:   0: name: "punctuation.section.end.embedded.vim-snippet"
+		contentName: "source.embedded.viml"
+		patterns: [include: "source.viml"]
+
+	
+	# Snippet definition
+	snippet:
+		name:  "meta.snippet.vim-snippet"
+		begin: "^(snippet)(!{0,2})\\s+((\\S+))(?:\\s+(\\S.*?)\\s*$)?"
+		end:   "(?=^\\S)"
+		beginCaptures:
+			1: name: "storage.type.class.vim-snippet"
+			2: name: "keyword.operator.scope.modifier.vim-snippet"
+			3: name: "entity.name.trigger.vim-snippet"
+			4: name: "markup.heading.vim-snippet" # Hack for GitHub's crappy colour scheme
+			5: name: "entity.other.description.vim-snippet"
+		contentName: "meta.snippet-body.vim-snippet"
+		patterns: [
+			{include: "#escape"}
+			{include: "#expression"}
+			{include: "#tabStop"}
+		]
+
+
+	# Backslashed anything
+	escape:
+		name: "constant.character.escape.dollar-sign.vim-snippet"
+		match: "(\\\\)."
+		captures:
+			1: name: "punctuation.definition.escape.vim-snippet"
+
+
+	# Stuff that groks like $1, ${2}, ${3:etc}
+	tabStop:
+		patterns: [{
+			# Unbraced: $1
+			name:  "variable.language.tab-stop.$2-nth.vim-snippet"
+			match: "(\\$)([0-9]+)"
+			captures:
+				1: name: "punctuation.definition.variable.vim-snippet"
+		},{
+			# Braced: ${2}
+			name:  "variable.language.tab-stop.$2-nth.vim-snippet"
+			match: "(\\${)([0-9]+)(})"
+			captures:
+				1: name: "punctuation.definition.variable.begin.vim-snippet"
+				3: name: "punctuation.definition.variable.end.vim-snippet"
+		},{
+			# Braced: ${3:with placeholder}
+			name:  "variable.language.tab-stop.$2-nth.placeholder.vim-snippet"
+			begin: "(\\${)([0-9]+)(:)"
+			end:   "}"
+			beginCaptures:
+				1: name: "punctuation.definition.variable.begin.vim-snippet"
+				3: name: "keyword.operator.assignment.key-value.vim-snippet"
+			endCaptures:
+				0: name: "punctuation.definition.variable.end.vim-snippet"
+			contentName: "markup.inserted.placeholder.vim-snippet"
+			patterns: [
+				{include: "#visual"}
+				{include: "#escape"}
+				{include: "#tabStop"}
+			]
+		}]
+
+
+	# Parser version directive
+	version:
+		match: "^(version)\\s+(\\d)"
+		captures:
+			1: name: "keyword.control.version.directive.vim-snippet"
+			2: name: "constant.numeric.integer.int.vim-snippet"
+		
+
+	# Weird `${VISUAL}` thingie
+	visual:
+		patterns: [{
+			# $VISUAL
+			name:  "constant.language.visual-content.unbraced.vim-snippet"
+			match: "(\\$)VISUAL"
+			captures:
+				1: name: "punctuation.definition.vim-snippet"
+		},{
+			# ${VISUAL}
+			name: "constant.language.visual-content.braced.vim-snippet"
+			match: "(\\${)VISUAL(})"
+			captures:
+				1: name: "punctuation.definition.begin.vim-snippet"
+				2: name: "punctuation.definition.end.vim-snippet"
+		},{
+			# {VISUAL}
+			name: "constant.language.visual-content.v0-syntax.vim-snippet"
+			match: "({)VISUAL(})"
+			captures:
+				1: name: "punctuation.definition.begin.vim-snippet"
+				2: name: "punctuation.definition.end.vim-snippet"
+		}]
