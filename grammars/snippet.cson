@@ -32,6 +32,8 @@ repository:
 			{include: "#snippet"}
 			{include: "#comment"}
 			{include: "#extends"}
+			{include: "#global"}
+			{include: "#priority"}
 			{include: "#expression"}
 			{include: "#version"}
 		]
@@ -59,34 +61,141 @@ repository:
 		]
 	
 	
-	# Embedded Vim script
+	# Embedded expressions
+	# - NB: We “clamp” all embedded grammars to stop runaway highlighting
 	expression:
-		name: "string.interpolated.vim-snippet"
-		begin: "`"
-		end:   "`"
-		beginCaptures: 0: name: "punctuation.section.begin.embedded.vim-snippet"
-		endCaptures:   0: name: "punctuation.section.end.embedded.vim-snippet"
 		patterns: [{
-			# Clamp grammar to prevent runaway highlighting
-			name: "source.embedded.viml"
-			match: "(?:[^\\\\`]|\\\\.)+"
-			captures:
-				0: patterns: [include: "source.viml"]
+			# Python code (UltiSnips)
+			name: "string.interpolated.python-code.vim-snippet"
+			begin: "(`)(!p)"
+			end:   "`"
+			beginCaptures:
+				1: name: "punctuation.section.begin.embedded.vim-snippet"
+				2: name: "keyword.operator.use-python.vim-snippet"
+			endCaptures:
+				0: name: "punctuation.section.end.embedded.vim-snippet"
+			patterns: [{
+				name: "source.embedded.python"
+				match: "(?:[^\\\\`]|\\\\.)+"
+				captures:
+					0: patterns: [include: "source.python"]
+			}]
+		},{
+			# Vim script (UltiSnips)
+			name: "string.interpolated.viml-code.vim-snippet"
+			begin: "(`)(!v)"
+			end:   "`"
+			beginCaptures:
+				1: name: "punctuation.section.begin.embedded.vim-snippet"
+				2: name: "keyword.operator.use-viml.vim-snippet"
+			endCaptures:
+				0: name: "punctuation.section.end.embedded.vim-snippet"
+			patterns: [{
+				name: "source.embedded.viml"
+				match: "(?:[^\\\\`]|\\\\.)+"
+				captures:
+					0: patterns: [include: "source.viml"]
+			}]
+		},{
+			# Default: Vim script in SnipMate, shell in UltiSnips
+			name: "string.interpolated.vim-snippet"
+			begin: "`"
+			end:   "`"
+			beginCaptures: 0: name: "punctuation.section.begin.embedded.vim-snippet"
+			endCaptures:   0: name: "punctuation.section.end.embedded.vim-snippet"
+			patterns: [{
+				name: "source.embedded.viml"
+				match: "(?:[^\\\\`]|\\\\.)+"
+				captures:
+					0: patterns: [include: "source.viml"]
+			}]
 		}]
 
+
+	# UltiSnip: Define a global snippet using embedded Python
+	global:
+		name:  "meta.ultisnip.global.vim-snippet"
+		begin: "^(global)\\s+(!p)[ \\t]*$"
+		end:   "^(endglobal)(?=\\s|$)"
+		beginCaptures:
+			1: name: "keyword.control.global.begin.vim-snippet"
+			2: name: "keyword.operator.use-python.vim-snippet"
+		endCaptures:
+			1: name: "keyword.control.global.end.vim-snippet"
+		contentName: "source.embedded.python"
+		patterns: [include: "source.python"]
+		
+		
 	
 	# Snippet definition
 	snippet:
 		name:  "meta.snippet.vim-snippet"
-		begin: "^(snippet)(!{0,2})\\s+((\\S+))(?:\\s+(\\S.*?)\\s*$)?"
-		end:   "(?=^\\S)"
+		begin: "^(snippet)(!{0,2})(?=[ \\t]|$)"
+		end:   "(?=^\\S)|(?<=endsnippet)(?=\\s|$)"
 		beginCaptures:
 			1: name: "storage.type.class.vim-snippet"
 			2: name: "keyword.operator.scope.modifier.vim-snippet"
-			3: name: "entity.name.trigger.vim-snippet"
-			4: name: "markup.heading.vim-snippet" # Hack for GitHub's crappy colour scheme
-			5: name: "entity.other.description.vim-snippet"
+		patterns: [
+			{include: "#snippetHead"}
+			{include: "#snippetNeck"}
+			{include: "#snippetBody"}
+		]
+	
+	
+	# Stuff matched on the line following the `snippet` keyword
+	snippetHead:
+		begin: "\\G"
+		end:   "(?=^)|(?=\\s*$)"
+		patterns: [{
+			# Expansion trigger
+			begin: "\\G\\s*((\\S+))"
+			end:   "(?=^|\\S)"
+			beginCaptures:
+				1: name: "entity.name.trigger.vim-snippet"
+				2: name: "markup.heading.vim-snippet" # Hack for GitHub's crappy colour scheme
+			patterns: [include: "#snippetNeck"]
+		},{
+			# Quoted description
+			begin: '(?<=\\s)(")[^"]*(")'
+			end:   "(?=^|\\S)"
+			beginCaptures:
+				0: name: "string.quoted.double.description.vim-snippet"
+				1: name: "punctuation.definition.string.begin.vim-snippet"
+				2: name: "punctuation.definition.string.end.vim-snippet"
+			patterns: [include: "#snippetNeck"]
+		},{
+			# UltiSnips options
+			begin: "(?<=\\s)[Abeimrstw]+(?=\\s*$)"
+			end:   "(?=^|\\S)"
+			beginCaptures:
+				0: name: "constant.language.other.options.vim-snippet"
+			patterns: [include: "#snippetNeck"]
+		},{
+			# Unquoted description
+			begin: "(?<=\\s)\\S+"
+			end:   "(?=^|\\S)"
+			beginCaptures:
+				0: name: "entity.other.description.vim-snippet"
+			patterns: [include: "#snippetNeck"]
+		}, include: "#snippetNeck"]
+	
+	
+	# Hack to differentiate between indented and unindented snippet bodies
+	snippetNeck:
+		begin: "\\G\\s*$\\s*"
+		end:   "(?=^\\s)|(?<=endsnippet)(?=\\s|$)"
 		contentName: "meta.snippet-body.vim-snippet"
+		patterns: [{
+			begin: "(?<=^)(?!endsnippet|(?:abbr|alias|regexp|options)\\s+\\S)(?=\\S)"
+			end:   "^(endsnippet)(?=$|[ \\t])"
+			endCaptures:
+				1: name: "storage.type.class.end.vim-snippet"
+			patterns: [include: "#snippetBody"]
+		}]
+	
+	
+	# Stuff matched inside a snippet's body
+	snippetBody:
 		patterns: [
 			{include: "#escape"}
 			{include: "#expression"}
@@ -101,6 +210,18 @@ repository:
 		captures:
 			1: name: "punctuation.definition.escape.vim-snippet"
 
+
+	# UltiSnips: Declare the file's priority in snippet expansion order
+	priority:
+		begin: "^priority(?=\\s|$)"
+		end:   "$"
+		beginCaptures:
+			0: name: "keyword.control.version.directive.vim-snippet"
+		patterns: [
+			name: "constant.numeric.integer.int.vim-snippet"
+			match: "[-+]?[\\d.]+"
+		]
+		
 
 	# Stuff that groks like $1, ${2}, ${3:etc}
 	tabStop:
