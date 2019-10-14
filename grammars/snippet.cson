@@ -186,11 +186,43 @@ repository:
 		end:   "(?=^\\s)|(?<=endsnippet)(?=\\s|$)"
 		contentName: "meta.snippet-body.vim-snippet"
 		patterns: [{
-			begin: "(?<=^)(?!endsnippet|(?:abbr|alias|regexp|options)\\s+\\S)(?=\\S)"
+			name:  "meta.snippet-neck.vim-snippet"
+			begin: "(?<=^)(?=\\S)(?!endsnippet|(?:abbr|alias|regexp|options)\\s+\\S)"
 			end:   "^(endsnippet)(?=$|[ \\t])"
 			endCaptures:
 				1: name: "storage.type.class.end.vim-snippet"
 			patterns: [include: "#snippetBody"]
+		},{
+			# NeoSnippet fields
+			name:  "meta.snippet-neck.vim-snippet"
+			begin: "(?<=^)(?=(?:abbr|alias|regexp|options)\\s+\\S)"
+			end:   "(?=^\\s)"
+			patterns: [{
+				name:  "meta.neosnippet-field.vim-snippet"
+				match: "(?:\\G|^)(abbr|alias|options)\\s+(\\S.*)"
+				captures:
+					1: name: "storage.type.var.$1.vim-snippet"
+					2: name: "entity.other.neosnippet-keyword.vim-snippet"
+			},{
+				name:  "meta.neosnippet-field.vim-snippet"
+				match: """(?x) (?:\\G|^)
+					(regexp) \\s+
+					( (')([^']*)(') # Single-quoted
+					| (")([^"]*)(") # Double-quoted
+					| ([^'"\\s]\\.) # Unquoted (?)
+					)
+				"""
+				captures:
+					1: name: "storage.type.var.regex.vim-snippet"
+					2: name: "string.regexp.quoted.single.vim-snippet"
+					3: name: "punctuation.definition.string.regexp.begin.vim-snippet"
+					4: patterns: [include: "source.regexp"]
+					5: name: "punctuation.definition.string.regexp.end.vim-snippet"
+					6: name: "punctuation.definition.string.regexp.begin.vim-snippet"
+					7: patterns: [include: "source.regexp"]
+					8: name: "punctuation.definition.string.regexp.end.vim-snippet"
+					9: patterns: [include: "source.regexp"]
+			}]
 		}]
 	
 	
