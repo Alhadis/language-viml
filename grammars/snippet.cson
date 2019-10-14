@@ -191,7 +191,6 @@ repository:
 			1: name: "storage.type.class.end.vim-snippet"
 		contentName: "meta.snippet-body.vim-snippet"
 		patterns: [{
-			name:  "meta.snippet-neck.vim-snippet"
 			begin: "(?<=^)(?=\\S)(?!endsnippet|(?:abbr|alias|regexp|options)\\s+\\S)"
 			end:   "^(endsnippet)(?=$|[ \\t])"
 			endCaptures:
@@ -199,7 +198,6 @@ repository:
 			patterns: [include: "#snippetBody"]
 		},{
 			# NeoSnippet fields
-			name:  "meta.snippet-neck.vim-snippet"
 			begin: "(?<=^)(?=(?:abbr|alias|regexp|options)\\s+\\S)"
 			end:   "(?=^\\s)"
 			patterns: [{
