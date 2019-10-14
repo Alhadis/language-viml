@@ -36,6 +36,7 @@ repository:
 			{include: "#priority"}
 			{include: "#expression"}
 			{include: "#version"}
+			{include: "#ultisnip"}
 		]
 	
 	
@@ -131,10 +132,12 @@ repository:
 	snippet:
 		name:  "meta.snippet.vim-snippet"
 		begin: "^(snippet)(!{0,2})(?=[ \\t]|$)"
-		end:   "(?=^\\S)|(?<=endsnippet)(?=\\s|$)"
+		end:   "^(endsnippet)\\s*$|(?=^\\S)|(?<=endsnippet)(?=\\s|$)"
 		beginCaptures:
 			1: name: "storage.type.class.vim-snippet"
 			2: name: "keyword.operator.scope.modifier.vim-snippet"
+		endCaptures:
+			1: name: "storage.type.class.end.vim-snippet"
 		patterns: [
 			{include: "#snippetHead"}
 			{include: "#snippetNeck"}
@@ -183,7 +186,9 @@ repository:
 	# Hack to differentiate between indented and unindented snippet bodies
 	snippetNeck:
 		begin: "\\G\\s*$\\s*"
-		end:   "(?=^\\s)|(?<=endsnippet)(?=\\s|$)"
+		end:   "^(endsnippet)\\s*$|(?=^\\s)|(?<=endsnippet)(?=\\s|$)"
+		endCaptures:
+			1: name: "storage.type.class.end.vim-snippet"
 		contentName: "meta.snippet-body.vim-snippet"
 		patterns: [{
 			name:  "meta.snippet-neck.vim-snippet"
@@ -285,6 +290,37 @@ repository:
 				{include: "#visual"}
 				{include: "#escape"}
 				{include: "#tabStop"}
+			]
+		}]
+
+
+	# UltiSnip-only features
+	ultisnip:
+		patterns: [{
+			# Clear directive
+			name:  "meta.clear.directive.vim-snippet"
+			begin: "^(clearsnippets)(?=\\s|$)"
+			end:   "$"
+			beginCaptures:
+				1: name: "keyword.control.clearsnippets.directive.vim-snippet"
+			patterns: [
+				name: "variable.parameter.function.vim-snippet"
+				match: "[^\\s]+"
+			]
+		},{
+			# Directives which use quoted Python expressions
+			name:  "meta.$1.directive.vim-snippet"
+			begin: "^(context|pre_expand|post_expand|post_jump)(?=[ \\t]|$)"
+			end:   "$"
+			beginCaptures:
+				1: name: "keyword.control.$1.directive.vim-snippet"
+			patterns: [
+				name: "string.quoted.double.python-code.vim-snippet"
+				match: '(")([^"]*)(")'
+				captures:
+					1: name: "punctuation.definition.string.begin.vim-snippet"
+					2: patterns: [include: "source.python"]
+					3: name: "punctuation.definition.string.end.vim-snippet"
 			]
 		}]
 
