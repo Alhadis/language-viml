@@ -291,6 +291,33 @@ repository:
 				{include: "#escape"}
 				{include: "#tabStop"}
 			]
+		},{
+			# Transformation
+			name:  "meta.transform.tab-stop.$2-nth.vim-snippet"
+			begin: "(\\${)([0-9]+)(?=/)"
+			end:   "}"
+			beginCaptures:
+				1: name: "punctuation.definition.variable.begin.vim-snippet"
+				2: name: "variable.language.tab-stop.vim-snippet"
+			endCaptures:
+				0: name: "punctuation.definition.variable.end.vim-snippet"
+			patterns: [{
+				name:  "string.regexp.transform.vim-snippet"
+				begin: "\\G/"
+				end:   "/"
+				beginCaptures: 0: name: "keyword.control.transform.begin.vim-snippet"
+				endCaptures:   0: name: "keyword.control.transform.middle.vim-snippet"
+				contentName: "markup.deleted.transform.vim-snippet"
+				patterns: [include: "source.regexp"]
+			},{
+				contentName: "markup.inserted.transform.vim-snippet"
+				begin: "(?<=/)"
+				end:   "(/)([gima]*)"
+				endCaptures:
+					1: name: "keyword.control.transform.end.vim-snippet"
+					2: name: "storage.modifier.transform.option.vim-snippet"
+				patterns: [include: "source.regexp"]
+			}]
 		}]
 
 
