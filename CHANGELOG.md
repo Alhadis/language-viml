@@ -6,6 +6,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [Unpublished]: ../../compare/v1.1.10...HEAD
 
 
+[Unpublished]
+------------------------------------------------------------------------
+* __Added:__ Syntax highlighting for SnipMate, UltiSnips, and NeoSnippet
+
+
 [v1.1.10]
 ------------------------------------------------------------------------
 **July 1st, 2019**  
