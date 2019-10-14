@@ -36,7 +36,8 @@ repository:
 			{include: "#priority"}
 			{include: "#expression"}
 			{include: "#version"}
-			{include: "#ultisnip"}
+			{include: "#ultisnips"}
+			{include: "#neosnippet"}
 		]
 	
 	
@@ -49,13 +50,13 @@ repository:
 			0: name: "punctuation.definition.comment.number-sign.vim-snippet"
 	
 	
-	# UltiSnips-style `extends' directive
+	# Include another file
 	extends:
-		name:  "meta.extends.directive.vim-snippet"
-		begin: "^(extends)(?=\\s|$)"
+		name:  "meta.$1.directive.vim-snippet"
+		begin: "^(extends|include|source)(?=\\s|$)"
 		end:   "$"
 		beginCaptures:
-			1: name: "keyword.control.extends.directive.vim-snippet"
+			1: name: "keyword.control.$1.directive.vim-snippet"
 		patterns: [
 			{match: ",",        name: "punctuation.separator.delimiter.comma.vim-snippet"}
 			{match: "[^,\\s]+", name: "entity.other.inherited-class.vim-snippet"}
@@ -125,7 +126,36 @@ repository:
 			1: name: "keyword.control.global.end.vim-snippet"
 		contentName: "source.embedded.python"
 		patterns: [include: "source.python"]
-		
+	
+	
+	# NeoSnippet-specific features
+	neosnippet:
+		patterns: [{
+			name:  "meta.neosnippet-field.vim-snippet"
+			match: "(?:\\G|^)(abbr|alias|delete|options)\\s+(\\S.*)"
+			captures:
+				1: name: "keyword.operator.$1.vim-snippet"
+				2: name: "entity.other.neosnippet-keyword.vim-snippet"
+		},{
+			name:  "meta.neosnippet-field.vim-snippet"
+			match: """(?x) (?:\\G|^)
+				(regexp) \\s+
+				( (')([^']*)(') # Single-quoted
+				| (")([^"]*)(") # Double-quoted
+				| ([^'"\\s]\\.) # Unquoted (?)
+				)
+			"""
+			captures:
+				1: name: "keyword.operator.regex.vim-snippet"
+				2: name: "string.regexp.quoted.single.vim-snippet"
+				3: name: "punctuation.definition.string.regexp.begin.vim-snippet"
+				4: patterns: [include: "source.regexp"]
+				5: name: "punctuation.definition.string.regexp.end.vim-snippet"
+				6: name: "punctuation.definition.string.regexp.begin.vim-snippet"
+				7: patterns: [include: "source.regexp"]
+				8: name: "punctuation.definition.string.regexp.end.vim-snippet"
+				9: patterns: [include: "source.regexp"]
+		}]
 		
 	
 	# Snippet definition
@@ -200,32 +230,7 @@ repository:
 			# NeoSnippet fields
 			begin: "(?<=^)(?=(?:abbr|alias|regexp|options)\\s+\\S)"
 			end:   "(?=^\\s)"
-			patterns: [{
-				name:  "meta.neosnippet-field.vim-snippet"
-				match: "(?:\\G|^)(abbr|alias|options)\\s+(\\S.*)"
-				captures:
-					1: name: "storage.type.var.$1.vim-snippet"
-					2: name: "entity.other.neosnippet-keyword.vim-snippet"
-			},{
-				name:  "meta.neosnippet-field.vim-snippet"
-				match: """(?x) (?:\\G|^)
-					(regexp) \\s+
-					( (')([^']*)(') # Single-quoted
-					| (")([^"]*)(") # Double-quoted
-					| ([^'"\\s]\\.) # Unquoted (?)
-					)
-				"""
-				captures:
-					1: name: "storage.type.var.regex.vim-snippet"
-					2: name: "string.regexp.quoted.single.vim-snippet"
-					3: name: "punctuation.definition.string.regexp.begin.vim-snippet"
-					4: patterns: [include: "source.regexp"]
-					5: name: "punctuation.definition.string.regexp.end.vim-snippet"
-					6: name: "punctuation.definition.string.regexp.begin.vim-snippet"
-					7: patterns: [include: "source.regexp"]
-					8: name: "punctuation.definition.string.regexp.end.vim-snippet"
-					9: patterns: [include: "source.regexp"]
-			}]
+			patterns: [include: "#neosnippet"]
 		}]
 	
 	
@@ -319,8 +324,8 @@ repository:
 		}]
 
 
-	# UltiSnip-only features
-	ultisnip:
+	# UltiSnips-specific features
+	ultisnips:
 		patterns: [{
 			# Clear directive
 			name:  "meta.clear.directive.vim-snippet"
