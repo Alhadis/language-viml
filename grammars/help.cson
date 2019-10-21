@@ -7,7 +7,7 @@ patterns: [{
 	name:  "meta.file-header.vim-help"
 	match: "(?i)\\A(\\*[#-)!+-~]+\\*)[ \\t]+(For\\s+Vim\\s+version\\s*[\\d.]+)[ \\t]+Last\\s+changed?:\\s*(\\S.*?)\\s*$"
 	captures:
-		1: patterns: [include: "#link"]
+		1: patterns: [include: "#tag"]
 		2: patterns: [include: "#vimVersion"]
 		3: name: "constant.numeric.date.last-changed.vim-help"
 
@@ -17,22 +17,116 @@ patterns: [{
 repository:
 	main:
 		patterns: [
+			{include: "#tag"}
 			{include: "#link"}
 			{include: "#manualTitle"}
+			{include: "#columnHeading"}
+			{include: "#sectionDelimiter"}
 			{include: "#vimVersion"}
 		]
 	
+	
+	# Heading~
+	columnHeading:
+		name:  "markup.heading.column-title.vim-help"
+		match: "^\\s*\\S.*(~)$"
+		captures:
+			1: name: "keyword.operator.column-marker.tilde.vim-help"
+
+	
+	# |link|
 	link:
+		name: "meta.link.vim-help"
+		match: '(\\|)([^"*|]+)(\\|)'
+		captures:
+			1: name: "meta.separator.punctuation.link.begin.vim-help"
+			2: name: "constant.other.link.vim-help"
+			3: name: "meta.separator.punctuation.link.end.vim-help"
+
+
+	# “Special” keywords (according to `help.vim`)
+	special:
 		patterns: [{
-			name: "meta.link.vim-help"
-			match: "(\\*)([#-)!+-~]+)(\\*)"
+			name: "entity.name.keyword.vim-help"
+			match: "(<)N(>)"
 			captures:
-				1: name: "punctuation.definition.begin.vim-help"
-				2: name: "storage.link.hypertext.vim-help"
-				3: name: "punctuation.definition.end.vim-help"
+				1: name: "punctuation.definition.bracket.angle.begin.vim-help"
+				2: name: "punctuation.definition.bracket.angle.end.vim-help"
+		},{
+			name: "entity.name.keyword.vim-help"
+			match: "(<)N(?=\\.(?:$|\\s))"
+			captures:
+				1: name: "punctuation.definition.bracket.angle.begin.vim-help"
+		},{
+			name: "entity.name.keyword.vim-help"
+			match: "(\\()N(>)"
+			captures:
+				1: name: "punctuation.definition.bracket.round.begin.vim-help"
+				2: name: "punctuation.definition.bracket.angle.end.vim-help"
+		},{
+			name: "entity.name.keyword.vim-help"
+			match: "(\\[)N(\\])"
+			captures:
+				1: name: "punctuation.definition.bracket.square.begin.vim-help"
+				2: name: "punctuation.definition.bracket.square.end.vim-help"
+		},{
+			match: "(N)  (N)"
+			captures:
+				1: name: "entity.name.keyword.vim-help"
+				2: name: "entity.name.keyword.vim-help"
+		},{
+			name: "entity.name.keyword.vim-help"
+			match: "N(?=th|-1)"
+		},{
+			name: "entity.name.keyword.vim-help"
+			match: "({)[-a-zA-Z0-9'\"*+/:%#=\\[\\]<>.,]+(})"
+			captures:
+				1: name: "punctuation.definition.bracket.curly.begin.vim-help"
+				2: name: "punctuation.definition.bracket.curly.end.vim-help"
+		},{
+			name: "entity.name.keyword.vim-help"
+			match: "(?<=\\s)(\\[)[-a-z^A-Z0-9_]{2,}(\\])"
+			captures:
+				1: name: "punctuation.definition.bracket.square.begin.vim-help"
+				2: name: "punctuation.definition.bracket.square.end.vim-help"
+		},{
+			name: "entity.name.keyword.vim-help"
+			match: "(<)[-a-zA-Z0-9_]+(>)"
+			captures:
+				1: name: "punctuation.definition.bracket.angle.begin.vim-help"
+				2: name: "punctuation.definition.bracket.angle.end.vim-help"
+		},{
+			name: "entity.name.keyword.vim-help"
+			match: "(<)[SCM]-.(>)"
+			captures:
+				1: name: "punctuation.definition.bracket.angle.begin.vim-help"
+				2: name: "punctuation.definition.bracket.angle.end.vim-help"
+		},{
+			name: "entity.name.keyword.vim-help"
+			match: "(\\[)(?:\\+\\+opt|[-+]?num|\\+?cmd|addr|arguments|arg|count|group|ident|line|offset|range)(\\])"
+			captures:
+				1: name: "punctuation.definition.bracket.square.begin.vim-help"
+				2: name: "punctuation.definition.bracket.square.end.vim-help"
+		},{
+			name: "entity.name.keyword.vim-help"
+			match: "\\bCTRL(-)(?:.|Break|Del|Insert|PageDown|PageUp|({)char(}))"
+			captures:
+				1: name: "punctuation.delimiter.separator.dash.hyphen.vim-help"
+				2: name: "punctuation.definition.bracket.curly.begin.vim-help"
+				3: name: "punctuation.definition.bracket.curly.end.vim-help"
 		}]
+	
+	
+	# *tag-name*
+	tag:
+		name: "storage.link.hypertext.vim-help"
+		match: "(\\*)[#-)!+-~]+(\\*)(?=\\s|$)"
+		captures:
+			1: name: "punctuation.definition.begin.vim-help"
+			2: name: "punctuation.definition.end.vim-help"
 
 
+	# “VIM REFERENCE MANUAL  by Bring Moolah”
 	manualTitle:
 		name:  "markup.heading.manual-title.vim-help"
 		match: "^[ \\t]+(VIM REFERENCE.*)\\s*$"
@@ -40,8 +134,13 @@ repository:
 			1: name: "constant.other.title-text.vim-help"
 
 
-	# “For Vim version 8.1” string in file’s header
+	# Borders, dividers, whatever
+	sectionDelimiter:
+		name: "constant.other.section.delimiter.vim-help"
+		match: "^===.*===$|^---.*--$"
+
+
+	# “For Vim version X.X”
 	vimVersion:
 		name: "entity.other.vim-version.vim-help"
 		match: "\\bVim version [0-9][0-9.a-z]*"
-	
