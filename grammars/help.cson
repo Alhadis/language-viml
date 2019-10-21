@@ -19,12 +19,28 @@ repository:
 		patterns: [
 			{include: "#tag"}
 			{include: "#link"}
+			{include: "#special"}
+			{include: "#option"}
+			{include: "#command"}
+			{include: "#codeBlock"}
 			{include: "#manualTitle"}
 			{include: "#columnHeading"}
 			{include: "#sectionDelimiter"}
 			{include: "#vimVersion"}
+			{include: "#url"}
+			{include: "#other"}
 		]
-	
+
+
+	# Verbatim code-block
+	codeBlock:
+		name:  "meta.example.vim-help"
+		begin: "(?:(?<=\\s)|^)(>)$"
+		end:   "^(<)|(?=^\\S)"
+		beginCaptures: 1: name: "keyword.control.example.begin.vim-help"
+		endCaptures:   1: name: "keyword.control.example.end.vim-help"
+		contentName: "markup.raw.code.verbatim.vim-help"
+
 	
 	# Heading~
 	columnHeading:
@@ -33,7 +49,17 @@ repository:
 		captures:
 			1: name: "keyword.operator.column-marker.tilde.vim-help"
 
-	
+
+	# `:command`
+	command:
+		name:  "markup.raw.command.vim-help"
+		match: "(`)([^` \\t]+)(`)"
+		captures:
+			1: name: "punctuation.definition.link.begin.vim-help"
+			2: patterns: [include: "source.viml"]
+			3: name: "punctuation.definition.link.end.vim-help"
+
+
 	# |link|
 	link:
 		name: "meta.link.vim-help"
@@ -134,13 +160,83 @@ repository:
 			1: name: "constant.other.title-text.vim-help"
 
 
+	# 'singlequoted' Vim option
+	option:
+		patterns: [{
+			name:  "entity.name.tag.option.vim-help"
+			match: "(')[a-z]{2,}(')"
+			captures:
+				1: name: "punctuation.definition.begin.option.vim-help"
+				2: name: "punctuation.definition.end.option.vim-help"
+		}]
+
+
 	# Borders, dividers, whatever
 	sectionDelimiter:
 		name: "constant.other.section.delimiter.vim-help"
 		match: "^===.*===$|^---.*--$"
+
+	
+	# Web address
+	url:
+		name: "constant.other.reference.link.vim-help"
+		match: """(?x)
+			(?:(?:(?:https?|ftp|gopher)://|(?:mailto|file|news):)[^'\\x20\\t<>"]+
+			|(?:www|web|w3)[a-z0-9_-]*\\.[a-z0-9._-]+\\.[^'\\x20\\t<>"]+)
+			[a-zA-Z0-9/]
+		"""
 
 
 	# “For Vim version X.X”
 	vimVersion:
 		name: "entity.other.vim-version.vim-help"
 		match: "\\bVim version [0-9][0-9.a-z]*"
+
+
+	# Other... *things*, I don't even know how to group them.
+	other:
+		patterns: [{
+			# Warning (mild yellow/orange highlighting)
+			name: "markup.changed.${1:/downcase}.vim-help"
+			match: "\\b(DEPRECATED|WARNING|(?:Deprecated|Warning)(?=:))(:|\\b)"
+			captures:
+				2: name: "keyword.operator.assignment.key-value.colon.vim-help"
+		},{
+			# Error (angry red highlighting)
+			name:  "invalid.illegal.error.vim-help"
+			match: "\\t[* ]Error\\t+[a-z].*"
+			captures:
+				1: name: "punctuation.separator.list-item.marker.vim-help"
+		},{
+			# Task reminder (yellow in Vim; blue on GitHub)
+			name: "markup.ignored.todo.vim-help"
+			match: "\\t[* ]Todo\\t+[a-z].*"
+			captures:
+				1: name: "punctuation.separator.list-item.marker.vim-help"
+		},{
+			# Comment
+			name:  "comment.line.vim-help"
+			match: "\\t[* ](Comment)\\t+([a-z].*)"
+			captures:
+				1: name: "punctuation.separator.list-item.marker.vim-help"
+		},{
+			# Underlined text
+			name:  "constant.other.reference.link.vim-help"
+			match: "\\t[* ]Underlined\\t+[a-z].*"
+		},{
+			# And then... all of this:
+			name:  "meta.${2:/downcase}-line.vim-help"
+			match: """(?x) \\t (\\*|\\x20)
+				(Boolean|Character|Conditional|Constant|Debug|Define|Delimiter
+				|Exception|Float|Function|Identifier|Include|Keyword|Label|Macro
+				|Number|Operator|PreCondit|PreProc|Repeat|SpecialChar
+				|SpecialComment|Special|Statement|StorageClass|String
+				|Structure|Tag|Typedef|Type)
+				(\\t+ (["Aa-z].*))
+			"""
+			captures:
+				1: name: "punctuation.separator.list-item.marker.vim-help"
+				2: name: "storage.type.${2:/downcase}.vim-help"
+				3: name: "meta.output.vim-help"
+				4: name: "${2:/downcase}.vim-help"
+		}]
