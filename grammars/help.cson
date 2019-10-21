@@ -1,0 +1,47 @@
+name: "Vim Help"
+scopeName: "text.vim-help"
+fileTypes: ["doc/vi_diff.txt"] # Dummy extension; assignment handled programmatically
+patterns: [{
+	
+	# Well-formed header declaring *filename.txt*, target Vim version, and timestamp
+	name:  "meta.file-header.vim-help"
+	match: "(?i)\\A(\\*[#-)!+-~]+\\*)[ \\t]+(For\\s+Vim\\s+version\\s*[\\d.]+)[ \\t]+Last\\s+changed?:\\s*(\\S.*?)\\s*$"
+	captures:
+		1: patterns: [include: "#link"]
+		2: patterns: [include: "#vimVersion"]
+		3: name: "constant.numeric.date.last-changed.vim-help"
+
+}, include: "#main"]
+
+
+repository:
+	main:
+		patterns: [
+			{include: "#link"}
+			{include: "#manualTitle"}
+			{include: "#vimVersion"}
+		]
+	
+	link:
+		patterns: [{
+			name: "meta.link.vim-help"
+			match: "(\\*)([#-)!+-~]+)(\\*)"
+			captures:
+				1: name: "punctuation.definition.begin.vim-help"
+				2: name: "storage.link.hypertext.vim-help"
+				3: name: "punctuation.definition.end.vim-help"
+		}]
+
+
+	manualTitle:
+		name:  "markup.heading.manual-title.vim-help"
+		match: "^[ \\t]+(VIM REFERENCE.*)\\s*$"
+		captures:
+			1: name: "constant.other.title-text.vim-help"
+
+
+	# “For Vim version 8.1” string in file’s header
+	vimVersion:
+		name: "entity.other.vim-version.vim-help"
+		match: "\\bVim version [0-9][0-9.a-z]*"
+	

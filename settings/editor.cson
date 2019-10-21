@@ -9,3 +9,8 @@
 		commentStart: "# "
 		increaseIndentPattern: '^snippet.+(?<!")'
 		tabType: "hard"
+
+".text.vim-help":
+	editor:
+		tabType: "hard"
+		tabLength: 8
