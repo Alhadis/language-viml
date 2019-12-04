@@ -3,14 +3,17 @@ Change Log
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Unpublished]: ../../compare/v1.1.10...HEAD
+[Unpublished]: ../../compare/v1.2.0...HEAD
 
 
-[Unpublished]
+[v1.2.0]
 ------------------------------------------------------------------------
+**December 4th, 2019**  
 * __Added:__ Keyword definitions for Vim 8.1.2384
 * __Added:__ Syntax highlighting for SnipMate, UltiSnips, and NeoSnippet
 * __Added:__ Syntax highlighting for Vim help-files
+
+[v1.2.0]: https://github.com/Alhadis/language-viml/releases/tag/v1.2.0
 
 
 [v1.1.10]
