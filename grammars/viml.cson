@@ -708,6 +708,8 @@ repository:
 			| QuickFixCmdPre
 			| QuitPre
 			| RemoteReply
+			| SafeStateAgain
+			| SafeState
 			| SessionLoadPost
 			| ShellCmdPost
 			| ShellFilterPost
@@ -726,6 +728,7 @@ repository:
 			| TermChanged
 			| TermResponse
 			| TerminalOpen
+			| TerminalWinOpen
 			| TextChangedI
 			| TextChangedP
 			| TextChanged
@@ -1315,6 +1318,8 @@ repository:
 			| put?
 			| pwd?
 			| py3do
+			| py3f
+			| py3file
 			| py3
 			| py
 			| python
@@ -1480,7 +1485,11 @@ repository:
 			| spelli
 			| spellinfo
 			| spellr
+			| spellrare
+			| spellr
 			| spellrepall
+			| spellr
+			| spellrrare
 			| spellu
 			| spellundo
 			| spellw
@@ -1917,6 +1926,7 @@ repository:
 			| getfsize
 			| getftime
 			| getftype
+			| getimstatus
 			| getjumplist
 			| getline
 			| getloclist
@@ -2022,6 +2032,8 @@ repository:
 			| popup_dialog
 			| popup_filter_menu
 			| popup_filter_yesno
+			| popup_findinfo
+			| popup_findpreview
 			| popup_getoptions
 			| popup_getpos
 			| popup_hide
@@ -2047,6 +2059,7 @@ repository:
 			| prop_type_delete
 			| prop_type_get
 			| prop_type_list
+			| pum_getpos
 			| pumvisible
 			| py3eval
 			| pyeval
@@ -2127,6 +2140,7 @@ repository:
 			| spellsuggest
 			| split
 			| sqrt
+			| state
 			| str2float
 			| str2list
 			| str2nr
@@ -2179,6 +2193,7 @@ repository:
 			| term_scrape
 			| term_sendkeys
 			| term_setansicolors
+			| term_setapi
 			| term_setkill
 			| term_setrestore
 			| term_setsize
@@ -2229,6 +2244,7 @@ repository:
 			| win_id2tabwin
 			| win_id2win
 			| win_screenpos
+			| win_splitmove
 			| winbufnr
 			| wincol
 			| winheight
@@ -2315,6 +2331,8 @@ repository:
 			| FoldColumn
 			| Folded
 			| IncSearch
+			| LineNrAbove
+			| LineNrBelow
 			| LineNr
 			| MatchParen
 			| Menu
@@ -2527,6 +2545,8 @@ repository:
 			| compatible
 			| completefunc
 			| completeopt
+			| completepopup
+			| completeslash
 			| complete
 			| com
 			| confirm
@@ -2535,6 +2555,7 @@ repository:
 			| co
 			| cpoptions
 			| cpo
+			| cpp
 			| cpt
 			| cp
 			| crb
@@ -2546,6 +2567,7 @@ repository:
 			| cscopetagorder
 			| cscopetag
 			| cscopeverbose
+			| csl
 			| cspc
 			| csprg
 			| csqf
@@ -2554,9 +2576,11 @@ repository:
 			| cst
 			| csverb
 			| cuc
+			| culopt
 			| cul
 			| cursorbind
 			| cursorcolumn
+			| cursorlineopt
 			| cursorline
 			| cursor
 			| cwh
@@ -3352,6 +3376,7 @@ repository:
 			| pp
 			| preserveindent
 			| previewheight
+			| previewpopup
 			| previewwindow
 			| printdevice
 			| printencoding
@@ -3366,6 +3391,7 @@ repository:
 			| pumheight
 			| pumwidth
 			| pvh
+			| pvp
 			| pvw
 			| pw
 			| pythondll
@@ -3572,6 +3598,8 @@ repository:
 			| t_Sb
 			| t_Sf
 			| t_Si
+			| t_TE
+			| t_TI
 			| t_Te
 			| t_Ts
 			| t_VS
