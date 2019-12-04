@@ -11,7 +11,7 @@ module.exports = {
 		this.disposables = new CompositeDisposable(
 			new Disposable(() => this.disposables = null),
 			atom.packages.onDidActivateInitialPackages(() => {
-				atom.workspace.observeTextEditors(this.isEditorVimHelp.bind(this));
+				atom.workspace.observeTextEditors(this.updateHelpGrammar.bind(this));
 			})
 		);
 	},
@@ -22,9 +22,9 @@ module.exports = {
 		}
 	},
 	
-	isEditorVimHelp(editor){
+	updateHelpGrammar(editor){
 		if(!atom.workspace.isTextEditor(editor))
-			return false; // Not even a real editor
+			return; // Not even a real editor
 		
 		const path = editor.getPath();
 		if(/\.txt$/i.test(path) && VIM_MODELINE.test(editor.getText()) && "help" === RegExp.lastParen)

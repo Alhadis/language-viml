@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ------------------------------------------------------------------------
 * __Added:__ Keyword definitions for Vim 8.1.2384
 * __Added:__ Syntax highlighting for SnipMate, UltiSnips, and NeoSnippet
+* __Added:__ Syntax highlighting for Vim help-files
 
 
 [v1.1.10]
