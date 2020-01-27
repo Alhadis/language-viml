@@ -935,6 +935,7 @@ repository:
 			| debugg
 			| debuggreedy
 			| debug
+			| def
 			| delc
 			| delcommand
 			| delel
@@ -968,6 +969,8 @@ repository:
 			| dig
 			| digraphs
 			| dir
+			| disa
+			| disassemble
 			| dj
 			| djump
 			| dli
@@ -1000,6 +1003,8 @@ repository:
 			| emenu
 			| en
 			| endif
+			| endd
+			| enddef
 			| endf
 			| endfunction
 			| endfor?
@@ -1010,6 +1015,8 @@ repository:
 			| enew?
 			| eval
 			| exit?
+			| exp
+			| export
 			| exu
 			| exusage
 			| ex
@@ -1077,6 +1084,8 @@ repository:
 			| ilist
 			| imapc
 			| imapclear
+			| imp
+			| import
 			| inor
 			| intro
 			| in
@@ -1639,6 +1648,8 @@ repository:
 			| vi
 			| visual
 			| view?
+			| vim9
+			| vim9script
 			| vim
 			| vimgrep
 			| vimgrepa
@@ -1779,7 +1790,8 @@ repository:
 	vimFuncKey:
 		name: "support.function.vimFuncKey.viml"
 		match: """(?x) \\b
-			( fu
+			( def
+			| fu
 			| function
 			) \\b
 		"""
