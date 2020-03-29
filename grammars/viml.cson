@@ -666,6 +666,7 @@ repository:
 			| ColorSchemePre
 			| ColorScheme
 			| CompleteChanged
+			| CompleteDonePre
 			| CompleteDone
 			| CursorHoldI
 			| CursorHold
@@ -1885,6 +1886,7 @@ repository:
 			| did_filetype
 			| diff_filler
 			| diff_hlID
+			| echoraw
 			| empty
 			| environ
 			| escape
@@ -1943,6 +1945,7 @@ repository:
 			| getline
 			| getloclist
 			| getmatches
+			| getmousepos
 			| getpid
 			| getpos
 			| getqflist
@@ -1982,6 +1985,7 @@ repository:
 			| inputsecret
 			| input
 			| insert
+			| interrupt
 			| invert
 			| isdirectory
 			| isinf
@@ -2076,6 +2080,7 @@ repository:
 			| py3eval
 			| pyeval
 			| pyxeval
+			| rand
 			| range
 			| readdir
 			| readfile
@@ -2152,6 +2157,7 @@ repository:
 			| spellsuggest
 			| split
 			| sqrt
+			| srand
 			| state
 			| str2float
 			| str2list
@@ -2165,6 +2171,7 @@ repository:
 			| string
 			| strlen
 			| strpart
+			| strptime
 			| strridx
 			| strtrans
 			| strwidth
@@ -2231,6 +2238,9 @@ repository:
 			| test_scrollbar
 			| test_setmouse
 			| test_settime
+			| test_srand_seed
+			| test_unknown
+			| test_void
 			| timer_info
 			| timer_pause
 			| timer_start
@@ -2252,13 +2262,16 @@ repository:
 			| win_execute
 			| win_findbuf
 			| win_getid
+			| win_gettype
 			| win_gotoid
 			| win_id2tabwin
 			| win_id2win
 			| win_screenpos
 			| win_splitmove
+			| win_type
 			| winbufnr
 			| wincol
+			| windowsversion
 			| winheight
 			| winlayout
 			| winline
@@ -2932,7 +2945,9 @@ repository:
 			| invru
 			| invsb
 			| invscb
+			| invscf
 			| invscrollbind
+			| invscrollfocus
 			| invscs
 			| invsc
 			| invsecure
@@ -3272,7 +3287,9 @@ repository:
 			| noru
 			| nosb
 			| noscb
+			| noscf
 			| noscrollbind
+			| noscrollfocus
 			| noscs
 			| nosc
 			| nosecure
@@ -3445,8 +3462,10 @@ repository:
 			| sbr
 			| sb
 			| scb
+			| scf
 			| scl
 			| scrollbind
+			| scrollfocus
 			| scrolljump
 			| scrolloff
 			| scrollopt
