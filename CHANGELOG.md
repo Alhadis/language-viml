@@ -3,7 +3,16 @@ Change Log
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Unpublished]: ../../compare/v1.2.0...HEAD
+[Unpublished]: ../../compare/v1.2.1...HEAD
+
+
+[v1.2.1]
+------------------------------------------------------------------------
+**April 24th, 2020**  
+* __Added:__ Keyword definitions for Vim 8.2.0450
+* __Removed:__ Line-length limit of highlighted Vim script
+
+[v1.2.1]: https://github.com/Alhadis/language-viml/releases/tag/v1.2.1
 
 
 [v1.2.0]
