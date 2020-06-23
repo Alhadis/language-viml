@@ -886,6 +886,7 @@ repository:
 			| clist
 			| cla
 			| clast
+			| class
 			| cle
 			| clearjumps
 			| clo
@@ -937,6 +938,8 @@ repository:
 			| debugg
 			| debuggreedy
 			| debug
+			| defc
+			| defcompile
 			| def
 			| delc
 			| delcommand
@@ -1005,7 +1008,6 @@ repository:
 			| emenu
 			| en
 			| endif
-			| endd
 			| enddef
 			| endf
 			| endfunction
@@ -1017,8 +1019,8 @@ repository:
 			| enew?
 			| eval
 			| exit?
-			| exp
 			| export
+			| exp
 			| exu
 			| exusage
 			| ex
@@ -1086,9 +1088,10 @@ repository:
 			| ilist
 			| imapc
 			| imapclear
-			| imp
 			| import
+			| imp
 			| inor
+			| interface
 			| intro
 			| in
 			| is
@@ -1532,6 +1535,7 @@ repository:
 			| stopinsert
 			| sts
 			| stselect
+			| substitutepattern
 			| sun
 			| sunhide
 			| sunmenu
@@ -1623,6 +1627,7 @@ repository:
 			| tu
 			| tunmenu
 			| tunmap?
+			| type
 			| t
 			| u
 			| undo
@@ -1650,8 +1655,8 @@ repository:
 			| vi
 			| visual
 			| view?
-			| vim9
 			| vim9script
+			| vim9
 			| vim
 			| vimgrep
 			| vimgrepa
@@ -1945,6 +1950,7 @@ repository:
 			| getjumplist
 			| getline
 			| getloclist
+			| getmarklist
 			| getmatches
 			| getmousepos
 			| getpid
@@ -2021,6 +2027,7 @@ repository:
 			| luaeval
 			| maparg
 			| mapcheck
+			| mapset
 			| map
 			| matchaddpos
 			| matchadd
@@ -2032,6 +2039,7 @@ repository:
 			| matchstr
 			| match
 			| max
+			| menu_info
 			| min
 			| mkdir
 			| mode
@@ -2054,6 +2062,8 @@ repository:
 			| popup_getoptions
 			| popup_getpos
 			| popup_hide
+			| popup_list
+			| popup_locate
 			| popup_menu
 			| popup_move
 			| popup_notification
@@ -2083,8 +2093,10 @@ repository:
 			| pyxeval
 			| rand
 			| range
+			| readdirex
 			| readdir
 			| readfile
+			| reduce
 			| reg_executing
 			| reg_recording
 			| reltimefloat
@@ -2110,6 +2122,7 @@ repository:
 			| screenpos
 			| screenrow
 			| screenstring
+			| searchcount
 			| searchdecl
 			| searchpairpos
 			| searchpair
@@ -2229,6 +2242,7 @@ repository:
 			| test_null_blob
 			| test_null_channel
 			| test_null_dict
+			| test_null_function
 			| test_null_job
 			| test_null_list
 			| test_null_partial
@@ -2269,7 +2283,6 @@ repository:
 			| win_id2win
 			| win_screenpos
 			| win_splitmove
-			| win_type
 			| winbufnr
 			| wincol
 			| windowsversion
@@ -3431,6 +3444,8 @@ repository:
 			| pyxversion
 			| pyx
 			| qe
+			| qftf
+			| quickfixtextfunc
 			| quoteescape
 			| rdt
 			| readonly
@@ -3567,9 +3582,11 @@ repository:
 			| syn
 			| t_8b
 			| t_8f
+			| t_8u
 			| t_AB
 			| t_AF
 			| t_AL
+			| t_AU
 			| t_BD
 			| t_BE
 			| t_CS
