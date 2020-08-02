@@ -715,6 +715,7 @@ repository:
 			| SessionLoadPost
 			| ShellCmdPost
 			| ShellFilterPost
+			| SigUSR1
 			| SourceCmd
 			| SourcePost
 			| SourcePre
@@ -1912,6 +1913,7 @@ repository:
 			| filter
 			| finddir
 			| findfile
+			| flatten
 			| float2nr
 			| floor
 			| fmod
@@ -1956,6 +1958,7 @@ repository:
 			| getpid
 			| getpos
 			| getqflist
+			| getreginfo
 			| getregtype
 			| getreg
 			| gettabinfo
@@ -2232,6 +2235,7 @@ repository:
 			| term_setsize
 			| term_start
 			| term_wait
+			| terminalprops
 			| test_alloc_fail
 			| test_autochdir
 			| test_feedinput
@@ -3542,12 +3546,14 @@ repository:
 			| spellcapcheck
 			| spellfile
 			| spelllang
+			| spelloptions
 			| spellsuggest
 			| spell
 			| spf
 			| splitbelow
 			| splitright
 			| spl
+			| spo
 			| spr
 			| sps
 			| sp
