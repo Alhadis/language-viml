@@ -6,6 +6,8 @@ fileTypes: [
 	"gvimrc"
 	"nvimrc"
 	"_vimrc"
+	"exrc"
+	"nexrc"
 	"vmb"
 ]
 firstLineMatch: """(?x)
@@ -67,6 +69,7 @@ repository:
 			{include: "#variable"}
 			{include: "#supportType"}
 			{include: "#supportVariable"}
+			{include: "#extraVimOptions"}
 			{include: "#extraVimFunc"}
 			{include: "#keywordLists"}
 		]
@@ -576,6 +579,12 @@ repository:
 			|ab(?:breviate)?|norea(?:bbrev)?|[ic](?:un|nore)?ab|split_f|rangefold|[ic](?:un|nore)?ab|[ic]abbrev|edit_f|next_f|[vcoxli]u
 			|(?:range)?(?:w(?:rite)?|up(?:date)?)|sar|cno|[vl]n|[io]?no|[xn]n|snor|lm(?:ap)?|lunmap|lear|[vnx]m|om|[ci]m|ap|nun|sunm)
 		\\b"""
+	
+	
+	# Extra options not picked up by keyword parser
+	extraVimOptions:
+		name: "support.variable.option.viml"
+		match: "\\b(altwerase|escapetime|extended|filec|iclower|keytime|leftright|lock|octal|recdir|searchincr|shellmeta|ttywerase|windowname|wraplen)\\b"
 
 
 	# The following lists are auto-extracted from Vim's syntax file.

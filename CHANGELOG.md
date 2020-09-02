@@ -10,6 +10,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ------------------------------------------------------------------------
 **April 24th, 2020**  
 * __Added:__ Keyword definitions for Vim 8.2.0450
+* __Added:__ Highlighting for various `.exrc`/`.nexrc`-specific settings
+* __Added:__ `.exrc` and `.nexrc` as supported file extensions/filenames
 * __Removed:__ Line-length limit of highlighted Vim script
 
 [v1.2.1]: https://github.com/Alhadis/language-viml/releases/tag/v1.2.1
