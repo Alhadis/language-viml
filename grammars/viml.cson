@@ -584,7 +584,10 @@ repository:
 	# Extra options not picked up by keyword parser
 	extraVimOptions:
 		name: "support.variable.option.viml"
-		match: "\\b(altwerase|escapetime|extended|filec|iclower|keytime|leftright|lock|octal|recdir|searchincr|shellmeta|ttywerase|windowname|wraplen)\\b"
+		match: """(?x)\\b (no)?
+			(altwerase|bf|escapetime|extended|filec|iclower|keytime|leftright|li|lock|noprint|octal|recdir|searchincr
+			|shellmeta|ttywerase|windowname|wl|wraplen)
+		\\b"""
 
 
 	# The following lists are auto-extracted from Vim's syntax file.
