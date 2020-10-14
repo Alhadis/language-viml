@@ -15,6 +15,17 @@
 	},
 	"license": "MIT",
 	"engines": {
-		"atom": ">0.50.0"
+		"atom": ">0.50.0",
+		"node": ">=13.2.0"
+	},
+	"eslintConfig": {
+		"extends": "@alhadis",
+		"overrides": [{
+			"files": ["bin/update.mjs"],
+			"rules": {"indent": 0, "no-async-promise-executor": 0}
+		},{
+			"files": ["index.js"],
+			"globals": {"atom": "readonly"}
+		}]
 	}
 }

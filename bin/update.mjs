@@ -1,13 +1,14 @@
 #!/usr/bin/env node
-"use strict";
 
-const fs          = require("fs");
-const path        = require("path");
+import fs   from "fs";
+import path from "path";
+import url  from "url";
 
 // Resolve resource locations
+const dirname     = path.dirname(url.fileURLToPath(import.meta.url));
 const vimSource   = "https://raw.githubusercontent.com/vim/vim/master/runtime/syntax/vim.vim";
-const vimPath     = path.resolve(__dirname, "..", "tests/vim-syntax.vim");
-const atomPath    = path.resolve(__dirname, "..", "grammars/viml.cson");
+const vimPath     = path.resolve(dirname, "..", "tests/vim-syntax.vim");
+const atomPath    = path.resolve(dirname, "..", "grammars/viml.cson");
 
 
 load(vimSource).then(vimSyn => {
@@ -15,10 +16,10 @@ load(vimSource).then(vimSyn => {
 
 	// Update Atom's grammar
 	let atomSyn   = fs.readFileSync(atomPath).toString();
-	let vimGroups = compile(vimSyn);
+	const groups  = compile(vimSyn);
 	const prevSyn = atomSyn;
-	atomSyn       = addMissingGroups(atomSyn, vimGroups);
-	atomSyn       = updateLists(atomSyn, vimGroups);
+	atomSyn       = addMissingGroups(atomSyn, groups);
+	atomSyn       = updateLists(atomSyn, groups);
 
 	// Nothing changed
 	if(atomSyn === prevSyn){
@@ -39,7 +40,7 @@ load(vimSource).then(vimSyn => {
  */
 function compile(input){
 	let match;
-	let groups = {};
+	const groups  = {};
 	const pattern = /^\s*syn\s+keyword\s+(\w+)\s+contained\s+([^\n]+)$/gm;
 	const synOpts = /(?<=\s)(conceal|cchar|contained|containedin|nextgroup|transparent|skipwhite|skipnl|skipempty)(?:[\x20\t]*=(?:[^\s|\\]|\\.)*)?(?=\s|$|:|\\|)/g;
 	while(match = pattern.exec(input)){
@@ -53,25 +54,10 @@ function compile(input){
 	}
 
 	// Sanitise, filter, and parse each keyword list
-	for(let name in groups){
+	for(const name in groups){
 		const indent = "\t".repeat(3);
-		groups[name] = "( " + (Array.from(
-
-			// Filter duplicates
-			new Set(
-				groups[name]
-					.join(" ")
-					.split(/\s+/g)
-				).keys()
-
-			// Then sort and join with pipes
-			).sort((a, b) => {
-				if(0 === b.indexOf(a)) return  1;
-				if(0 === a.indexOf(b)) return -1;
-				if(a < b) return -1;
-				if(a > b) return  1;
-				return 0;
-			})
+		groups[name] = "( " + (
+			sortForRegExp(Array.from(new Set(groups[name].join(" ").split(/\s+/g)).keys()))
 			.join("\n")
 			.trim()
 			.replace(/\n(.+)\n\1\n/g, "\n$1\n")
@@ -97,20 +83,19 @@ function addMissingGroups(input, groups){
 
 	if(tableMatch){
 		let [match, start, tab, rows, end] = tableMatch;
-		let {index} = tableMatch;
-		let before  = input.substring(0, tableMatch.index);
-		let after   = input.substring(tableMatch.index + match.length, input.length);
+		const before  = input.substring(0, tableMatch.index);
+		let after     = input.substring(tableMatch.index + match.length, input.length);
 
-		let missing = Object.assign({}, groups);
+		const missing = {...groups};
 		const row = /[{\s:,[]include\s*:\s*(?:(["'])#((?:(?!\1\\).|\\.)+)\1)\s*/g;
 		while(match = row.exec(rows))
 			delete missing[match[2]];
 
-		for(let key of Object.keys(missing).sort()){
+		for(const key of Object.keys(missing).sort()){
 			rows += `\n${tab}\t\t{include: "#${key}"}`;
 
 			// Quote this key if we need to
-			let keySafe = !/^[$\w]+$/.test(key)
+			const keySafe = !/^[$\w]+$/.test(key)
 				? '"' + key.replace(/"/g, "\\\"") + '"'
 				: key;
 
@@ -119,10 +104,10 @@ function addMissingGroups(input, groups){
 
 			else after += "\n\t" + keySafe + ":\n"
 				+ tab + `\tname: "support.function.${key}.viml"\n`
-				+ tab + `\tmatch: """(?x) \\\\b\n`
-				+ tab + `\t\t( _\n`
-				+ tab + `\t\t) \\\\b\n`
-				+ tab + `\t"""\n`;
+				+ tab + '\tmatch: """(?x) \\\\b\n'
+				+ tab + "\t\t( _\n"
+				+ tab + "\t\t) \\\\b\n"
+				+ tab + '\t"""\n';
 		}
 
 		input = before + start + rows + end + after;
@@ -142,7 +127,7 @@ function addMissingGroups(input, groups){
  * @return {String}
  */
 function updateLists(atomSyn, vimGroups){
-	const patternFile   = path.resolve(__dirname, "./match-field.regexp");
+	const patternFile   = path.resolve(dirname, "./match-field.regexp");
 	const patternSource = fs.readFileSync(patternFile, "utf8");
 	
 	for(const name in vimGroups){
@@ -168,13 +153,13 @@ function updateLists(atomSyn, vimGroups){
  * @public
  */
 function load(url, encoding = "utf8"){
-	return new Promise((resolve, reject) => {
+	return new Promise(async (resolve, reject) => {
 		const protocol = url.match(/^https?/);
 
 		// Remote resource: HTTPS or HTTP
 		if(protocol){
 			let result = "";
-			const {get} = require(protocol[0].toLowerCase());
+			const {get} = await import(protocol[0].toLowerCase());
 			const request = get(url, response => {
 				if(response.statusMessage !== "OK")
 					return reject(response);
@@ -212,12 +197,12 @@ function buildRegExp(source, variables = {}){
 	}
 	
 	// Strip comments and whitespace
-	source = source.replace(/\(\?#[^\)]*\)/g, "").replace(/\s+/g, "");
+	source = source.replace(/\(\?#[^)]*\)/g, "").replace(/\s+/g, "");
 	
 	// Interpolate "variables"
 	for(const key in variables)
 		source = source.replace(
-			new RegExp(`\\$(?:\{${key}\}|${key})`, "g"),
+			new RegExp(`\\$(?:{${key}}|${key})`, "g"),
 			variables[key]
 		);
 	
@@ -227,17 +212,23 @@ function buildRegExp(source, variables = {}){
 
 
 /**
- * Order a list of strings for a regexp capturing group.
+ * Order a list of strings for a RegExp capturing group.
  *
- * Results are alphabetised, with anything containing another
- * entry as a substring appearing first in matching order.
- * 
+ * @version Alhadis/Utils@0f56a9a
  * @param {String|Array} input
  * @param {Boolean} [caseInsensitive=false]
  * @return {Array}
  */
 function sortForRegExp(input, caseInsensitive = false){
 	if(!Array.isArray(input))
-		input = String(input).split(/\n+/);
-	return input.sort();
+		input = String(input).split("\n").filter(Boolean);
+	return input.sort((a, b) => {
+		if(caseInsensitive){
+			a = a.toLowerCase();
+			b = b.toLowerCase();
+		}
+		if(0 === b.indexOf(a)) return  1;
+		if(0 === a.indexOf(b)) return -1;
+		return a < b ? -1 : a > b;
+	});
 }

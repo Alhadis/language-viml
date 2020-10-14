@@ -1,7 +1,7 @@
 "use strict";
 
 const VIM_MODELINE = /(?:(?:\s|^)vi(?:m[<=>]?\d+|m)?|[\t ]ex)(?=:(?=\s*set?\s[^\n:]+:)|:(?!\s*set?\s))(?:(?:\s|\s*:\s*)\w*(?:\s*=(?:[^\n\\\s]|\\.)*)?)*[\s:](?:filetype|ft|syntax)\s*=(\w+)(?=\s|:|$)/i;
-const {CompositeDisposable, Disposable, TextEditor} = require("atom");
+const {CompositeDisposable, Disposable} = require("atom");
 
 module.exports = {
 	disposables: null,
