@@ -1245,8 +1245,8 @@ repository:
 			| match
 			| menut
 			| menutranslate
-			| messages
 			| mes
+			| messages
 			| mk
 			| mkexrc
 			| mks
@@ -1659,6 +1659,7 @@ repository:
 			| unsilent
 			| up
 			| update
+			| var
 			| ve
 			| version
 			| verb
@@ -1883,6 +1884,7 @@ repository:
 			| ch_status
 			| changenr
 			| char2nr
+			| charclass
 			| chdir
 			| cindent
 			| clearmatches
@@ -1977,6 +1979,7 @@ repository:
 			| gettabvar
 			| gettabwinvar
 			| gettagstack
+			| gettext
 			| getwininfo
 			| getwinposx
 			| getwinposy
@@ -2049,6 +2052,8 @@ repository:
 			| matcharg
 			| matchdelete
 			| matchend
+			| matchfuzzypos
+			| matchfuzzy
 			| matchlist
 			| matchstrpos
 			| matchstr
@@ -2088,6 +2093,7 @@ repository:
 			| pow
 			| prevnonblank
 			| printf
+			| prompt_getprompt
 			| prompt_setcallback
 			| prompt_setinterrupt
 			| prompt_setprompt
@@ -2147,6 +2153,7 @@ repository:
 			| serverlist
 			| setbufline
 			| setbufvar
+			| setcellwidths
 			| setcharsearch
 			| setcmdpos
 			| setenv
