@@ -3,14 +3,17 @@ Change Log
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Unpublished]: ../../compare/v1.2.1...HEAD
+[Unpublished]: ../../compare/v1.2.2...HEAD
 
 
-[Unpublished]
+[v1.2.2]
 ------------------------------------------------------------------------
+**October 16th, 2020**  
 * __Added:__ Keyword definitions for Vim 8.2.1844
 * __Added:__ Highlighting for various `.exrc`/`.nexrc`-specific settings
 * __Added:__ `.exrc` and `.nexrc` as supported file extensions/filenames
+
+[v1.2.2]: https://github.com/Alhadis/language-viml/releases/tag/v1.2.2
 
 
 [v1.2.1]

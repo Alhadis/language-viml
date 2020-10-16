@@ -8,7 +8,7 @@
 	}],
 	"description": "Vim Script language support for Atom",
 	"keywords": ["Vim", "VimScript", "VimL", "Vim Script", "Vi"],
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Alhadis/language-viml.git"
