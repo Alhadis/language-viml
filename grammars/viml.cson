@@ -715,6 +715,7 @@ repository:
 			| InsertChange
 			| InsertCharPre
 			| InsertEnter
+			| InsertLeavePre
 			| InsertLeave
 			| MenuPopup
 			| OptionSet
@@ -753,6 +754,8 @@ repository:
 			| VimLeavePre
 			| VimLeave
 			| VimResized
+			| VimResume
+			| VimSuspend
 			| WinEnter
 			| WinLeave
 			| WinNew
@@ -803,6 +806,7 @@ repository:
 			| ba
 			| ball
 			| badd?
+			| balt
 			| bd
 			| bdelete
 			| bel
@@ -2045,6 +2049,7 @@ repository:
 			| luaeval
 			| maparg
 			| mapcheck
+			| mapnew
 			| mapset
 			| map
 			| matchaddpos

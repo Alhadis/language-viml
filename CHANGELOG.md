@@ -6,6 +6,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [Unpublished]: ../../compare/v1.2.2...HEAD
 
 
+[Unpublished]
+------------------------------------------------------------------------
+* __Added:__ Keyword definitions for Vim 8.2.2302
+
+
 [v1.2.2]
 ------------------------------------------------------------------------
 **October 16th, 2020**  
