@@ -8,20 +8,20 @@ fileTypes: [
 firstLineMatch: """(?x)
 
 	# Modeline
-	(?i:
+	(?:
 		# Vim
-		(?:(?:\\s|^)vi(?:m[<=>]?\\d+|m)?|\\sex)(?=:(?=\\s*set?\\s[^\\n:]+:)|:(?!\\s* set?\\s))
-		(?:(?:\\s|\\s*:\\s*)\\w*(?:\\s*=(?:[^\\n\\\\\\s]|\\\\.)*)?)*[\\s:]
-		(?:filetype|ft|syntax)\\s*=
-			(snippets?|snipmate|ultisnips?|neosnippet)
-		(?=\\s|:|$)
+		(?:(?:^|[ \\t])(?:vi|Vi(?=m))(?:m[<=>]?[0-9]+|m)?|[ \\t]ex)(?=:(?=[ \\t]*set?[ \\t][^\\r\\n:]+:)|:(?![ \\t]*set?[ \\t]))
+		(?:(?:[ \\t]*:[ \\t]*|[ \\t])\\w*(?:[ \\t]*=(?:[^\\\\\\s]|\\\\.)*)?)*[ \\t:]
+		(?:filetype|ft|syntax)[ \\t]*=
+			(?i:snippets?|snipmate|ultisnips?|neosnippet)
+		(?=$|\\s|:)
 		
 		|
 		
 		# Emacs
-		-\\*-(?:\\s*(?=[^:;\\s]+\\s*-\\*-)|(?:.*?[;\\s]|(?<=-\\*-))mode\\s*:\\s*)
-			(?:snipmate|ultisnips?|neosnippet|vim-?snippets?)
-		(?=[\\s;]|(?<![-*])-\\*-).*?-\\*-
+		-\\*-(?i:[ \\t]*(?=[^:;\\s]+[ \\t]*-\\*-)|(?:.*?[ \\t;]|(?<=-\\*-))[ \\t]*mode[ \\t]*:[ \\t]*)
+			(?i:snipmate|ultisnips?|neosnippet|vim-?snippets?)
+		(?=[ \\t;]|(?<![-*])-\\*-).*?-\\*-
 	)
 """
 patterns: [include: "#main"]
