@@ -46,19 +46,19 @@ foldingStopMarker: "(?:endif|endwhile|endfor|endf|endfunction|augroup\\.END|aug\
 limitLineLength: no
 patterns: [{
 	# VimBall archive
-	name:  "meta.file-archive.vimball.viml"
+	name:  "meta.file-archive.vimball"
 	begin: '\\A(?=" Vimball Archiver)'
 	end:   "(?=A)B"
 	patterns: [{
 		# Help file
-		name:  "meta.file-record.$1.vimball.viml"
-		begin: "^(.*?\\S.*?\\.txt)(\\t)((\\[){3}1)(?=$)"
+		name:  "meta.file-record.help-file.vimball"
+		begin: "^(.*?\\S.*?\\.txt)(\\t)(\\[{3}1)(?=$)"
 		end:   "(?!\\G)(?=^.*?\\S.*?\\t\\[{3}1$)"
 		beginCaptures:
-			0: name: "markup.heading.1.viml"
-			1: name: "entity.name.file.path.viml"
-			2: name: "punctuation.whitespace.tab.separator.viml"
-			3: name: "meta.separator.marker.viml"
+			0: name: "markup.heading.1.vimball"
+			1: name: "entity.name.file.path.vimball"
+			2: name: "punctuation.whitespace.tab.separator.vimball"
+			3: name: "punctuation.definition.header.vimball"
 		contentName: "text.embedded.vim-help"
 		patterns: [{
 			# Line count
@@ -70,14 +70,14 @@ patterns: [{
 		}, include: "text.vim-help"]
 	},{
 		# Vim script file
-		name:  "meta.file-record.$1.vimball.viml"
-		begin: "^(.*?\\S.*?[ \\t]*?)(\\t)((\\[){3}1)(?=$)"
+		name:  "meta.file-record.vimball.viml"
+		begin: "^(.*?\\S.*?[ \\t]*?)(\\t)(\\[{3}1)(?=$)"
 		end:   "(?!\\G)(?=^.*?\\S.*?\\t\\[{3}1$)"
 		beginCaptures:
-			0: name: "markup.heading.1.viml"
-			1: name: "entity.name.file.viml"
-			2: name: "punctuation.whitespace.tab.separator.viml"
-			3: name: "meta.separator.marker.viml"
+			0: name: "markup.heading.1.vimball"
+			1: name: "entity.name.file.path.vimball"
+			2: name: "punctuation.whitespace.tab.separator.vimball"
+			3: name: "punctuation.definition.header.vimball"
 		patterns: [{
 			# Line count
 			begin: "\\G"
