@@ -419,11 +419,12 @@ repository:
 	# Syntax highlighting definitions
 	syntax:
 		name: "meta.syntax-item.viml"
-		begin: "^\\s*(:)?\\s*(syntax|syn?)(?=\\s|$)"
+		begin: "^\\s*(:)?(?:(VimFold\\w)\\s+)?\\s*(syntax|syn?)(?=\\s|$)"
 		end: "$"
 		beginCaptures:
 			1: name: "punctuation.separator.key-value.colon.viml"
-			2: name: "support.function.syntax-item.viml"
+			2: name: "support.function.fold-command.viml"
+			3: name: "storage.type.syntax-item.viml"
 		patterns: [{
 			
 			# Case-matching
