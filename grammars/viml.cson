@@ -281,8 +281,11 @@ repository:
 
 	numbers:
 		patterns: [{
-			name: "constant.numeric.hex.viml"
+			name: "constant.numeric.hex.short.viml"
 			match: "0[xX][0-9A-Fa-f]+"
+		},{
+			name: "constant.numeric.hex.long.viml"
+			match: "0[zZ][0-9A-Fa-f]+"
 		},{
 			name: "constant.numeric.float.exponential.viml"
 			match: "(?<!\\w)-?\\d+\\.\\d+[eE][-+]?\\d+"
