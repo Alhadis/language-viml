@@ -1,5 +1,6 @@
 name: "VimL"
 scopeName: "source.viml"
+injectionSelector: "source.gfm source.embedded.viml"
 fileTypes: [
 	"vim"
 	"vimrc"
