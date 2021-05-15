@@ -111,6 +111,7 @@ repository:
 			{include: "#expr"}
 			{include: "#keyword"}
 			{include: "#register"}
+			{include: "#filetype"}
 			{include: "#variable"}
 			{include: "#supportType"}
 			{include: "#supportVariable"}
@@ -402,6 +403,17 @@ repository:
 			6: name: "variable.parameter.group-name.viml"
 			7: name: "support.constant.highlighting.viml"
 			8: name: "variable.parameter.group-name.viml"
+
+
+	# Filetype assignment
+	filetype:
+		match: "\\b(?:(setf|setfiletype)(?:\\s+(FALLBACK))?\\s+|(ft|filetype)\\s*(=))([.\\w]+)"
+		captures:
+			1: name: "support.function.command.viml"
+			2: name: "support.variable.option.viml"
+			3: name: "storage.modifier.fallback.viml"
+			4: name: "keyword.operator.assignment.viml"
+			5: name: "variable.parameter.function.filetype.viml"
 
 
 	# Syntax highlighting definitions

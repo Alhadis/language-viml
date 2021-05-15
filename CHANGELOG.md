@@ -9,7 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [Unpublished]
 ------------------------------------------------------------------------
 * __Added:__ Highlighting for fenced code-blocks tagged with `viml`
-* __Added:__ Improved highlighting for autocommands
+* __Added:__ Improved highlighting for autocommands and filetypes
 * __Added:__ Keyword definitions for Vim 8.2.2302
 * __Fixed:__ Highlighting of VimBall archives with embedded help files
 * __Fixed:__ Highlighting of `func` and `endfunc` keywords
