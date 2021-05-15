@@ -161,10 +161,50 @@ repository:
 	
 	# Something prefixed with a backslash
 	escape:
-		name:  "constant.character.escape.backslash.viml"
-		match: "(\\\\)."
+		patterns: [
+			{include: "#escapedCodePoint"}
+			{include: "#escapedKey"}
+			{match: "(\\\\)b",  name: "constant.character.escape.backspace.viml", captures: 1: name: "punctuation.definition.escape.viml"}
+			{match: "(\\\\)e",  name: "constant.character.escape.escape.viml",    captures: 1: name: "punctuation.definition.escape.viml"}
+			{match: "(\\\\)f",  name: "constant.character.escape.form-feed.viml", captures: 1: name: "punctuation.definition.escape.viml"}
+			{match: "(\\\\)n",  name: "constant.character.escape.newline.viml",   captures: 1: name: "punctuation.definition.escape.viml"}
+			{match: "(\\\\)r",  name: "constant.character.escape.return.viml",    captures: 1: name: "punctuation.definition.escape.viml"}
+			{match: "(\\\\)t",  name: "constant.character.escape.tab.viml",       captures: 1: name: "punctuation.definition.escape.viml"}
+			{match: "(\\\\)\\1",name: "constant.character.escape.backslash.viml", captures: 1: name: "punctuation.definition.escape.viml"}
+			{match: '(\\\\)"',  name: "constant.character.escape.quote.viml",     captures: 1: name: "punctuation.definition.escape.viml"}
+			{match: "(\\\\).",  name: "constant.character.escape.other.viml",     captures: 1: name: "punctuation.definition.escape.viml"}
+		]
+	
+	
+	# Characters specified by codepoint
+	escapedCodePoint:
+		patterns: [{
+			# Hexadecimal, short: \x20
+			name: "constant.character.escape.codepoint.hex.short.viml"
+			match: "(\\\\)[xX][0-9A-Fa-f]{1,2}"
+			captures:
+				1: name: "punctuation.definition.escape.backslash.viml"
+		},{
+			# Codepoint, long: \u0020 \u00000020
+			name: "constant.character.escape.codepoint.hex.long.viml"
+			match: "(\\\\)(?:u[0-9A-Fa-f]{1,4}|U[0-9A-Fa-f]{1,8})"
+			captures:
+				1: name: "punctuation.definition.escape.backslash.viml"
+		},{
+			# Codepoint, octal: \040
+			name: "constant.character.escape.codepoint.octal.viml"
+			match: "(\\\\)([0-7]{1,3})"
+			captures:
+				1: name: "punctuation.definition.escape.backslash.viml"
+		}]
+	
+	
+	escapedKey:
+		name: "constant.character.escape.keymapping.viml"
+		match: '(\\\\<\\*?)(?:[^">\\\\]|\\\\.)+(>)'
 		captures:
-			1: name: "punctuation.definition.escape.backslash.viml"
+			1: name: "punctuation.definition.escape.key.begin.viml"
+			2: name: "punctuation.definition.escape.key.end.viml"
 	
 	
 	# This only exists to stop stuff like ~/.vim/ being highlighted like a regex
