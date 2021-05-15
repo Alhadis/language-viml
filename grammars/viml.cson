@@ -373,7 +373,7 @@ repository:
 		}]
 
 	supportType:
-		name: "support.type.viml"
+		name: "entity.tag.name.viml"
 		match: "(<).*?(>)"
 		captures:
 			1: name: "punctuation.definition.bracket.angle.begin.viml"
