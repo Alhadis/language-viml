@@ -104,7 +104,8 @@ repository:
 			{include: "#syntax"}
 			{include: "#highlightLink"}
 			{include: "#funcDef"}
-			{include: "#augGroup"}
+			{include: "#auCmd"}
+			{include: "#auGroup"}
 			{include: "#parameter"}
 			{include: "#assignment"}
 			{include: "#expr"}
@@ -267,17 +268,28 @@ repository:
 			match: "(?<=\\)|\\s)(abort|dict|closure|range)(?=\\s|$)"
 		}]
 	
-	augGroup:
+	auCmd:
+		name: "meta.autocmd.viml"
+		match: "\\b(autocmd|au)(!)?\\b\\s+(?!\\*)(\\S+)\\s+(\\S+)(?:\\s+(\\+\\+(nested|once)))?"
+		captures:
+			1: name: "storage.type.autocmd.viml"
+			2: name: "storage.modifier.force.viml"
+			3: name: "meta.events-list.viml", patterns: [include: "#main"]
+			4: name: "string.unquoted.autocmd-suffix-list.viml"
+			5: name: "storage.modifier.$6.viml"
+
+	auGroup:
 		patterns: [
-			name: "meta.define-$1.viml"
-			begin: "\\b(aug|augroup)\\b\\s*([\\w#]+)"
+			name: "meta.augroup.viml"
+			begin: "\\b(augroup|aug)(!)?\\b\\s*([\\w#]+)"
 			end:   "\\b(\\1)\\s+(END)\\b"
 			patterns: [include: "#main"]
 			beginCaptures:
-				1: name: "storage.function.viml"
-				2: name: "entity.name.function.viml"
+				1: name: "storage.type.function.viml"
+				2: name: "storage.modifier.force.viml"
+				3: name: "entity.name.function.viml"
 			endCaptures:
-				1: name: "storage.function.viml"
+				1: name: "storage.type.augroup.viml"
 				2: name: "keyword.control.end"
 		]
 	
