@@ -3,11 +3,12 @@ Change Log
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-[Unpublished]: ../../compare/v1.2.2...HEAD
+[Unpublished]: ../../compare/v1.2.3...HEAD
 
 
-[Unpublished]
+[v1.2.3]
 ------------------------------------------------------------------------
+**May 15th, 2021**  
 * __Added:__ Highlighting for fenced code-blocks tagged with `viml`
 * __Added:__ Highlighting for codepoint and keymapping escapes
 * __Added:__ Improved highlighting for autocommands and filetypes
@@ -16,6 +17,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * __Fixed:__ Highlighting of `func` and `endfunc` keywords
 * __Fixed:__ Various [inaccuracies][2] related to modeline matching
 
+[v1.2.3]: https://github.com/Alhadis/language-viml/releases/tag/v1.2.3
 [2]: https://github.com/github/linguist/pull/5271
 
 
