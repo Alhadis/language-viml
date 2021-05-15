@@ -44,7 +44,50 @@ firstLineMatch: """(?x)
 foldingStartMarker: "^(?:if|while|for|fu|function|augroup|aug)"
 foldingStopMarker: "(?:endif|endwhile|endfor|endf|endfunction|augroup\\.END|aug\\.END)$"
 limitLineLength: no
-patterns: [include: "#main"]
+patterns: [{
+	# VimBall archive
+	name:  "meta.file-archive.vimball.viml"
+	begin: '\\A(?=" Vimball Archiver)'
+	end:   "(?=A)B"
+	patterns: [{
+		# Help file
+		name:  "meta.file-record.$1.vimball.viml"
+		begin: "^(.*?\\S.*?\\.txt)(\\t)((\\[){3}1)(?=$)"
+		end:   "(?!\\G)(?=^.*?\\S.*?\\t\\[{3}1$)"
+		beginCaptures:
+			0: name: "markup.heading.1.viml"
+			1: name: "entity.name.file.path.viml"
+			2: name: "punctuation.whitespace.tab.separator.viml"
+			3: name: "meta.separator.marker.viml"
+		contentName: "text.embedded.vim-help"
+		patterns: [{
+			# Line count
+			begin: "\\G"
+			end:   "^(\\d+$)?"
+			endCaptures:
+				0: name: "comment.ignored.line-count.viml"
+				1: name: "sublimelinter.gutter-mark"
+		}, include: "text.vim-help"]
+	},{
+		# Vim script file
+		name:  "meta.file-record.$1.vimball.viml"
+		begin: "^(.*?\\S.*?[ \\t]*?)(\\t)((\\[){3}1)(?=$)"
+		end:   "(?!\\G)(?=^.*?\\S.*?\\t\\[{3}1$)"
+		beginCaptures:
+			0: name: "markup.heading.1.viml"
+			1: name: "entity.name.file.viml"
+			2: name: "punctuation.whitespace.tab.separator.viml"
+			3: name: "meta.separator.marker.viml"
+		patterns: [{
+			# Line count
+			begin: "\\G"
+			end:   "^(\\d+$)?"
+			endCaptures:
+				0: name: "comment.ignored.line-count.viml"
+				1: name: "sublimelinter.gutter-mark"
+		}, include: "#main"]
+	}, include: "#main"]
+}, include: "#main"]
 
 repository:
 	main:

@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ------------------------------------------------------------------------
 * __Added:__ Keyword definitions for Vim 8.2.2302
 * __Fixed:__ Various [inaccuracies][2] related to modeline matching
+* __Fixed:__ Highlighting of VimBall archives with embedded help files
 
 [2]: https://github.com/github/linguist/pull/5271
 
