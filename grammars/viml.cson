@@ -256,7 +256,7 @@ repository:
 	funcDef:
 		patterns: [{
 			name: "storage.function.viml"
-			match: "\\b(fu(n|nction)?|end(f|fu|fun|function)?)\\b"
+			match: "\\b(fu(nc?|nction)?|end(f|fu|func?|function)?)\\b"
 		},{
 			name: "entity.name.function.viml"
 			match: "(?:([sSgGbBwWtTlL]?(:))?[\\w#]+)(?=\\()"
