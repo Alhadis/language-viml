@@ -1124,6 +1124,8 @@ repository:
 			| edit
 			| earlier
 			| ea
+			| echoc
+			| echoconsole
 			| echoe
 			| echoerr
 			| echom
@@ -1285,6 +1287,8 @@ repository:
 			| left
 			| lefta
 			| leftabove
+			| leg
+			| legacy
 			| lex
 			| lexpr
 			| lf
@@ -1665,6 +1669,7 @@ repository:
 			| sts
 			| stselect
 			| substitutepattern
+			| substituterepeat
 			| sun
 			| sunhide
 			| sunmenu
@@ -1785,8 +1790,10 @@ repository:
 			| vi
 			| visual
 			| view?
-			| vim9script
 			| vim9
+			| vim9cmd
+			| vim9s
+			| vim9script
 			| vim
 			| vimgrep
 			| vimgrepa
@@ -1955,6 +1962,7 @@ repository:
 			| assert_false
 			| assert_inrange
 			| assert_match
+			| assert_nobeep
 			| assert_notequal
 			| assert_notmatch
 			| assert_report
@@ -2001,6 +2009,8 @@ repository:
 			| changenr
 			| char2nr
 			| charclass
+			| charcol
+			| charidx
 			| chdir
 			| cindent
 			| clearmatches
@@ -2036,6 +2046,7 @@ repository:
 			| expandcmd
 			| expand
 			| exp
+			| extendnew
 			| extend
 			| feedkeys
 			| filereadable
@@ -2043,6 +2054,7 @@ repository:
 			| filter
 			| finddir
 			| findfile
+			| flattennew
 			| flatten
 			| float2nr
 			| floor
@@ -2055,6 +2067,7 @@ repository:
 			| foldtextresult
 			| foldtext
 			| foreground
+			| fullcommand
 			| funcref
 			| function
 			| garbagecollect
@@ -2063,6 +2076,7 @@ repository:
 			| getbufvar
 			| getchangelist
 			| getcharmod
+			| getcharpos
 			| getcharsearch
 			| getchar
 			| getcmdline
@@ -2071,6 +2085,7 @@ repository:
 			| getcmdwintype
 			| getcompletion
 			| getcurpos
+			| getcursorcharpos
 			| getcwd
 			| getenv
 			| getfontname
@@ -2231,6 +2246,7 @@ repository:
 			| pyxeval
 			| rand
 			| range
+			| readblob
 			| readdirex
 			| readdir
 			| readfile
@@ -2271,8 +2287,10 @@ repository:
 			| setbufline
 			| setbufvar
 			| setcellwidths
+			| setcharpos
 			| setcharsearch
 			| setcmdpos
+			| setcursorcharpos
 			| setenv
 			| setfperm
 			| setline
@@ -2300,6 +2318,7 @@ repository:
 			| simplify
 			| sinh
 			| sin
+			| slice
 			| sort
 			| sound_clear
 			| sound_playevent
@@ -2315,6 +2334,7 @@ repository:
 			| str2float
 			| str2list
 			| str2nr
+			| strcharlen
 			| strcharpart
 			| strchars
 			| strdisplaywidth
@@ -2406,6 +2426,7 @@ repository:
 			| trim
 			| trunc
 			| tr
+			| typename
 			| type
 			| undofile
 			| undotree
@@ -2590,6 +2611,9 @@ repository:
 			| darkyellow
 			| gray
 			| green
+			| grey40
+			| grey50
+			| grey90
 			| grey
 			| lightblue
 			| lightcyan
@@ -2598,8 +2622,10 @@ repository:
 			| lightgrey
 			| lightmagenta
 			| lightred
+			| lightyellow
 			| magenta
 			| red
+			| seagreen
 			| white
 			| yellow
 			) \\b
@@ -2641,9 +2667,11 @@ repository:
 			| ari
 			| arshape
 			| ar
+			| asd
 			| autochdir
 			| autoindent
 			| autoread
+			| autoshelldir
 			| autowriteall
 			| autowrite
 			| awa
@@ -2950,9 +2978,11 @@ repository:
 			| invari
 			| invarshape
 			| invar
+			| invasd
 			| invautochdir
 			| invautoindent
 			| invautoread
+			| invautoshelldir
 			| invautowriteall
 			| invautowrite
 			| invawa
@@ -3292,9 +3322,11 @@ repository:
 			| noari
 			| noarshape
 			| noar
+			| noasd
 			| noautochdir
 			| noautoindent
 			| noautoread
+			| noautoshelldir
 			| noautowriteall
 			| noautowrite
 			| noawa
@@ -3808,6 +3840,8 @@ repository:
 			| t_da
 			| t_db
 			| t_dl
+			| t_fd
+			| t_fe
 			| t_fs
 			| t_k1
 			| t_k2
@@ -4025,6 +4059,7 @@ repository:
 		name: "support.class.stdplugin.viml"
 		match: """(?x) \\b
 			( Arguments
+			| Asm
 			| Break
 			| Cfilter
 			| Clear
