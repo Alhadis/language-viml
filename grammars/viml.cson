@@ -109,6 +109,7 @@ repository:
 			{include: "#parameter"}
 			{include: "#assignment"}
 			{include: "#expr"}
+			{include: "#keymapping"}
 			{include: "#keyword"}
 			{include: "#register"}
 			{include: "#filetype"}
@@ -459,6 +460,74 @@ repository:
 			5: name: "variable.parameter.function.filetype.viml"
 
 
+	# Keymapping commands
+	keymapping:
+		patterns: [{
+			# Dyadic mapping commands: “cmd {lhs} {rhs}”
+			name: "meta.keymapping.viml"
+			begin: """(?x) \\b
+				( [cito]?no(?:remap)?
+				| [cilnovx]m(?:ap)?
+				| [lnvx]n(?:oremap)?
+				| no(?:remap)?!
+				| snor(?:emap)?
+				| map!?
+				| smap
+				| tmap?
+				) (?:(?<=!)|\\b)
+				
+				# Special <modifier> keywords not considered part of {lhs}
+				(?i: \\s* (
+					(<)
+					( buffer
+					| expr
+					| (?:local)?leader
+					| nowait
+					| plug
+					| script
+					| sid
+					| silent
+					| unique
+					) (>)
+				))?
+				
+				# Bound key(s)
+				(?:\\s+ (\\S+))?
+				[ \\t]*
+			"""
+			end: "^(?!\\G|\\s*\\\\)"
+			beginCaptures:
+				1: name: "storage.type.keymapping.viml"
+				2: name: "storage.modifier.${4:/downcase}.viml"
+				3: name: "punctuation.definition.modifier.begin.viml"
+				5: name: "punctuation.definition.modifier.end.viml"
+				6: name: "entity.name.tag.keymapping.lhs.viml", patterns: [include: "#supportType"]
+			contentName: "string.unquoted.keymapping.rhs.viml"
+			patterns: [{
+				# Line continuation
+				match: "(?!\\G)^\\s*((\\\\))"
+				captures:
+					1: name: "constant.character.escape.newline.viml"
+					2: name: "punctuation.definition.escape.viml"
+			}, include: "#supportType"]
+		},{
+			# Monadic mapping commands: “cmd {lhs}”
+			name: "meta.keymapping.viml"
+			match: """(?x) \\b
+				( s?unm(?:ap)?
+				| [cilovx]u(?:nmap)?
+				| nun(?:map)?
+				| tunmap?
+				| unmap!
+				) (?:(?<=!)|\\b)
+				(?:\\s+(\\S+))?
+			"""
+			captures:
+				1: name: "storage.type.keymapping.viml"
+				2: name: "entity.name.tag.keymapping.lhs.viml", patterns: [include: "#supportType"]
+		}]
+
+
 	# Syntax highlighting definitions
 	syntax:
 		name: "meta.syntax-item.viml"
@@ -685,11 +754,11 @@ repository:
 	extraVimFunc:
 		name: "support.function.viml"
 		match: """(?x)\\b
-			((?:echo(?:hl?)?)|exe(?:c(?:ute)?)?|[lxvn]?noremap|smapc(?:lear)?|mapmode|xmap|(?:[xs]un|snore)map
-			|Plugin|autocmd|[cinvo]?(?:un|nore)?(?:map|menu)|(?:range)?go(?:to)?|(?:count)?(?:pop?|tag?|tn(?:ext)?|tp(?:revious)?|tr(?:ewind)?)
+			((?:echo(?:hl?)?)|exe(?:c(?:ute)?)?|smapc(?:lear)?|mapmode|(?:[xs]un)map
+			|Plugin|autocmd|[cinvo]?(?:un|nore)?menu|(?:range)?go(?:to)?|(?:count)?(?:pop?|tag?|tn(?:ext)?|tp(?:revious)?|tr(?:ewind)?)
 			|(?:range)?(?:s(?:ubstitute)?|ret(?:ab)?|g(?:lobal)?)|unm(?:ap)?|map_l|mapc(?:lear)?|N?buffer|N?bnext|N?bNext|N?bprevious|N?bmod
 			|ab(?:breviate)?|norea(?:bbrev)?|[ic](?:un|nore)?ab|split_f|rangefold|[ic](?:un|nore)?ab|[ic]abbrev|edit_f|next_f|[vcoxli]u
-			|(?:range)?(?:w(?:rite)?|up(?:date)?)|sar|cno|[vl]n|[io]?no|[xn]n|snor|lm(?:ap)?|lunmap|lear|[vnx]m|om|[ci]m|ap|nun|sunm)
+			|(?:range)?(?:w(?:rite)?|up(?:date)?)|sar|lunmap|lear|ap|nun|sunm)
 		\\b"""
 	
 	
