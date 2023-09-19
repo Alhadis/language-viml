@@ -806,6 +806,7 @@ repository:
 			{include: "#vimUserAttrbKey"}
 			{include: "#vimUserCommand"}
 			{include: "#vimErrSetting"}
+			{include: "#vimFuncEcho"}
 		]
 
 	vimTodo:
@@ -867,6 +868,7 @@ repository:
 			| CursorMovedI
 			| CursorMoved
 			| DiffUpdated
+			| DirChangedPre
 			| DirChanged
 			| EncodingChanged
 			| ExitPre
@@ -877,6 +879,7 @@ repository:
 			| FileChangedShellPost
 			| FileChangedShell
 			| FileEncoding
+			| FileExplorer
 			| FileReadCmd
 			| FileReadPost
 			| FileReadPre
@@ -899,6 +902,7 @@ repository:
 			| InsertLeavePre
 			| InsertLeave
 			| MenuPopup
+			| ModeChanged
 			| OptionSet
 			| QuickFixCmdPost
 			| QuickFixCmdPre
@@ -928,6 +932,7 @@ repository:
 			| TerminalWinOpen
 			| TextChangedI
 			| TextChangedP
+			| TextChangedT
 			| TextChanged
 			| TextYankPost
 			| User
@@ -937,9 +942,12 @@ repository:
 			| VimResized
 			| VimResume
 			| VimSuspend
+			| WinClosed
 			| WinEnter
 			| WinLeave
 			| WinNew
+			| WinResized
+			| WinScrolled
 			) \\b
 		"""
 
@@ -958,6 +966,7 @@ repository:
 			| abclear
 			| abo
 			| aboveleft
+			| abstract
 			| ab
 			| addd
 			| all?
@@ -967,6 +976,8 @@ repository:
 			| argadd
 			| argd
 			| argdelete
+			| argded
+			| argdedupe
 			| argdo
 			| arge
 			| argedit
@@ -1138,6 +1149,7 @@ repository:
 			| debug
 			| defc
 			| defcompile
+			| defer
 			| def
 			| delc
 			| delcommand
@@ -1200,6 +1212,8 @@ repository:
 			| echom
 			| echomsg
 			| echon
+			| echow
+			| echowindow
 			| ec
 			| el
 			| else
@@ -1208,15 +1222,19 @@ repository:
 			| emenu
 			| en
 			| endif
+			| endclass
 			| enddef
+			| endenum
 			| endf
 			| endfunction
 			| endfor?
+			| endinterface
 			| endt
 			| endtry
 			| endw
 			| endwhile
 			| enew?
+			| enum
 			| eval
 			| exit?
 			| export
@@ -1261,7 +1279,6 @@ repository:
 			| grepadd
 			| gui
 			| gvim
-			| g
 			| h
 			| help
 			| ha
@@ -1278,6 +1295,8 @@ repository:
 			| his
 			| history
 			| hi
+			| hor
+			| horizontal
 			| iabc
 			| iabclear
 			| ia
@@ -1396,6 +1415,8 @@ repository:
 			| lnfile
 			| lo
 			| loadview
+			| loadk
+			| loadkeymap
 			| loadkeymap
 			| loadk
 			| loc
@@ -1532,6 +1553,7 @@ repository:
 			| pts
 			| ptselect
 			| put?
+			| public
 			| pwd?
 			| py3do
 			| py3f
@@ -1731,6 +1753,7 @@ repository:
 			| startgreplace
 			| startr
 			| startreplace
+			| static
 			| stj
 			| stjump
 			| stopi
@@ -1784,13 +1807,13 @@ repository:
 			| tabs
 			| tab
 			| tags
-			| tcl?
-			| tcd
+			| tcd?
 			| tch
 			| tchdir
 			| tcldo?
 			| tclf
 			| tclfile
+			| tcl
 			| te
 			| tearoff
 			| ter
@@ -1849,7 +1872,6 @@ repository:
 			| unsilent
 			| up
 			| update
-			| var
 			| ve
 			| version
 			| verb
@@ -1869,8 +1891,6 @@ repository:
 			| vimgrepadd
 			| viu
 			| viusage
-			| vmapc
-			| vmapclear
 			| vnew?
 			| vs
 			| vsplit
@@ -1890,6 +1910,7 @@ repository:
 			| windo
 			| winp
 			| winpos
+			| wi
 			| wn
 			| wnext
 			| wp
@@ -1918,6 +1939,7 @@ repository:
 			| xwininfo
 			| y
 			| yank
+			| z[^.=]
 			) \\b
 		"""
 
@@ -2038,9 +2060,13 @@ repository:
 			| assert_true
 			| atan2
 			| atan
+			| autocmd_add
+			| autocmd_delete
+			| autocmd_get
 			| balloon_gettext
 			| balloon_show
 			| balloon_split
+			| blob2list
 			| browsedir
 			| browse
 			| bufadd
@@ -2102,6 +2128,10 @@ repository:
 			| did_filetype
 			| diff_filler
 			| diff_hlID
+			| digraph_getlist
+			| digraph_get
+			| digraph_setlist
+			| digraph_set
 			| echoraw
 			| empty
 			| environ
@@ -2111,9 +2141,11 @@ repository:
 			| executable
 			| execute
 			| exepath
+			| exists_compiled
 			| exists
 			| expandcmd
 			| expand
+			| expr10
 			| exp
 			| extendnew
 			| extend
@@ -2142,14 +2174,19 @@ repository:
 			| garbagecollect
 			| getbufinfo
 			| getbufline
+			| getbufoneline
 			| getbufvar
+			| getcellwidths
 			| getchangelist
 			| getcharmod
 			| getcharpos
 			| getcharsearch
+			| getcharstr
 			| getchar
+			| getcmdcompltype
 			| getcmdline
 			| getcmdpos
+			| getcmdscreenpos
 			| getcmdtype
 			| getcmdwintype
 			| getcompletion
@@ -2169,12 +2206,14 @@ repository:
 			| getmarklist
 			| getmatches
 			| getmousepos
+			| getmouseshape
 			| getpid
 			| getpos
 			| getqflist
 			| getreginfo
 			| getregtype
 			| getreg
+			| getscriptinfo
 			| gettabinfo
 			| gettabvar
 			| gettabwinvar
@@ -2199,9 +2238,12 @@ repository:
 			| histnr
 			| hlID
 			| hlexists
+			| hlget
+			| hlset
 			| hostname
 			| iconv
 			| indent
+			| indexof
 			| index
 			| inputdialog
 			| inputlist
@@ -2212,6 +2254,7 @@ repository:
 			| insert
 			| interrupt
 			| invert
+			| isabsolutepath
 			| isdirectory
 			| isinf
 			| islocked
@@ -2229,12 +2272,14 @@ repository:
 			| json_decode
 			| json_encode
 			| keys
+			| keytrans
 			| len
 			| libcallnr
 			| libcall
 			| line2byte
 			| line
 			| lispindent
+			| list2blob
 			| list2str
 			| listener_add
 			| listener_flush
@@ -2245,6 +2290,7 @@ repository:
 			| luaeval
 			| maparg
 			| mapcheck
+			| maplist
 			| mapnew
 			| mapset
 			| map
@@ -2278,6 +2324,7 @@ repository:
 			| popup_dialog
 			| popup_filter_menu
 			| popup_filter_yesno
+			| popup_findecho
 			| popup_findinfo
 			| popup_findpreview
 			| popup_getoptions
@@ -2298,6 +2345,7 @@ repository:
 			| prompt_setcallback
 			| prompt_setinterrupt
 			| prompt_setprompt
+			| prop_add_list
 			| prop_add
 			| prop_clear
 			| prop_find
@@ -2358,6 +2406,7 @@ repository:
 			| setcellwidths
 			| setcharpos
 			| setcharsearch
+			| setcmdline
 			| setcmdpos
 			| setcursorcharpos
 			| setenv
@@ -2416,9 +2465,11 @@ repository:
 			| strptime
 			| strridx
 			| strtrans
+			| strutf16len
 			| strwidth
 			| submatch
 			| substitute
+			| swapfilelist
 			| swapinfo
 			| swapname
 			| synIDattr
@@ -2467,7 +2518,9 @@ repository:
 			| test_garbagecollect_now
 			| test_garbagecollect_soon
 			| test_getvalue
+			| test_gui_event
 			| test_ignore_error
+			| test_mswin_event
 			| test_null_blob
 			| test_null_channel
 			| test_null_dict
@@ -2479,7 +2532,6 @@ repository:
 			| test_option_not_set
 			| test_override
 			| test_refcount
-			| test_scrollbar
 			| test_setmouse
 			| test_settime
 			| test_srand_seed
@@ -2500,7 +2552,9 @@ repository:
 			| undofile
 			| undotree
 			| uniq
+			| utf16idx
 			| values
+			| virtcol2col
 			| virtcol
 			| visualmode
 			| wildmenumode
@@ -2511,6 +2565,8 @@ repository:
 			| win_gotoid
 			| win_id2tabwin
 			| win_id2win
+			| win_move_separator
+			| win_move_statusline
 			| win_screenpos
 			| win_splitmove
 			| winbufnr
@@ -2585,9 +2641,12 @@ repository:
 		name: "support.type.highlight-group.viml"
 		match: """(?xi) \\b
 			( ColorColumn
+			| CurSearch
 			| CursorColumn
 			| CursorIM
+			| CursorLineFold
 			| CursorLineNr
+			| CursorLineSign
 			| CursorLine
 			| Cursor
 			| DiffAdd
@@ -2605,10 +2664,15 @@ repository:
 			| LineNr
 			| MatchParen
 			| Menu
+			| MessageWindow
 			| ModeMsg
 			| MoreMsg
 			| NonText
 			| Normal
+			| PmenuExtraSel
+			| PmenuExtra
+			| PmenuKindSel
+			| PmenuKind
 			| PmenuSbar
 			| PmenuSel
 			| PmenuThumb
@@ -2624,6 +2688,7 @@ repository:
 			| SpellLocal
 			| SpellRare
 			| StatusLineNC
+			| StatusLineTermNC
 			| StatusLineTerm
 			| StatusLine
 			| TabLineFill
@@ -2790,6 +2855,8 @@ repository:
 			| cb
 			| ccv
 			| cc
+			| cdhome
+			| cdh
 			| cdpath
 			| cd
 			| cedit
@@ -2802,6 +2869,8 @@ repository:
 			| cink
 			| cinoptions
 			| cino
+			| cinscopedecls
+			| cinsd
 			| cinwords
 			| cinw
 			| cin
@@ -2892,7 +2961,9 @@ repository:
 			| emo
 			| encoding
 			| enc
+			| endoffile
 			| endofline
+			| eof
 			| eol
 			| ep
 			| equalalways
@@ -2968,6 +3039,7 @@ repository:
 			| gfs
 			| gfw
 			| ghr
+			| gli
 			| go
 			| gp
 			| grepformat
@@ -2979,6 +3051,7 @@ repository:
 			| guifontwide
 			| guifont
 			| guiheadroom
+			| guiligatures
 			| guioptions
 			| guipty
 			| guitablabel
@@ -3069,6 +3142,8 @@ repository:
 			| invbreakindent
 			| invbri
 			| invbuflisted
+			| invcdhome
+			| invcdh
 			| invcf
 			| invcindent
 			| invcin
@@ -3101,7 +3176,9 @@ repository:
 			| invek
 			| invemoji
 			| invemo
+			| invendoffile
 			| invendofline
+			| inveof
 			| inveol
 			| invequalalways
 			| inverrorbells
@@ -3173,6 +3250,8 @@ repository:
 			| invmousefocus
 			| invmousef
 			| invmousehide
+			| invmousemev
+			| invmousemoveevent
 			| invnumber
 			| invnu
 			| invodev
@@ -3218,6 +3297,8 @@ repository:
 			| invsmartindent
 			| invsmarttab
 			| invsmd
+			| invsmoothscroll
+			| invsms
 			| invsm
 			| invsn
 			| invsol
@@ -3240,10 +3321,12 @@ repository:
 			| invtbi
 			| invtbs
 			| invtermbidi
+			| invtermguicolors
 			| invterse
 			| invtextauto
 			| invtextmode
 			| invtf
+			| invtgc
 			| invtgst
 			| invtildeop
 			| invtimeout
@@ -3278,6 +3361,7 @@ repository:
 			| invwritebackup
 			| invwrite
 			| invws
+			| invxtermcodes
 			| isfname
 			| isf
 			| isident
@@ -3291,10 +3375,12 @@ repository:
 			| js
 			| keymap
 			| keymodel
+			| keyprotocol
 			| keywordprg
 			| key
 			| kmp
 			| km
+			| kpc
 			| kp
 			| langmap
 			| langmenu
@@ -3308,6 +3394,7 @@ repository:
 			| linebreak
 			| linespace
 			| lines
+			| lispoptions
 			| lispwords
 			| lisp
 			| listchars
@@ -3316,6 +3403,7 @@ repository:
 			| lm
 			| lnr
 			| loadplugins
+			| lop
 			| lpl
 			| lrm
 			| lsp
@@ -3363,7 +3451,9 @@ repository:
 			| mousefocus
 			| mousef
 			| mousehide
+			| mousemev
 			| mousemodel
+			| mousemoveevent
 			| mousem
 			| mouseshape
 			| mouses
@@ -3413,6 +3503,8 @@ repository:
 			| nobreakindent
 			| nobri
 			| nobuflisted
+			| nocdhome
+			| nocdh
 			| nocf
 			| nocindent
 			| nocin
@@ -3445,7 +3537,9 @@ repository:
 			| noek
 			| noemoji
 			| noemo
+			| noendoffile
 			| noendofline
+			| noeof
 			| noeol
 			| noequalalways
 			| noerrorbells
@@ -3517,6 +3611,8 @@ repository:
 			| nomousefocus
 			| nomousef
 			| nomousehide
+			| nomousemev
+			| nomousemoveevent
 			| nonumber
 			| nonu
 			| noodev
@@ -3562,6 +3658,8 @@ repository:
 			| nosmartindent
 			| nosmarttab
 			| nosmd
+			| nosmoothscroll
+			| nosms
 			| nosm
 			| nosn
 			| nosol
@@ -3584,10 +3682,12 @@ repository:
 			| notbi
 			| notbs
 			| notermbidi
+			| notermguicolors
 			| noterse
 			| notextauto
 			| notextmode
 			| notf
+			| notgc
 			| notgst
 			| notildeop
 			| notimeout
@@ -3622,6 +3722,7 @@ repository:
 			| nowritebackup
 			| nowrite
 			| nows
+			| noxtermcodes
 			| nrformats
 			| numberwidth
 			| number
@@ -3755,6 +3856,7 @@ repository:
 			| shortmess
 			| shortname
 			| showbreak
+			| showcmdloc
 			| showcmd
 			| showfulltag
 			| showmatch
@@ -3769,11 +3871,14 @@ repository:
 			| si
 			| sj
 			| slm
+			| sloc
 			| smartcase
 			| smartindent
 			| smarttab
 			| smc
 			| smd
+			| smoothscroll
+			| sms
 			| sm
 			| sn
 			| softtabstop
@@ -3787,7 +3892,9 @@ repository:
 			| spellsuggest
 			| spell
 			| spf
+			| spk
 			| splitbelow
+			| splitkeep
 			| splitright
 			| spl
 			| spo
@@ -3838,6 +3945,7 @@ repository:
 			| t_Co
 			| t_Cs
 			| t_DL
+			| t_Ds
 			| t_EC
 			| t_EI
 			| t_F1
@@ -3878,6 +3986,7 @@ repository:
 			| t_RC
 			| t_RF
 			| t_RI
+			| t_RK
 			| t_RS
 			| t_RT
 			| t_RV
@@ -3894,9 +4003,11 @@ repository:
 			| t_TI
 			| t_Te
 			| t_Ts
+			| t_Us
 			| t_VS
 			| t_WP
 			| t_WS
+			| t_XM
 			| t_ZH
 			| t_ZR
 			| t_al
@@ -3909,6 +4020,7 @@ repository:
 			| t_da
 			| t_db
 			| t_dl
+			| t_ds
 			| t_fd
 			| t_fe
 			| t_fs
@@ -3995,6 +4107,7 @@ repository:
 			| tf
 			| tgc
 			| tgst
+			| thesaurusfunc
 			| thesaurus
 			| tildeop
 			| timeoutlen
@@ -4012,6 +4125,7 @@ repository:
 			| tpm
 			| tr
 			| tsl
+			| tsrfu
 			| tsr
 			| ts
 			| ttimeoutlen
@@ -4112,6 +4226,7 @@ repository:
 			| write
 			| ws
 			| ww
+			| xtermcodes
 			) \\b
 		"""
 
@@ -4153,6 +4268,7 @@ repository:
 			| TOhtml
 			| TermdebugCommand
 			| Termdebug
+			| Until
 			| Winbar
 			| XMLent
 			| XMLns
@@ -4287,5 +4403,14 @@ repository:
 		match: """(?x) \\b
 			( com
 			| command
+			) \\b
+		"""
+
+	vimFuncEcho:
+		name: "support.function.vimFuncEcho.viml"
+		match: """(?x) \\b
+			( echo
+			| ech
+			| ec
 			) \\b
 		"""

@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Unpublished]
 ------------------------------------------------------------------------
-* __Added:__ Keyword definitions for Vim 8.2.3050
+* __Added:__ Keyword definitions for Vim 9.0.1910
 * __Fixed:__ Comments highlighted in `map`-like commands [[`#9`]]
 
 [`#9`]:   https://github.com/Alhadis/language-viml/pull/9
