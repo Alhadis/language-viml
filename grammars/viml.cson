@@ -94,6 +94,7 @@ repository:
 	main:
 		patterns: [
 			{include: "#vimTodo"}
+			{include: "#vimMap"}
 			{include: "#comments"}
 			{include: "#modelines"}
 			{include: "#pathname"}
@@ -685,11 +686,11 @@ repository:
 	extraVimFunc:
 		name: "support.function.viml"
 		match: """(?x)\\b
-			((?:echo(?:hl?)?)|exe(?:c(?:ute)?)?|[lxvn]?noremap|smapc(?:lear)?|mapmode|xmap|(?:[xs]un|snore)map
-			|Plugin|autocmd|[cinvo]?(?:un|nore)?(?:map|menu)|(?:range)?go(?:to)?|(?:count)?(?:pop?|tag?|tn(?:ext)?|tp(?:revious)?|tr(?:ewind)?)
+			((?:echo(?:hl?)?)|exe(?:c(?:ute)?)?|smapc(?:lear)?|mapmode|(?:[xs]un)map
+			|Plugin|autocmd|[cinvo]?(?:un|nore)?menu|(?:range)?go(?:to)?|(?:count)?(?:pop?|tag?|tn(?:ext)?|tp(?:revious)?|tr(?:ewind)?)
 			|(?:range)?(?:s(?:ubstitute)?|ret(?:ab)?|g(?:lobal)?)|unm(?:ap)?|map_l|mapc(?:lear)?|N?buffer|N?bnext|N?bNext|N?bprevious|N?bmod
 			|ab(?:breviate)?|norea(?:bbrev)?|[ic](?:un|nore)?ab|split_f|rangefold|[ic](?:un|nore)?ab|[ic]abbrev|edit_f|next_f|[vcoxli]u
-			|(?:range)?(?:w(?:rite)?|up(?:date)?)|sar|cno|[vl]n|[io]?no|[xn]n|snor|lm(?:ap)?|lunmap|lear|[vnx]m|om|[ci]m|ap|nun|sunm)
+			|(?:range)?(?:w(?:rite)?|up(?:date)?)|sar|lunmap|lear|ap|nun|sunm)
 		\\b"""
 	
 	
@@ -700,6 +701,21 @@ repository:
 			(altwerase|bf|escapetime|extended|filec|iclower|keytime|leftright|li|lock|noprint|octal|recdir|searchincr
 			|shellmeta|ttywerase|windowname|wl|wraplen)
 		\\b"""
+
+	# Map commands cannot have trailing comments but must match the whole line
+	vimMap:
+		name: "support.function.vimMap.viml"
+		begin: """(?x)\\b
+			(map|map!|smap|[nvxoilc]m(?:ap)?|tmap?
+			|(?:no|ono|ino|cno|tno)(?:remap)?|noremap!|(?:nn|vn|xn|ln)(?:oremap)?|snor(?:emap)?
+			)
+		\\b"""
+		end: "$"
+		patterns: [
+			{
+				include: "#supportType"
+			}
+		]
 
 
 	# The following lists are auto-extracted from Vim's syntax file.
