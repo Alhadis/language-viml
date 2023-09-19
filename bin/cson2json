@@ -1,0 +1,4 @@
+#!/bin/bash
+
+DIR=$(dirname $0)
+$DIR/../node_modules/.bin/any-json convert $DIR/../grammars/viml.cson --input-format=cson --output-format=json $DIR/../grammars/viml.json

@@ -27,5 +27,8 @@
 			"files": ["index.js"],
 			"globals": {"atom": "readonly"}
 		}]
+	},
+	"devDependencies": {
+		"any-json": "^3.1.0"
 	}
 }
